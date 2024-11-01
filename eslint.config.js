@@ -15,6 +15,7 @@ export default [
     languageOptions: {
       globals: {
         ...globals.browser,
+        ...globals.node,
       },
       parser: tsParser,
       parserOptions: {
@@ -35,6 +36,7 @@ export default [
       ...tseslint.configs.recommended.rules,
       ...importPlugin.flatConfigs.recommended.rules,
       ...react.configs.recommended.rules,
+      ...react.configs["jsx-runtime"].rules,
       ...reactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": [
         "warn",
