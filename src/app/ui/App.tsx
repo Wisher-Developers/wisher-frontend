@@ -9,8 +9,6 @@ const router = createBrowserRouter(routes)
 export default function App() {
   return (
     <ReduxProvider store={store}>
-      <h1>Hello, React!</h1>
-
       <RouterProvider router={router} />
     </ReduxProvider>
   )

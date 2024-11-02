@@ -11,10 +11,10 @@ const pingApi = baseApi.injectEndpoints({
       }),
     }),
 
-    getPing: builder.query<Ping, void>({
-      query: () => "/ping",
+    getPing: builder.query<Ping, string>({
+      query: id => `/ping/${id}`,
     }),
   }),
 })
 
-export const { useCreatePingMutation, useGetPingQuery } = pingApi
+export const { useCreatePingMutation, useLazyGetPingQuery } = pingApi
