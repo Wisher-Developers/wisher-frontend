@@ -24,7 +24,12 @@
     /* Source Maps */
     "types": ["vite/client"],
     "paths": {
-      "@/*": ["./src/app/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@features/*": ["./src/features/*"],
+      "@widgets/*": ["./src/widgets/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@app/*": ["./src/app/*"],
       "~/*": ["./src/*"]
     },
   },
