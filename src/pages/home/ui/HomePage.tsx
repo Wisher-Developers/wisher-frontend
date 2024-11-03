@@ -28,7 +28,7 @@ export default function HomePage() {
       </Action>
 
       <Action>
-        <button onClick={() => createPing()}>Create Ping</button>
+        <button onClick={() => createPing("test")}>Create Ping</button>
         <p>Last created: {createdData?.id}</p>
       </Action>
     </Wrapper>

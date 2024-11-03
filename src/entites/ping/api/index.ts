@@ -4,10 +4,13 @@ import { Ping } from "./types"
 
 const pingApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    createPing: builder.mutation<Ping, void>({
-      query: () => ({
+    createPing: builder.mutation<Ping, string>({
+      query: value => ({
         url: "/ping",
         method: "POST",
+        body: {
+          value,
+        },
       }),
     }),
 
