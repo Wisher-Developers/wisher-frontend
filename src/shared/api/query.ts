@@ -5,11 +5,11 @@ import {
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react"
 
-export const BASE_URL = "http://193.178.170.139:8080/api"
+export const BASE_URL = "http://193.178.170.139/api"
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
-  referrerPolicy: "unsafe-url",
+  mode: "cors",
 })
 
 export const apiBaseQuery: BaseQueryFn<
