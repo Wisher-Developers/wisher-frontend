@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
 
 import { apiMiddlewares, apiReducers } from "@shared/api"
+import authReducer from "@shared/auth"
 
 export const store = configureStore({
   reducer: {
+    authReducer,
     ...apiReducers,
   },
   middleware: getDefaultMiddleware =>
