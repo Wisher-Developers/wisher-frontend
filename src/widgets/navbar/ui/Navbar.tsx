@@ -16,7 +16,7 @@ export default function Navbar() {
       <Logo />
 
       <RightContent>
-        {!isLoggedIn && (
+        {isLoggedIn && (
           <>
             <CreateWishlistButton>Создать вишлист</CreateWishlistButton>
             <Separator height={16} />

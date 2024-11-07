@@ -22,7 +22,7 @@ const Common = createGlobalStyle`
   }
 
   html {
-    background: var(--color-accent-pale);
+    background: var(--color-white);
   }
 
   body {
