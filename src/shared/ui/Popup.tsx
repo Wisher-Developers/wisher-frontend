@@ -57,6 +57,8 @@ export default function Popup({
 
 const Background = styled.div`
   background: var(--color-shadow);
+  backdrop-filter: blur(20px) opacity(1);
+
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -81,14 +83,17 @@ const Background = styled.div`
   @keyframes appear {
     from {
       background: transparent;
+      backdrop-filter: blur(20px) opacity(0);
     }
     to {
       background: var(--color-shadow);
+      backdrop-filter: blur(20px) opacity(1);
     }
   }
 `
 
 const PopupWrapper = styled(Container)`
+  background: var(--color-background-action);
   position: relative;
   margin: 0 auto;
   top: 50%;

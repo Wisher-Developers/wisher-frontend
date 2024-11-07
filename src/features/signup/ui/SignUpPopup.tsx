@@ -7,7 +7,6 @@ import styled from "styled-components"
 import { text16SemiBold, text32SemiBold } from "@shared/fonts"
 import Button from "@shared/ui/Button"
 import LabeledInput from "@shared/ui/LabeledInput"
-import LabeledTextarea from "@shared/ui/LabeledTextarea"
 import Popup from "@shared/ui/Popup"
 
 import {
@@ -35,11 +34,13 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
 
   const signUp = ({ username, email, password }: SignUpFormValues) => {
     console.log(username, email, password)
+
+    close()
   }
 
   return (
     <StyledPopup isOpen={isOpen} close={close} onCloseEnd={reset}>
-      <h4>Регистрация</h4>
+      <h4>{isSignUp ? "Регистрация" : "Вход"}</h4>
 
       <form noValidate onSubmit={handleSubmit(signUp)}>
         <Controller
@@ -48,6 +49,7 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
           render={({ field, fieldState: { error } }) => (
             <LabeledInput
               {...field}
+              type="text"
               error={error?.message}
               label="Имя пользователя"
               placeholder="Введи никнейм"
@@ -56,19 +58,54 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
           )}
         />
 
+        {isSignUp && (
+          <Controller
+            name="email"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <LabeledInput
+                {...field}
+                type="email"
+                error={error?.message}
+                label="Email"
+                placeholder="Введи email"
+                required
+              />
+            )}
+          />
+        )}
+
         <Controller
-          name="email"
+          name="password"
           control={control}
           render={({ field, fieldState: { error } }) => (
-            <LabeledTextarea
+            <LabeledInput
               {...field}
+              type="password"
               error={error?.message}
-              label="Email"
-              placeholder="Введи почту"
+              label="Пароль"
+              placeholder="Введи email"
               required
             />
           )}
         />
+
+        {isSignUp && (
+          <Controller
+            name="repeatPassword"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <LabeledInput
+                {...field}
+                type="password"
+                error={error?.message}
+                label="Пароль ещё раз"
+                placeholder="Введи пароль"
+                required
+              />
+            )}
+          />
+        )}
 
         <SubmitButton size="m" type="submit">
           {isSignUp ? "Зарегистрироваться" : "Войти"}
@@ -114,7 +151,6 @@ const StyledPopup = styled(Popup)`
 
 const SubmitButton = styled(Button)`
   width: 100%;
-  margin-top: 32px;
 `
 
 const SwitchButton = styled.button`
