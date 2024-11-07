@@ -7,6 +7,7 @@ import styled from "styled-components"
 import { text16SemiBold, text32SemiBold } from "@shared/fonts"
 import Button from "@shared/ui/Button"
 import LabeledInput from "@shared/ui/LabeledInput"
+import LabeledTextarea from "@shared/ui/LabeledTextarea"
 import Popup from "@shared/ui/Popup"
 
 import {
@@ -55,6 +56,20 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
           )}
         />
 
+        <Controller
+          name="email"
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <LabeledTextarea
+              {...field}
+              error={error?.message}
+              label="Email"
+              placeholder="Введи почту"
+              required
+            />
+          )}
+        />
+
         <SubmitButton size="m" type="submit">
           {isSignUp ? "Зарегистрироваться" : "Войти"}
         </SubmitButton>
@@ -82,6 +97,12 @@ const StyledPopup = styled(Popup)`
 
   > h4 {
     ${text32SemiBold};
+  }
+
+  > form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   > p {
