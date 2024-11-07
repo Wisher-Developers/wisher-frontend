@@ -9,6 +9,7 @@ const Common = createGlobalStyle`
     --color-white: rgba(255, 255, 255, 1);
     --color-black: rgba(24, 24, 24, 1);
     --color-black-secondary: rgba(24, 24, 24, 0.6);
+    --color-black-tertiary: rgba(24, 24, 24, 0.35);
     --color-black-hover: rgba(24, 24, 24, 0.8);
     --color-accent: linear-gradient(72.44deg, rgba(255, 184, 0, 0.8) -0.49%, rgba(242, 26, 56, 0.8) 99.51%); // TODO: update gradients to match Figma
     --color-accent-pale: linear-gradient(72.44deg, rgba(255, 184, 0, 0.2) -0.49%, rgba(242, 26, 56, 0.2) 99.51%);

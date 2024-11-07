@@ -1,7 +1,13 @@
 import styled from "styled-components"
 
 import AiStartIcon from "@shared/assets/AiStarsIcon"
-import { header64, text24, text32, text32SemiBold } from "@shared/fonts"
+import {
+  header64,
+  text24,
+  text24SemiBold,
+  text32,
+  text32SemiBold,
+} from "@shared/fonts"
 import Button from "@shared/ui/Button"
 import Container from "@shared/ui/Container"
 
@@ -50,6 +56,8 @@ export default function HomePage() {
             </p>
           </Card>
         </Cards>
+
+        <ContinueButton>или продолжить без регистрации</ContinueButton>
       </Bottom>
     </Wrapper>
   )
@@ -134,4 +142,14 @@ const Ai = styled.span`
     top: 4px;
     left: 4px;
   }
+`
+
+const ContinueButton = styled.button`
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  ${text24SemiBold};
+  color: var(--color-black-tertiary);
+  text-decoration: underline;
 `
