@@ -18,8 +18,32 @@ export const text16SemiBold = {
   fontWeight: 600,
 }
 
+export const text20SemiBold = {
+  ...defaultParams,
+  fontSize: "20px",
+  fontWeight: 600,
+}
+
+export const text24 = {
+  ...defaultParams,
+  fontSize: "24px",
+  fontWeight: 500,
+}
+
 export const text24SemiBold = {
   ...defaultParams,
   fontSize: "24px",
+  fontWeight: 600,
+}
+
+export const text32 = {
+  ...defaultParams,
+  fontSize: "32px",
+  fontWeight: 500,
+}
+
+export const text32SemiBold = {
+  ...defaultParams,
+  fontSize: "32px",
   fontWeight: 600,
 }
