@@ -1,5 +1,6 @@
 import styled from "styled-components"
 
+import { header64 } from "@shared/fonts"
 import { useCreatePingMutation, useLazyGetPingQuery } from "~/entites/ping/api"
 
 export default function HomePage() {
@@ -39,6 +40,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  > h1 {
+    ${header64}
+  }
 `
 
 const Action = styled.div`
