@@ -21,6 +21,11 @@ const authSlice = createSlice({
       state.token = undefined
     })
   },
+  selectors: {
+    selectIsLoggedIn: state => !!state.token,
+  },
 })
 
 export default authSlice.reducer
+
+export const { selectIsLoggedIn } = authSlice.selectors

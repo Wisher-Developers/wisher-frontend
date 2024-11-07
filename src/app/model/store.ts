@@ -5,11 +5,12 @@ import authReducer from "@shared/auth"
 
 export const store = configureStore({
   reducer: {
-    authReducer,
+    auth: authReducer,
     ...apiReducers,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(apiMiddlewares),
+  devTools: true,
 })
 
 export type AppDispatch = typeof store.dispatch
