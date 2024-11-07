@@ -12,6 +12,12 @@ export const header64 = {
   fontWeight: 700,
 }
 
+export const text16 = {
+  ...defaultParams,
+  fontSize: "16px",
+  fontWeight: 500,
+}
+
 export const text16SemiBold = {
   ...defaultParams,
   fontSize: "16px",

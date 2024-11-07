@@ -17,6 +17,8 @@ const Common = createGlobalStyle`
     --color-background-action: linear-gradient(104.39deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
     --color-border: rgba(255, 255, 255, 0.8);
     --color-shadow: rgba(24, 24, 24, 0.15);
+    --color-red: rgba(242, 26, 56, 0.8);
+    --color-red-pale: rgba(242, 26, 56, 0.2);
 
     --transition-duration: 0.2s;
     --transition-function: cubic-bezier(0.4, 0, 0.2, 1);

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 import Logo from "@shared/assets/Logo"
@@ -13,7 +14,9 @@ export default function Navbar() {
 
   return (
     <Wrapper>
-      <Logo />
+      <Link to="/">
+        <Logo />
+      </Link>
 
       <RightContent>
         {isLoggedIn && (
