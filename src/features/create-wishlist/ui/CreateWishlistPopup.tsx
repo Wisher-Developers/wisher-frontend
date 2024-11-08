@@ -1,9 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 import { text32SemiBold } from "@shared/fonts"
 import Button from "@shared/ui/Button"
+import LabeledInput from "@shared/ui/LabeledInput"
 import Popup from "@shared/ui/Popup"
 
 import { useCreateWishlistMutation } from "../api"
@@ -21,26 +23,66 @@ export default function CreateWishlistPopup({
   isOpen,
   close,
 }: CreateWishlistPopupProps) {
+  const navigate = useNavigate()
+
   const { control, handleSubmit, reset } = useForm<CreateWishlistFormValues>({
     resolver: yupResolver(createWishlistFormValidationSchema),
     defaultValues: {
       name: "",
+      description: "",
     },
   })
 
-  const [createWishlist] = useCreateWishlistMutation()
+  const [createWishlist, { isLoading }] = useCreateWishlistMutation()
 
-  const onSubmit = ({ name, description }: CreateWishlistFormValues) => {
-    console.log(name, description)
+  const onSubmit = async ({ name, description }: CreateWishlistFormValues) => {
+    try {
+      const wishlist = await createWishlist({ name, description }).unwrap()
 
-    close()
+      close()
+
+      navigate(`/wishlists/${wishlist.id}`)
+    } catch {}
   }
 
   return (
     <StyledPopup isOpen={isOpen} close={close} onCloseEnd={reset}>
       <h4>Новый вишлист</h4>
 
-      <form noValidate></form>
+      <form noValidate onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          name="name"
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <LabeledInput
+              {...field}
+              type="text"
+              error={error?.message}
+              label="Название"
+              placeholder="Введи название"
+              required
+            />
+          )}
+        />
+
+        <Controller
+          name="description"
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <LabeledInput
+              {...field}
+              type="text"
+              error={error?.message}
+              label="Описание"
+              placeholder="Введи описание"
+            />
+          )}
+        />
+
+        <SubmitButton isLoading={isLoading} size="m" type="submit">
+          Создать
+        </SubmitButton>
+      </form>
     </StyledPopup>
   )
 }
