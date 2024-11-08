@@ -1,6 +1,7 @@
 import { MouseEventHandler, ReactNode, useRef } from "react"
 
 import clsx from "clsx"
+import { createPortal } from "react-dom"
 import { Transition } from "react-transition-group"
 import styled from "styled-components"
 
@@ -26,7 +27,7 @@ export default function Popup({
   const stopPropagation: MouseEventHandler<HTMLDivElement> = event =>
     event.stopPropagation()
 
-  return (
+  return createPortal(
     <Transition
       in={isOpen}
       timeout={200}
@@ -51,7 +52,8 @@ export default function Popup({
           </PopupWrapper>
         </Background>
       )}
-    </Transition>
+    </Transition>,
+    document.getElementById("root")!
   )
 }
 
