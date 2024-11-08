@@ -75,6 +75,7 @@ export default [
           argsIgnorePattern: "^_",
         },
       ],
+      "no-empty": "off",
     },
     settings: {
       "react": {

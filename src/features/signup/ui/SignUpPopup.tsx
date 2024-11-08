@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { Controller, useForm } from "react-hook-form"
 import styled from "styled-components"
 
+import { useSignInMutation, useSignUpMutation } from "@entities/user/api"
 import { text16SemiBold, text32SemiBold } from "@shared/fonts"
 import Button from "@shared/ui/Button"
 import LabeledInput from "@shared/ui/LabeledInput"
@@ -32,17 +33,28 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
     },
   })
 
-  const signUp = ({ username, email, password }: SignUpFormValues) => {
-    console.log(username, email, password)
+  const [signUp, { isLoading: isSigningUp }] = useSignUpMutation()
+  const [signIn, { isLoading: isSigningIn }] = useSignInMutation()
 
-    close()
+  const onSubmit = async ({ username, email, password }: SignUpFormValues) => {
+    try {
+      if (isSignUp && email) {
+        await signUp({ name: username, email, password }).unwrap()
+      } else {
+        await signIn({ name: username, password }).unwrap()
+      }
+
+      close()
+    } catch {}
   }
+
+  const isLoading = isSigningUp || isSigningIn
 
   return (
     <StyledPopup isOpen={isOpen} close={close} onCloseEnd={reset}>
       <h4>{isSignUp ? "Регистрация" : "Вход"}</h4>
 
-      <form noValidate onSubmit={handleSubmit(signUp)}>
+      <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="username"
           control={control}
@@ -50,6 +62,7 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
             <LabeledInput
               {...field}
               type="text"
+              autoComplete="username"
               error={error?.message}
               label="Имя пользователя"
               placeholder="Введи никнейм"
@@ -66,6 +79,7 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
               <LabeledInput
                 {...field}
                 type="email"
+                autoComplete="email"
                 error={error?.message}
                 label="Email"
                 placeholder="Введи email"
@@ -109,7 +123,7 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
           />
         )}
 
-        <SubmitButton size="m" type="submit">
+        <SubmitButton isLoading={isLoading} size="m" type="submit">
           {isSignUp ? "Зарегистрироваться" : "Войти"}
         </SubmitButton>
       </form>
