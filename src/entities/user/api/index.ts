@@ -5,9 +5,9 @@ import { AuthResponse, LoginParams, RegisterParams } from "./types"
 
 const userApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    register: builder.mutation<AuthResponse, RegisterParams>({
+    signUp: builder.mutation<AuthResponse, RegisterParams>({
       query: ({ name, email, password }) => ({
-        url: "/auth/register", // TODO: replace with actual endpoint
+        url: "/auth/signup", // TODO: replace with actual endpoint
         method: "POST",
         body: { name, email, password },
       }),
@@ -19,9 +19,9 @@ const userApi = baseApi.injectEndpoints({
       },
     }),
 
-    login: builder.mutation<AuthResponse, LoginParams>({
+    signIn: builder.mutation<AuthResponse, LoginParams>({
       query: ({ name, password }) => ({
-        url: "/auth/login", // TODO: replace with actual endpoint
+        url: "/auth/signin", // TODO: replace with actual endpoint
         method: "POST",
         body: { name, password },
       }),
@@ -35,4 +35,4 @@ const userApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useRegisterMutation } = userApi
+export const { useSignUpMutation, useSignInMutation } = userApi
