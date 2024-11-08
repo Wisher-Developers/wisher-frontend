@@ -82,6 +82,7 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
             <LabeledInput
               {...field}
               type="password"
+              autoComplete={isSignUp ? "new-password" : "current-password"}
               error={error?.message}
               label="Пароль"
               placeholder="Введи email"
@@ -98,6 +99,7 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
               <LabeledInput
                 {...field}
                 type="password"
+                autoComplete="new-password"
                 error={error?.message}
                 label="Пароль ещё раз"
                 placeholder="Введи пароль"

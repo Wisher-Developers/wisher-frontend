@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-import SignUpPopup from "@features/signup/ui/SignUpPopup"
+import SignUpButton from "@features/signup/ui/SignUpButton"
 import AiStartIcon from "@shared/assets/AiStarsIcon"
 import {
   header64,
@@ -9,13 +9,9 @@ import {
   text32,
   text32SemiBold,
 } from "@shared/fonts"
-import usePopup from "@shared/hooks/usePopup"
-import Button from "@shared/ui/Button"
 import Container from "@shared/ui/Container"
 
 export default function HomePage() {
-  const { isOpen, close, open } = usePopup()
-
   return (
     <Wrapper>
       <Top>
@@ -27,9 +23,7 @@ export default function HomePage() {
           </p>
         </Header>
 
-        <Button size="l" onClick={open}>
-          Зарегистрироваться
-        </Button>
+        <SignUpButton />
       </Top>
 
       <Bottom>
@@ -65,8 +59,6 @@ export default function HomePage() {
 
         <ContinueButton>или продолжить без регистрации</ContinueButton>
       </Bottom>
-
-      <SignUpPopup isOpen={isOpen} close={close} />
     </Wrapper>
   )
 }

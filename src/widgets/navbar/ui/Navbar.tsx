@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 
+import CreateWishlistButton from "@features/create-wishlist/ui/CreateWishlistButton"
 import Logo from "@shared/assets/Logo"
 import ProfileIcon from "@shared/assets/ProfileIcon"
 import { selectIsLoggedIn } from "@shared/auth"
@@ -19,9 +20,9 @@ export default function Navbar() {
       </Link>
 
       <RightContent>
-        {isLoggedIn && (
+        {!isLoggedIn && (
           <>
-            <CreateWishlistButton>Создать вишлист</CreateWishlistButton>
+            <CreateWishlistButton />
             <Separator height={16} />
           </>
         )}
@@ -79,8 +80,6 @@ const RightContent = styled(Container)`
     }
   }
 `
-
-const CreateWishlistButton = styled.button``
 
 const ProfileButton = styled.button`
   display: flex;

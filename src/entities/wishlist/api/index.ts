@@ -49,4 +49,6 @@ const wishlistApi = baseApi.injectEndpoints({
   }),
 })
 
+export default wishlistApi
+
 export const { useGetWishlistsQuery, useGetWishlistQuery } = wishlistApi
