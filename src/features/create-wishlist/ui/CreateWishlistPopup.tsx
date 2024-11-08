@@ -42,7 +42,12 @@ export default function CreateWishlistPopup({
       close()
 
       navigate(`/wishlists/${wishlist.id}`)
-    } catch {}
+    } catch {
+      // FIXME: remove after api is ready
+      close()
+
+      navigate(`/wishlists/some-id`)
+    }
   }
 
   return (

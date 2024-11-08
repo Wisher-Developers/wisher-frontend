@@ -7,19 +7,19 @@ import { Wishlist } from "../model/Wishlist"
 const wishlistApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getWishlists: builder.query<Wishlist[], string | undefined>({
-      query: ownerId => ({ url: `/wishlists`, params: { ownerId } }),
+      query: ownerId => ({ url: `/wishlists`, params: { ownerId } }), // TODO: replace with actual endpoint
       providesTags: [{ type: "Wishlist", id: "LIST" }],
     }),
 
     getWishlist: builder.query<Wishlist, string>({
-      query: id => `/wishlists/${id}`,
+      query: id => `/wishlists/${id}`, // TODO: replace with actual endpoint
       providesTags: wishlist =>
         wishlist ? [{ type: "Wishlist", id: wishlist.id }] : [],
     }),
 
     createWishlist: builder.mutation<Wishlist, CreateWishlistParams>({
       query: ({ name, description }) => ({
-        url: `/wishlists/create`,
+        url: `/wishlists/create`, // TODO: replace with actual endpoint
         method: "POST",
         body: { name, description },
       }),
@@ -28,7 +28,7 @@ const wishlistApi = baseApi.injectEndpoints({
 
     renameWishlist: builder.mutation<Wishlist, RenameWishlistParams>({
       query: ({ name, description }) => ({
-        url: `/wishlists/rename`,
+        url: `/wishlists/rename`, // TODO: replace with actual endpoint
         method: "POST",
         body: { name, description },
       }),
@@ -37,7 +37,7 @@ const wishlistApi = baseApi.injectEndpoints({
     }),
 
     deleteWishlist: builder.mutation<void, string>({
-      query: id => ({ url: `/wishlists/delete`, method: "POST", body: { id } }),
+      query: id => ({ url: `/wishlists/delete`, method: "POST", body: { id } }), // TODO: replace with actual endpoint
       invalidatesTags: (_, error, id) =>
         error
           ? [
