@@ -26,9 +26,11 @@ export default function Navbar() {
           </>
         )}
 
-        <ProfileButton>
-          Гость <ProfileIcon />
-        </ProfileButton>
+        <Link to="/profile">
+          <ProfileButton>
+            Гость <ProfileIcon />
+          </ProfileButton>
+        </Link>
       </RightContent>
     </Wrapper>
   )
@@ -52,7 +54,11 @@ const RightContent = styled(Container)`
   align-items: center;
   gap: 16px;
 
-  > button {
+  a {
+    text-decoration: none;
+  }
+
+  button {
     cursor: pointer;
     background: none;
     border: none;
