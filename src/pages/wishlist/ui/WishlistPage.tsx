@@ -7,6 +7,7 @@ import styled from "styled-components"
 import { useGetUserQuery } from "@entities/user/api"
 import { useGetWishlistQuery } from "@entities/wishlist/api"
 
+import WishlistEditItems from "./WishlistEditItems"
 import WishlistEditSidebar from "./WishlistEditSidebar"
 import WishlistItems from "./WishlistItems"
 import WishlistSidebar from "./WishlistSidebar"
@@ -38,7 +39,7 @@ export default function WishlistPage() {
       <Wrapper>
         <WishlistEditSidebar setIsEditing={setIsEditing} />
 
-        <WishlistItems isEditing={isEditing} />
+        <WishlistEditItems />
       </Wrapper>
     )
   }
@@ -47,7 +48,7 @@ export default function WishlistPage() {
     <Wrapper>
       <WishlistSidebar setIsEditing={setIsEditing} />
 
-      <WishlistItems isEditing={isEditing} />
+      <WishlistItems />
     </Wrapper>
   )
 }

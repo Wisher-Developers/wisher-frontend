@@ -4,25 +4,25 @@ import styled from "styled-components"
 
 import { useGetWishitemsQuery } from "@entities/wishitem/api"
 import WishitemPreview from "@entities/wishitem/ui/WishitemPreview"
-import { text16 } from "@shared/fonts"
+import PlusIcon from "@shared/assets/PlusIcon"
+import { text24SemiBold } from "@shared/fonts"
 import Container from "@shared/ui/Container"
 
-export default function WishlistItems() {
+export default function WishlistEditItems() {
   const { id } = useParams()
 
   const { data: wishitems } = useGetWishitemsQuery(id ?? skipToken)
 
   if (!wishitems) return null
 
-  if (wishitems.length === 0)
-    return (
-      <Wrapper>
-        <Empty>Тут пока нет ни одного вишайтема</Empty>
-      </Wrapper>
-    )
-
   return (
     <Wrapper>
+      <AddItem>
+        <PlusIcon />
+
+        <span>Новый вишайтем</span>
+      </AddItem>
+
       {wishitems.map(wishitem => (
         <StyledWishitemPreview key={wishitem.id} wishitem={wishitem} />
       ))}
@@ -39,20 +39,26 @@ const Wrapper = styled(Container)`
   gap: 16px;
 `
 
-const Empty = styled.p`
-  text-align: center;
-  width: 100%;
-  ${text16};
+const StyledWishitemPreview = styled(WishitemPreview)`
+  &:hover {
+  }
 `
 
-const StyledWishitemPreview = styled(WishitemPreview)`
-  transition:
-    transform var(--transition-duration) var(--transition-function),
-    box-shadow var(--transition-duration) var(--transition-function);
+const AddItem = styled(Container)`
+  cursor: pointer;
+  border-radius: 32px;
+  width: 268px;
+  height: 359px;
 
-  &:hover {
-    cursor: pointer;
-    box-shadow: 0px 12px 32px 0px rgba(24, 24, 24, 0.25);
-    transform: translateY(-2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  > span {
+    width: 200px;
+    ${text24SemiBold};
+    text-align: center;
   }
 `
