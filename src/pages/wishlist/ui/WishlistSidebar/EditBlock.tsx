@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { text20SemiBold } from "@shared/fonts"
 import Button from "@shared/ui/Button"
 
-import BlockContainer from "./BlockContainer"
+import BlockContainer from "../BlockContainer"
 
 type EditBlockProps = {
   startEditing: () => void

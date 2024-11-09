@@ -1,5 +1,11 @@
 import styled from "styled-components"
 
+import RenameWishlistForm from "@features/rename-wishlist/ui/RenameWishlistForm"
+
+import DeleteBlock from "./DeleteBlock"
+
+import BlockContainer from "../BlockContainer"
+
 type WishlistSidebarEditProps = {
   setIsEditing: (isEditing: boolean) => void
 }
@@ -7,7 +13,17 @@ type WishlistSidebarEditProps = {
 export default function WishlistEditSidebar({
   setIsEditing,
 }: WishlistSidebarEditProps) {
-  return <Wrapper />
+  const finishEditing = () => setIsEditing(false)
+
+  return (
+    <Wrapper>
+      <BlockContainer>
+        <RenameWishlistForm />
+      </BlockContainer>
+
+      <DeleteBlock finishEditing={finishEditing} />
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.div`

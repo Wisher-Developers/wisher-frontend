@@ -4,9 +4,8 @@ import { skipToken } from "@reduxjs/toolkit/query"
 import { useLocation, useParams } from "react-router-dom"
 import styled from "styled-components"
 
-import { User } from "@entities/user/model/User"
+import { useGetUserQuery } from "@entities/user/api"
 import { useGetWishlistQuery } from "@entities/wishlist/api"
-import { Wishlist } from "@entities/wishlist/model/Wishlist"
 
 import WishlistEditSidebar from "./WishlistEditSidebar"
 import WishlistItems from "./WishlistItems"
@@ -22,19 +21,13 @@ export default function WishlistPage() {
 
   const [isEditing, setIsEditing] = useState(state?.isEditing ?? false)
 
-  // const { data: user } = useGetUserQuery()
-  const user: User = {
-    id: "d9b6b8f1-9d1b-4a5c-8e3e-3b6e6f1c6f3b",
-    name: "Goosescout",
-    email: "m@m",
-  }
+  const { data: user } = useGetUserQuery()
 
-  // const { wishlistOwnerId } = useGetWishlistQuery(wishlistId ?? skipToken, {
-  //   selectFromResult: ({ data }) => ({
-  //     wishlistOwnerId: data?.owner.id,
-  //   }),
-  // })
-  const wishlistOwnerId = "d9b6b8f1-9d1b-4a5c-8e3e-3b6e6f1c6f3b"
+  const { wishlistOwnerId } = useGetWishlistQuery(wishlistId ?? skipToken, {
+    selectFromResult: ({ data }) => ({
+      wishlistOwnerId: data?.owner.id,
+    }),
+  })
 
   if (!user || !wishlistOwnerId) return null
 

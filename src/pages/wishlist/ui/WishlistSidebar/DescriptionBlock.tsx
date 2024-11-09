@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Wishlist } from "@entities/wishlist/model/Wishlist"
 import { text16, text24SemiBold } from "@shared/fonts"
 
-import BlockContainer from "./BlockContainer"
+import BlockContainer from "../BlockContainer"
 
 type DescriptionBlockProps = {
   wishlist: Wishlist

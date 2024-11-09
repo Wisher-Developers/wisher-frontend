@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { Wishlist } from "@entities/wishlist/model/Wishlist"
 import { text20SemiBold } from "@shared/fonts"
 
-import BlockContainer from "./BlockContainer"
+import BlockContainer from "../BlockContainer"
 
 type OwnerBlockProps = {
   wishlist: Wishlist

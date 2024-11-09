@@ -6,7 +6,7 @@ import CopyIcon from "@shared/assets/CopyIcon"
 import { text16, text20SemiBold } from "@shared/fonts"
 import Container from "@shared/ui/Container"
 
-import BlockContainer from "./BlockContainer"
+import BlockContainer from "../BlockContainer"
 
 const privateModeToText: Record<PrivateMode, string> = {
   [PrivateMode.Public]: "Для всех",
