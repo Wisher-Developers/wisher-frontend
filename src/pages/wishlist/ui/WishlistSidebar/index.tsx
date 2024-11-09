@@ -31,6 +31,7 @@ export default function WishlistSidebar() {
       name: "Goosescout",
       email: "m@m",
     },
+    accessLink: "https://wishlist.com/1283129831928319023819283901",
     privateMode: PrivateMode.ByLink,
     allowedUsers: [
       {
