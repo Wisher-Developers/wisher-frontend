@@ -2,15 +2,24 @@ import styled from "styled-components"
 
 import PlusIcon from "@shared/assets/PlusIcon"
 import { text24SemiBold } from "@shared/fonts"
+import usePopup from "@shared/hooks/usePopup"
 import Container from "@shared/ui/Container"
 
-export default function CreateWishitemButton() {
-  return (
-    <AddItem>
-      <PlusIcon />
+import UpsertWishitemPopup from "./UpsertWishlistPopup"
 
-      <span>Новый вишайтем</span>
-    </AddItem>
+export default function CreateWishitemButton() {
+  const { isOpen, open, close } = usePopup()
+
+  return (
+    <>
+      <AddItem onClick={open}>
+        <PlusIcon />
+
+        <span>Новый вишайтем</span>
+      </AddItem>
+
+      <UpsertWishitemPopup isOpen={isOpen} close={close} />
+    </>
   )
 }
 

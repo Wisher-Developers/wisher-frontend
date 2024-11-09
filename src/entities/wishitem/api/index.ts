@@ -23,7 +23,7 @@ const wishitemApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getWishitems: builder.query<Wishitem[], string>({
       queryFn: async wishlistId => ({
-        data: [wishitem, wishitem, wishitem, wishitem],
+        data: [wishitem],
       }),
       providesTags: (_, error, wishlistId) =>
         error ? [] : [{ type: "Wishitem", id: wishlistId }],

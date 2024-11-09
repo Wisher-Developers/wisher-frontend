@@ -1,53 +1,48 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { Controller, useForm } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
+import { Wishitem } from "@entities/wishitem/model/Wishitem"
 import { text32SemiBold } from "@shared/fonts"
 import Button from "@shared/ui/Button"
 import LabeledInput from "@shared/ui/LabeledInput"
+import LabeledTextarea from "@shared/ui/LabeledTextarea"
 import Popup from "@shared/ui/Popup"
 
-import { useCreateWishlistMutation } from "../api"
 import {
-  CreateWishlistFormValues,
-  createWishlistFormValidationSchema,
-} from "../model/CreateWishlistForm"
+  UpsertWishitemFormValues,
+  upsertWishitemFormValidationSchema,
+} from "../model/UpsertWishitemForm"
 
-type CreateWishlistPopupProps = {
+type UpsertWishitemPopupProps = {
   isOpen: boolean
   close: () => void
+  wishitem?: Wishitem
 }
 
-export default function CreateWishlistPopup({
+export default function UpsertWishitemPopup({
   isOpen,
   close,
-}: CreateWishlistPopupProps) {
-  const navigate = useNavigate()
-
-  const { control, handleSubmit, reset } = useForm<CreateWishlistFormValues>({
-    resolver: yupResolver(createWishlistFormValidationSchema),
-    defaultValues: {
-      name: "",
-      description: "",
+  wishitem,
+}: UpsertWishitemPopupProps) {
+  const { control, handleSubmit, reset } = useForm<UpsertWishitemFormValues>({
+    resolver: yupResolver(upsertWishitemFormValidationSchema),
+    values: {
+      name: wishitem?.name ?? "",
+      description: wishitem?.description ?? "",
+      link: wishitem?.link ?? "",
     },
   })
 
-  const [createWishlist, { isLoading }] = useCreateWishlistMutation()
-
-  const onSubmit = async ({ name, description }: CreateWishlistFormValues) => {
-    try {
-      const wishlist = await createWishlist({ name, description }).unwrap()
-
-      close()
-
-      navigate(`/wishlist/${wishlist.id}`, { state: { isEditing: true } })
-    } catch {}
-  }
+  const onSubmit = async ({
+    name,
+    description,
+    link,
+  }: UpsertWishitemFormValues) => {}
 
   return (
     <StyledPopup isOpen={isOpen} close={close} onCloseEnd={reset}>
-      <h4>Новый вишлист</h4>
+      <h4>{wishitem ? "Редактирование вишайтема" : "Новый вишайтем"}</h4>
 
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <Controller
@@ -69,9 +64,8 @@ export default function CreateWishlistPopup({
           name="description"
           control={control}
           render={({ field, fieldState: { error } }) => (
-            <LabeledInput
+            <LabeledTextarea
               {...field}
-              type="text"
               error={error?.message}
               label="Описание"
               placeholder="Введи описание"
@@ -79,9 +73,25 @@ export default function CreateWishlistPopup({
           )}
         />
 
-        <SubmitButton isLoading={isLoading} size="m" type="submit">
-          Создать
-        </SubmitButton>
+        <Controller
+          name="link"
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <LabeledInput
+              {...field}
+              type="text"
+              error={error?.message}
+              label="Ссылка"
+              placeholder="Вставь ссылку на товар"
+            />
+          )}
+        />
+
+        <ButtonWrapper>
+          <Button size="m" type="submit">
+            Сохранить
+          </Button>
+        </ButtonWrapper>
       </form>
     </StyledPopup>
   )
@@ -89,7 +99,7 @@ export default function CreateWishlistPopup({
 
 const StyledPopup = styled(Popup)`
   border-radius: 32px;
-  width: 450px;
+  width: 600px;
   padding: 32px;
   box-sizing: border-box;
 
@@ -108,6 +118,8 @@ const StyledPopup = styled(Popup)`
   }
 `
 
-const SubmitButton = styled(Button)`
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: end;
   width: 100%;
 `

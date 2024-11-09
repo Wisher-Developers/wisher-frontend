@@ -23,6 +23,8 @@ export default function DeleteWishitemPopup({
   const handleDelete = async () => {
     try {
       await deleteWishitem({ id: wishitem.id, wishlistId: wishitem.wishlistId })
+
+      close()
     } catch {}
   }
 
