@@ -1,4 +1,4 @@
-import { ComponentProps } from "react"
+import { ComponentProps, ReactNode } from "react"
 
 import styled from "styled-components"
 
@@ -13,6 +13,7 @@ type ButtonProps = ComponentProps<"button"> & {
   size: Size
   isLoading?: boolean
   appearance?: Appearance
+  icon?: ReactNode
 }
 
 export default function Button({
@@ -20,6 +21,7 @@ export default function Button({
   size,
   isLoading = false,
   appearance = "primary",
+  icon,
   ...props
 }: ButtonProps) {
   return (
@@ -29,6 +31,7 @@ export default function Button({
       data-appearence={appearance}
       disabled={isLoading || props.disabled}
     >
+      {icon}
       {isLoading ? <Loader size={size} /> : children}
     </Wrapper>
   )
@@ -71,6 +74,7 @@ const Wrapper = styled.button<{
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 
   transition: opacity var(--transition-duration) var(--transition-function);
 

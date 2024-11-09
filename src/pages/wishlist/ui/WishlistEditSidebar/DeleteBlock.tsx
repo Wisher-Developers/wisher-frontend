@@ -1,5 +1,6 @@
 import styled from "styled-components"
 
+import DeleteWishlistButton from "@features/delete-wishlist/ui/DeleteWishlistButton"
 import { text16, text20SemiBold } from "@shared/fonts"
 import Button from "@shared/ui/Button"
 
@@ -23,9 +24,7 @@ export default function DeleteBlock({ finishEditing }: DeleteBlockProps) {
       <Button size="m" appearance="secondary" onClick={finishEditing}>
         Закончить редактирование
       </Button>
-      <DeleteButton size="m" appearance="secondary">
-        Удалить вишлист
-      </DeleteButton>
+      <DeleteWishlistButton />
     </StyledBlock>
   )
 }
@@ -49,8 +48,4 @@ const StyledBlock = styled(BlockContainer)`
     ${text16};
     color: var(--color-black-secondary);
   }
-`
-
-const DeleteButton = styled(Button)`
-  color: var(--color-red) !important;
 `

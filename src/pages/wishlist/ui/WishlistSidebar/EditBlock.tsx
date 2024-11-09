@@ -22,6 +22,8 @@ export default function EditBlock({ startEditing }: EditBlockProps) {
 }
 
 const StyledBlock = styled(BlockContainer)`
+  gap: 16px;
+
   > h3 {
     ${text20SemiBold};
   }
