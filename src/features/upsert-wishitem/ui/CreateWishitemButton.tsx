@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom"
 import styled from "styled-components"
 
 import PlusIcon from "@shared/assets/PlusIcon"
@@ -8,6 +9,8 @@ import Container from "@shared/ui/Container"
 import UpsertWishitemPopup from "./UpsertWishlistPopup"
 
 export default function CreateWishitemButton() {
+  const { id } = useParams()
+
   const { isOpen, open, close } = usePopup()
 
   return (
@@ -18,7 +21,11 @@ export default function CreateWishitemButton() {
         <span>Новый вишайтем</span>
       </AddItem>
 
-      <UpsertWishitemPopup isOpen={isOpen} close={close} />
+      <UpsertWishitemPopup
+        isOpen={isOpen}
+        close={close}
+        wishitem={{ wishlistId: id }}
+      />
     </>
   )
 }

@@ -3,8 +3,10 @@ import { Controller, useForm } from "react-hook-form"
 import styled from "styled-components"
 
 import { Wishitem } from "@entities/wishitem/model/Wishitem"
+import { useGetWishlistsQuery } from "@entities/wishlist/api"
 import { text32SemiBold } from "@shared/fonts"
 import Button from "@shared/ui/Button"
+import Dropdown from "@shared/ui/Dropdown"
 import LabeledInput from "@shared/ui/LabeledInput"
 import LabeledTextarea from "@shared/ui/LabeledTextarea"
 import Popup from "@shared/ui/Popup"
@@ -17,7 +19,7 @@ import {
 type UpsertWishitemPopupProps = {
   isOpen: boolean
   close: () => void
-  wishitem?: Wishitem
+  wishitem?: Partial<Wishitem>
 }
 
 export default function UpsertWishitemPopup({
@@ -31,13 +33,24 @@ export default function UpsertWishitemPopup({
       name: wishitem?.name ?? "",
       description: wishitem?.description ?? "",
       link: wishitem?.link ?? "",
+      wishlistId: wishitem?.wishlistId ?? "",
     },
+  })
+
+  const { wishlistOptions } = useGetWishlistsQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      wishlistOptions: data?.map(({ id, name }) => ({
+        value: id,
+        label: name,
+      })),
+    }),
   })
 
   const onSubmit = async ({
     name,
     description,
     link,
+    wishlistId,
   }: UpsertWishitemFormValues) => {}
 
   return (
@@ -83,6 +96,21 @@ export default function UpsertWishitemPopup({
               error={error?.message}
               label="Ссылка"
               placeholder="Вставь ссылку на товар"
+            />
+          )}
+        />
+
+        <Controller
+          name="wishlistId"
+          control={control}
+          render={({ field, fieldState: { error } }) => (
+            <Dropdown
+              {...field}
+              options={wishlistOptions}
+              error={error?.message}
+              label="Вишлист"
+              placeholder="Выбери вишлист"
+              required
             />
           )}
         />

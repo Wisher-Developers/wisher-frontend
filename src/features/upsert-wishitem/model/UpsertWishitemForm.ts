@@ -4,6 +4,7 @@ export type UpsertWishitemFormValues = {
   name: string
   description?: string
   link?: string
+  wishlistId: string
 }
 
 export const upsertWishitemFormValidationSchema: yup.ObjectSchema<UpsertWishitemFormValues> =
@@ -14,4 +15,5 @@ export const upsertWishitemFormValidationSchema: yup.ObjectSchema<UpsertWishitem
       .optional()
       .max(256, "Максимальная длина 256 символов"),
     link: yup.string().optional(),
+    wishlistId: yup.string().required("Необходимо заполнить"),
   })

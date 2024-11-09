@@ -10,7 +10,7 @@ import { Wishitem } from "../model/Wishitem"
 
 const wishitem: Wishitem = {
   id: "1283129831928319023819283901",
-  wishlistId: "1283129831928319023819283901",
+  wishlistId: "d9b6b8f1-9d1b-4a5c-8e3e-3b6e6f1c6f3f",
   name: "My wishitem",
   description: "My wishitem description",
   priority: 1,
