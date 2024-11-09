@@ -5,14 +5,26 @@ import {
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react"
 
+import { RootState } from "@app/model/store"
 import { withQueryParams } from "@shared/lib/withQueryParams"
 
-export const BASE_URL = "http://localhost:8080/api"
+export const BASE_URL = "http://193.178.170.139/api"
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   mode: "cors",
   paramsSerializer: withQueryParams,
+  prepareHeaders: (headers, api) => {
+    const {
+      auth: { token },
+    } = api.getState() as RootState
+
+    const next = new Headers(headers)
+
+    if (token) next.set("Authorization", `Bearer ${token}`)
+
+    return next
+  },
 })
 
 export const apiBaseQuery: BaseQueryFn<
