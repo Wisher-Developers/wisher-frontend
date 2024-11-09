@@ -1,6 +1,7 @@
 import { useMemo } from "react"
 
 import clsx from "clsx"
+import { Transition } from "react-transition-group"
 import styled from "styled-components"
 
 import DropdownIcon from "@shared/assets/DropdownIcon"
@@ -35,7 +36,7 @@ export default function Dropdown({
   placeholder,
   required = false,
 }: DropdownProps) {
-  const { isOpen } = useDropdown()
+  const { isOpen, wrapper, toggleOpen } = useDropdown()
 
   const mappedOptions = useMemo(
     () => new Map(options?.map(({ value, label }) => [value, label])),
@@ -52,7 +53,7 @@ export default function Dropdown({
           {required && "*"}
         </span>
 
-        <DropdownTrigger className={clsx(className)}>
+        <DropdownTrigger className={clsx(className)} onClick={toggleOpen}>
           {valueLabel ? (
             <Value>{valueLabel}</Value>
           ) : (
@@ -63,7 +64,17 @@ export default function Dropdown({
         </DropdownTrigger>
       </Label>
 
-      <ListWrapper></ListWrapper>
+      <Transition in={isOpen} timeout={200} nodeRef={wrapper}>
+        {state => (
+          <ListWrapper data-open={state} ref={wrapper}>
+            {options?.map(({ value: itemValue, label }) => (
+              <ListItem key={itemValue} data-active={value === itemValue}>
+                {label}
+              </ListItem>
+            ))}
+          </ListWrapper>
+        )}
+      </Transition>
     </Wrapper>
   )
 }
@@ -105,4 +116,58 @@ const Value = styled.span`
   ${text16};
 `
 
-const ListWrapper = styled.div``
+const ListWrapper = styled(Container)`
+  border-radius: 24px;
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+
+  position: absolute;
+  top: calc(100% + 8px);
+
+  &[data-open="entering"] {
+    animation: dropdownOpen 0.2s ease-in-out;
+  }
+
+  &[data-open="entered"] {
+    opacity: 1;
+  }
+
+  &[data-open="exiting"] {
+    animation: dropdownOpen 0.2s ease-in-out reverse;
+  }
+
+  &[data-open="exited"] {
+    display: none;
+  }
+
+  @keyframes dropdownOpen {
+    from {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    to {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+`
+
+const ListItem = styled.button`
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+
+  padding: 0;
+  width: 100%;
+
+  ${text16};
+  text-align: left;
+
+  &[data-active="true"] {
+    opacity: 0.5;
+    cursor: default;
+  }
+`

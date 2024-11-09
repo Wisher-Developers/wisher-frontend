@@ -103,9 +103,10 @@ export default function UpsertWishitemPopup({
         <Controller
           name="wishlistId"
           control={control}
-          render={({ field, fieldState: { error } }) => (
+          render={({ field: { value, onChange }, fieldState: { error } }) => (
             <Dropdown
-              {...field}
+              value={value}
+              onChange={onChange}
               options={wishlistOptions}
               error={error?.message}
               label="Вишлист"
