@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 import { useLocation } from "react-router-dom"
 import styled from "styled-components"
 
@@ -11,9 +13,21 @@ type WishlistPageState = {
 export default function WishlistPage() {
   const { state }: { state?: WishlistPageState } = useLocation()
 
+  const [isEditing, setIsEditing] = useState(state?.isEditing ?? false)
+
+  if (isEditing) {
+    return (
+      <Wrapper>
+        {/* <WishlistSidebar setIsEditing={setIsEditing} /> */}
+
+        <WishlistItems />
+      </Wrapper>
+    )
+  }
+
   return (
     <Wrapper>
-      <WishlistSidebar />
+      <WishlistSidebar setIsEditing={setIsEditing} />
 
       <WishlistItems />
     </Wrapper>

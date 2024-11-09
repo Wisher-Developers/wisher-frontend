@@ -11,7 +11,13 @@ import DescriptionBlock from "./DescriptionBlock"
 import EditBlock from "./EditBlock"
 import OwnerBlock from "./OwnerBlock"
 
-export default function WishlistSidebar() {
+type WishlistSidebarProps = {
+  setIsEditing: (isEditing: boolean) => void
+}
+
+export default function WishlistSidebar({
+  setIsEditing,
+}: WishlistSidebarProps) {
   const { id: wishlistId } = useParams()
 
   // const { data: user } = useGetUserQuery()
@@ -42,6 +48,8 @@ export default function WishlistSidebar() {
     ],
   }
 
+  const startEditing = () => setIsEditing(true)
+
   if (!wishlist) return null
 
   const isOwner = wishlist.owner.id === user.id
@@ -54,7 +62,7 @@ export default function WishlistSidebar() {
       ) : (
         <OwnerBlock wishlist={wishlist} />
       )}
-      {isOwner && <EditBlock />}
+      {isOwner && <EditBlock startEditing={startEditing} />}
     </Wrapper>
   )
 }
