@@ -4,8 +4,7 @@ import styled from "styled-components"
 
 import { useGetWishitemsQuery } from "@entities/wishitem/api"
 import WishitemPreview from "@entities/wishitem/ui/WishitemPreview"
-import PlusIcon from "@shared/assets/PlusIcon"
-import { text24SemiBold } from "@shared/fonts"
+import CreateWishitemButton from "@features/upsert-wishitem/ui/CreateWishitemButton"
 import Container from "@shared/ui/Container"
 
 export default function WishlistEditItems() {
@@ -17,11 +16,7 @@ export default function WishlistEditItems() {
 
   return (
     <Wrapper>
-      <AddItem>
-        <PlusIcon />
-
-        <span>Новый вишайтем</span>
-      </AddItem>
+      <CreateWishitemButton />
 
       {wishitems.map(wishitem => (
         <StyledWishitemPreview key={wishitem.id} wishitem={wishitem} />
@@ -41,24 +36,5 @@ const Wrapper = styled(Container)`
 
 const StyledWishitemPreview = styled(WishitemPreview)`
   &:hover {
-  }
-`
-
-const AddItem = styled(Container)`
-  cursor: pointer;
-  border-radius: 32px;
-  width: 268px;
-  height: 359px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-
-  > span {
-    width: 200px;
-    ${text24SemiBold};
-    text-align: center;
   }
 `

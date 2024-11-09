@@ -10,6 +10,7 @@ import { Wishitem } from "../model/Wishitem"
 
 const wishitem: Wishitem = {
   id: "1283129831928319023819283901",
+  wishlistId: "1283129831928319023819283901",
   name: "My wishitem",
   description: "My wishitem description",
   priority: 1,
@@ -36,7 +37,7 @@ const wishitemApi = baseApi.injectEndpoints({
         error ? [] : [{ type: "Wishitem", id: wishlistId }],
     }),
 
-    editWishiten: builder.mutation<Wishitem, EditWishitemParams>({
+    editWishitem: builder.mutation<Wishitem, EditWishitemParams>({
       queryFn: async newParams => ({
         data: { ...wishitem, newParams },
       }),
