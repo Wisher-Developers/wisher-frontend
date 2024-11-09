@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 import { Wishlist } from "@entities/wishlist/model/Wishlist"
-import { text16 } from "@shared/fonts"
+import { text20SemiBold } from "@shared/fonts"
 
 import BlockContainer from "./BlockContainer"
 
@@ -13,17 +13,17 @@ type OwnerBlockProps = {
 export default function OwnerBlock({ wishlist }: OwnerBlockProps) {
   return (
     <StyledBlock>
-      <p>
+      <h3>
         Вишлист пользователя{" "}
         <Link to={`/profile/${wishlist.owner.id}`}>{wishlist.owner.name}</Link>
-      </p>
+      </h3>
     </StyledBlock>
   )
 }
 
 const StyledBlock = styled(BlockContainer)`
-  > p {
-    ${text16};
+  > h3 {
+    ${text20SemiBold};
 
     > a {
       color: var(--color-black);

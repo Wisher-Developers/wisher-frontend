@@ -8,6 +8,7 @@ import { PrivateMode, Wishlist } from "@entities/wishlist/model/Wishlist"
 
 import AccessBlock from "./AccessBlock"
 import DescriptionBlock from "./DescriptionBlock"
+import EditBlock from "./EditBlock"
 import OwnerBlock from "./OwnerBlock"
 
 export default function WishlistSidebar() {
@@ -52,6 +53,7 @@ export default function WishlistSidebar() {
       ) : (
         <OwnerBlock wishlist={wishlist} />
       )}
+      {isOwner && <EditBlock />}
     </Wrapper>
   )
 }
