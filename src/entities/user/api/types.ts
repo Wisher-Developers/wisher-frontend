@@ -1,11 +1,11 @@
 export type RegisterParams = {
-  name: string
+  username: string
   email: string
   password: string
 }
 
 export type LoginParams = {
-  name: string
+  username: string
   password: string
 }
 

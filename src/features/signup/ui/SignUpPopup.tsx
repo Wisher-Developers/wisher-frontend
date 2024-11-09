@@ -39,9 +39,9 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
   const onSubmit = async ({ username, email, password }: SignUpFormValues) => {
     try {
       if (isSignUp && email) {
-        await signUp({ name: username, email, password }).unwrap()
+        await signUp({ username, email, password }).unwrap()
       } else {
-        await signIn({ name: username, password }).unwrap()
+        await signIn({ username, password }).unwrap()
       }
 
       close()

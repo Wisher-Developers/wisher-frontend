@@ -3,8 +3,6 @@ export type CreateWishlistParams = {
   description?: string
 }
 
-export type RenameWishlistParams = {
+export type RenameWishlistParams = CreateWishlistParams & {
   id: string
-  name: string
-  description?: string
 }
