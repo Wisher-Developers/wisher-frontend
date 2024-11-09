@@ -68,6 +68,14 @@ export default [
           },
         },
       ],
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          varsIgnorePattern: "^_",
+          argsIgnorePattern: "^_",
+        },
+      ],
+      "no-empty": "off",
     },
     settings: {
       "react": {
