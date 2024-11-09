@@ -38,7 +38,7 @@ export default function WishlistPage() {
       <Wrapper>
         <WishlistEditSidebar setIsEditing={setIsEditing} />
 
-        <WishlistItems />
+        <WishlistItems isEditing={isEditing} />
       </Wrapper>
     )
   }
@@ -47,7 +47,7 @@ export default function WishlistPage() {
     <Wrapper>
       <WishlistSidebar setIsEditing={setIsEditing} />
 
-      <WishlistItems />
+      <WishlistItems isEditing={isEditing} />
     </Wrapper>
   )
 }

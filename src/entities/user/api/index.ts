@@ -38,7 +38,7 @@ const userApi = baseApi.injectEndpoints({
 
     signIn: builder.mutation<AuthResponse, LoginParams>({
       query: ({ username, password }) => ({
-        url: "/auth/signin", // TODO: replace with actual endpoint
+        url: "/auth/login",
         method: "POST",
         body: { username, password },
       }),
