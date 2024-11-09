@@ -24,6 +24,12 @@ export const text16SemiBold = {
   fontWeight: 600,
 }
 
+export const text20 = {
+  ...defaultParams,
+  fontSize: "20px",
+  fontWeight: 500,
+}
+
 export const text20SemiBold = {
   ...defaultParams,
   fontSize: "20px",

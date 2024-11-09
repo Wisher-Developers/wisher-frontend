@@ -5,7 +5,7 @@ import CreateWishlistButton from "@features/create-wishlist/ui/CreateWishlistBut
 import Logo from "@shared/assets/Logo"
 import ProfileIcon from "@shared/assets/ProfileIcon"
 import { selectIsLoggedIn } from "@shared/auth"
-import { text16SemiBold } from "@shared/fonts"
+import { text20SemiBold } from "@shared/fonts"
 import { useAppSelector } from "@shared/hooks/store"
 import Container from "@shared/ui/Container"
 import Separator from "@shared/ui/Separator"
@@ -23,7 +23,7 @@ export default function Navbar() {
         {!isLoggedIn && (
           <>
             <CreateWishlistButton />
-            <Separator height={16} />
+            <Separator height={24} />
           </>
         )}
 
@@ -39,17 +39,20 @@ export default function Navbar() {
 
 const Wrapper = styled.nav`
   width: 100%;
+  height: 80px;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   padding: 16px;
   position: fixed;
+  top: 0;
+  z-index: 100;
 `
 
 const RightContent = styled(Container)`
-  border-radius: 16px;
+  border-radius: 24px;
   box-sizing: border-box;
-  height: 32px;
+  height: 48px;
   padding: 0 16px;
   display: flex;
   align-items: center;
@@ -65,7 +68,7 @@ const RightContent = styled(Container)`
     border: none;
     padding: 0;
     transition: color var(--transition-duration) var(--transition-function);
-    ${text16SemiBold};
+    ${text20SemiBold};
 
     > svg path {
       transition: fill var(--transition-duration) var(--transition-function);
