@@ -16,7 +16,6 @@ export default function WishlistItems() {
   const { id } = useParams()
 
   const { isOpen, open, close } = usePopup()
-
   const [selectedWishitem, setSelectedWishitem] = useState<Wishitem | null>(
     null
   )

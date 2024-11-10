@@ -21,7 +21,7 @@ export function signUpFormValidationSchema(
     password: yup
       .string()
       .required("Необходимо заполнить")
-      .min(8, "Минимум 8 символов"),
+      .min(0, "Минимум 8 символов"), // FIXME: update min length
     repeatPassword: isSignUp
       ? yup
           .string()

@@ -1,11 +1,27 @@
+import { useState } from "react"
+
 import styled from "styled-components"
 
+import { useGetRecommendationsQuery } from "@entities/wishitem/api"
+import { Wishitem } from "@entities/wishitem/model/Wishitem"
+import WishitemPopup from "@entities/wishitem/ui/WishitemPopup"
+import WishitemPreview from "@entities/wishitem/ui/WishitemPreview"
 import { text20, text32SemiBold } from "@shared/fonts"
+import usePopup from "@shared/hooks/usePopup"
 import Container from "@shared/ui/Container"
 
 export default function Recomendations() {
-  // TODO: add recommended wishitems query
-  const wishitems: unknown[] = [13]
+  const { isOpen, open, close } = usePopup()
+  const [selectedWishitem, setSelectedWishitem] = useState<Wishitem | null>(
+    null
+  )
+
+  const { data: wishitems } = useGetRecommendationsQuery()
+
+  const openPopup = (wishitem: Wishitem) => {
+    setSelectedWishitem(wishitem)
+    open()
+  }
 
   if (!wishitems) return null
 
@@ -28,6 +44,25 @@ export default function Recomendations() {
         <h1>Самые вкусные подарки</h1>
         <p>Подобранные специально для тебя</p>
       </Text>
+
+      <ListWrapper>
+        {wishitems.map(wishitem => (
+          <StyledWishitemPreview
+            key={wishitem.id}
+            wishitem={wishitem}
+            onClick={() => openPopup(wishitem)}
+          />
+        ))}
+      </ListWrapper>
+
+      {selectedWishitem && (
+        <WishitemPopup
+          isOpen={isOpen}
+          close={close}
+          wishitem={selectedWishitem}
+          onCloseEnd={() => setSelectedWishitem(null)}
+        />
+      )}
     </Wrapper>
   )
 }
@@ -55,5 +90,24 @@ const Text = styled.div`
     ${text20};
     color: var(--color-black-secondary);
     max-width: 600px;
+  }
+`
+
+const ListWrapper = styled.div`
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 268px);
+  gap: 16px;
+`
+
+const StyledWishitemPreview = styled(WishitemPreview)`
+  transition:
+    transform var(--transition-duration) var(--transition-function),
+    box-shadow var(--transition-duration) var(--transition-function);
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0px 12px 32px 0px rgba(24, 24, 24, 0.25);
+    transform: translateY(-2px);
   }
 `

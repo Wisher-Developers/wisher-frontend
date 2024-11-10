@@ -67,10 +67,23 @@ const wishitemApi = baseApi.injectEndpoints({
     }),
 
     getRecommendations: builder.query<Wishitem[], void>({
-      query: () => "/item/recommendations",
+      // query: () => "/item/recommendations",
+      queryFn: async () => ({
+        data: [
+          {
+            id: "3",
+            name: "test",
+            description: "test",
+            link: "https://test",
+            wishlistId: "1",
+          },
+        ],
+      }),
       keepUnusedDataFor: HOUR,
     }),
   }),
 })
 
 export default wishitemApi
+
+export const { useGetRecommendationsQuery } = wishitemApi
