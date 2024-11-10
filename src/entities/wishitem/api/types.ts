@@ -2,6 +2,7 @@ export type CreateWishitemParams = {
   wishlistId: string
   name: string
   description?: string
+  picture?: string
   priority?: number
   link?: string
 }
@@ -17,4 +18,8 @@ export type DeleteWishitemParams = {
 
 export type CopyWishitemParams = CreateWishitemParams & {
   originalId: string
+}
+
+export type UploadImageReponse = {
+  url: string
 }

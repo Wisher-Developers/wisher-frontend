@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 import { yupResolver } from "@hookform/resolvers/yup"
 import { skipToken } from "@reduxjs/toolkit/query"
 import { Controller, useForm } from "react-hook-form"
@@ -20,6 +22,7 @@ import {
   useCopyWishitemMutation,
   useCreateWishitemMutation,
   useUpdateWishitemMutation,
+  useUploadImageMutation,
 } from "../api"
 import {
   UpsertWishitemFormValues,
@@ -38,6 +41,8 @@ export default function UpsertWishitemPopup({
   wishitem,
 }: UpsertWishitemPopupProps) {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
 
   const { control, handleSubmit, reset } = useForm<UpsertWishitemFormValues>({
     resolver: yupResolver(upsertWishitemFormValidationSchema),
@@ -60,7 +65,17 @@ export default function UpsertWishitemPopup({
     }),
   })
 
-  const uploadFile = async (file: File) => {}
+  const [uploadImage] = useUploadImageMutation()
+
+  const uploadFile = async (file: File) => {
+    try {
+      const { url } = await uploadImage(file).unwrap()
+
+      setImageUrl(url)
+    } catch {}
+  }
+
+  const resetFile = () => setImageUrl(null)
 
   const [createWishitem, { isLoading: isCreating }] =
     useCreateWishitemMutation()
@@ -80,6 +95,7 @@ export default function UpsertWishitemPopup({
           id: wishitem.id,
           name,
           description,
+          picture: imageUrl ?? undefined,
           link,
           wishlistId,
         }).unwrap()
@@ -88,11 +104,18 @@ export default function UpsertWishitemPopup({
           originalId: wishitem.id,
           name,
           description,
+          picture: imageUrl ?? undefined,
           link,
           wishlistId,
         }).unwrap()
       } else {
-        await createWishitem({ name, description, link, wishlistId }).unwrap()
+        await createWishitem({
+          name,
+          description,
+          picture: imageUrl ?? undefined,
+          link,
+          wishlistId,
+        }).unwrap()
       }
     } catch {}
   }
@@ -137,6 +160,7 @@ export default function UpsertWishitemPopup({
           label="Изображение"
           placeholder="Прикрепить изображение"
           uploadFile={uploadFile}
+          resetFile={resetFile}
         />
 
         <Controller

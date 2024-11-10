@@ -10,12 +10,14 @@ type FileUploaderProps = {
   label: string
   placeholder: string
   uploadFile: (file: File) => Promise<void>
+  resetFile?: () => void
 }
 
 export default function FileUploader({
   label,
   placeholder,
   uploadFile,
+  resetFile,
 }: FileUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null)
 
