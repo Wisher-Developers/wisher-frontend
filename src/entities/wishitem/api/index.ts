@@ -9,11 +9,13 @@ import {
 
 import { Wishitem } from "../model/Wishitem"
 
+const HOUR = 60 * 60
+
 const wishitemApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     createWishitem: builder.mutation<Wishitem, CreateWishitemParams>({
       query: ({ wishlistId, name, description, priority, link }) => ({
-        url: `/item/create`,
+        url: "/item/create",
         method: "POST",
         body: { wishlistId, name, description, priority, link },
       }),
@@ -22,7 +24,11 @@ const wishitemApi = baseApi.injectEndpoints({
     }),
 
     editWishitem: builder.mutation<Wishitem, EditWishitemParams>({
-      query: () => "",
+      query: ({ id, name, description, link, priority, wishlistId }) => ({
+        url: "/item/update",
+        method: "POST",
+        body: { id, name, description, link, priority, wishlistId },
+      }),
       invalidatesTags: (_, error, { wishlistId }) =>
         error ? [] : [{ type: "Wishlist", id: wishlistId }],
     }),
@@ -58,6 +64,11 @@ const wishitemApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: (_, error, { wishlistId }) =>
         error ? [] : [{ type: "Wishlist", id: wishlistId }],
+    }),
+
+    getRecommendations: builder.query<Wishitem[], void>({
+      query: () => "/item/recommendations",
+      keepUnusedDataFor: HOUR,
     }),
   }),
 })

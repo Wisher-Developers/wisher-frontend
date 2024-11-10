@@ -68,7 +68,11 @@ export default function Dropdown({
         {state => (
           <ListWrapper data-open={state} ref={wrapper}>
             {options?.map(({ value: itemValue, label }) => (
-              <ListItem key={itemValue} data-active={value === itemValue}>
+              <ListItem
+                key={itemValue}
+                type="button"
+                data-active={value === itemValue}
+              >
                 {label}
               </ListItem>
             ))}
