@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 import { PrivateMode, Wishlist } from "@entities/wishlist/model/Wishlist"
-import getPeopleCase from "@pages/wishlist/lib/getPeopleCase"
 import CopyIcon from "@shared/assets/CopyIcon"
 import { text16, text20SemiBold } from "@shared/fonts"
 import Container from "@shared/ui/Container"
@@ -29,8 +28,8 @@ export default function AccessBlock({ wishlist }: AccessBlockProps) {
       <h3>Доступ</h3>
       <p>
         {privateModeToText[wishlist.privateMode]}
-        {wishlist.privateMode === PrivateMode.Restricted &&
-          ` (${wishlist.allowedUsers.length} ${getPeopleCase(wishlist.allowedUsers.length)})`}
+        {/* {wishlist.privateMode === PrivateMode.Restricted &&
+          ` (${wishlist.allowedUsers.length} ${getPeopleCase(wishlist.allowedUsers.length)})`} */}
       </p>
       {wishlist.privateMode === PrivateMode.ByLink && (
         <LinkBlock>

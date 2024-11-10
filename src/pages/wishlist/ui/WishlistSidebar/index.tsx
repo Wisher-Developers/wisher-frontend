@@ -24,7 +24,7 @@ export default function WishlistSidebar({
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
   const { data: me } = useGetMeQuery(isLoggedIn ? undefined : skipToken)
-  const { data: wishlist } = useGetWishlistQuery(wishlistId ?? skipToken)
+  const { currentData: wishlist } = useGetWishlistQuery(wishlistId ?? skipToken)
 
   const startEditing = () => setIsEditing(true)
 

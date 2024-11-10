@@ -7,13 +7,14 @@ import { selectIsLoggedIn } from "@shared/auth"
 import { useAppSelector } from "@shared/hooks/store"
 
 import InfoBlock from "./InfoBlock"
+import WishlistsBlock from "./WishlistsBlock"
 
 export default function ProfilePage() {
   const { id } = useParams()
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
-  const { data: user } = useGetUserQuery(id ?? skipToken)
+  const { currentData: user } = useGetUserQuery(id ?? skipToken)
   const { data: me } = useGetMeQuery(isLoggedIn ? undefined : skipToken)
 
   const isMe = me?.id === user?.id && !!me
@@ -23,6 +24,8 @@ export default function ProfilePage() {
   return (
     <Wrapper>
       <InfoBlock isMe={isMe} user={user} />
+
+      <WishlistsBlock isMe={isMe} user={user} />
     </Wrapper>
   )
 }
@@ -30,7 +33,8 @@ export default function ProfilePage() {
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 450px 900px;
-  justify-content: stretch;
+  align-items: start;
+  gap: 64px;
 
   width: fit-content;
 
