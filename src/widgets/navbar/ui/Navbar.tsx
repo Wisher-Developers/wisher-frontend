@@ -1,6 +1,8 @@
+import { skipToken } from "@reduxjs/toolkit/query"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 
+import { useGetMeQuery } from "@entities/user/api"
 import CreateWishlistButton from "@features/create-wishlist/ui/CreateWishlistButton"
 import Logo from "@shared/assets/Logo"
 import ProfileIcon from "@shared/assets/ProfileIcon"
@@ -12,6 +14,8 @@ import Separator from "@shared/ui/Separator"
 
 export default function Navbar() {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
+  const { data: me } = useGetMeQuery(isLoggedIn ? undefined : skipToken)
 
   return (
     <Wrapper>
@@ -29,7 +33,7 @@ export default function Navbar() {
 
         <Link to="/profile">
           <ProfileButton>
-            Гость <ProfileIcon />
+            {me?.name ?? "Гость"} <ProfileIcon />
           </ProfileButton>
         </Link>
       </RightContent>

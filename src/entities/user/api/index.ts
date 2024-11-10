@@ -7,17 +7,11 @@ import { User } from "../model/User"
 
 const FIFTEEN_MINUTES = 15 * 60
 
-const user: User = {
-  id: "d9b6b8f1-9d1b-4a5c-8e3e-3b6e6f1c6f3b",
-  name: "Goosescout",
-  email: "m@m",
-}
-
 const userApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getUser: builder.query<User, string>({
       query: id => `/users/${id}`,
-      providesTags: (_, __, id) => [{ type: "User", id }],
+      providesTags: (_, error, id) => (error ? [{ type: "User", id }] : []),
       keepUnusedDataFor: FIFTEEN_MINUTES,
     }),
 
@@ -59,4 +53,9 @@ const userApi = baseApi.injectEndpoints({
 
 export default userApi
 
-export const { useGetUserQuery, useSignUpMutation, useSignInMutation } = userApi
+export const {
+  useGetUserQuery,
+  useGetMeQuery,
+  useSignUpMutation,
+  useSignInMutation,
+} = userApi
