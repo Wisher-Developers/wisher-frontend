@@ -101,7 +101,7 @@ const Header = styled.div`
 
   > h1 {
     ${header64};
-    max-width: 820px;
+    max-width: 840px;
   }
 
   > p {
