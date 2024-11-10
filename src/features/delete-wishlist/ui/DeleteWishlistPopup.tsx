@@ -32,7 +32,7 @@ export default function DeleteWishlistPopup({
 
     try {
       await deleteWishlist(id)
-      navigate("/profile")
+      navigate("/")
     } catch {}
   }
 

@@ -74,6 +74,7 @@ const Wrapper = styled(Container)`
 const Empty = styled.p`
   text-align: center;
   width: 100%;
+  grid-column: span 3;
   ${text16};
 `
 

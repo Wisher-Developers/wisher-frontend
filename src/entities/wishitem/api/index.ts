@@ -67,20 +67,11 @@ const wishitemApi = baseApi.injectEndpoints({
     }),
 
     getRecommendations: builder.query<Wishitem[], void>({
-      // query: () => "/item/recommendations",
-      queryFn: async () => ({
-        data: [
-          {
-            id: "3",
-            name: "test",
-            description: "test",
-            link: "https://test",
-            wishlistId: "1",
-          },
-        ],
-      }),
+      query: () => "/item/recommendations",
       keepUnusedDataFor: HOUR,
     }),
+
+    // uploadImage: builder.mutation<
   }),
 })
 

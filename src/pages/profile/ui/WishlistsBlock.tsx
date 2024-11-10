@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import { User } from "@entities/user/model/User"
 import { useGetWishlistsQuery } from "@entities/wishlist/api"
-import { PrivateMode, Wishlist } from "@entities/wishlist/model/Wishlist"
+import { PrivateMode } from "@entities/wishlist/model/Wishlist"
 import {
   text20,
   text20SemiBold,
@@ -29,27 +29,7 @@ type WishlistsBlockProps = {
 export default function WishlistsBlock({ user, isMe }: WishlistsBlockProps) {
   const navigate = useNavigate()
 
-  // const { currentData: wishlists } = useGetWishlistsQuery(user.id)
-  const wishlists: Wishlist[] = [
-    {
-      id: "1",
-      name: "Мой первый вишлист",
-      description:
-        "Описание моего первого вишлиста Описание моего первого вишлиста Описание моего первого вишлиста Описание моего первого вишлиста Описание моего первого вишлиста",
-      items: [],
-      owner: user,
-      privateMode: PrivateMode.Public,
-    },
-    {
-      id: "2",
-      name: "Мой первый вишлист",
-      description:
-        "Описание моего первого вишлиста Описание моего первого вишлиста Описание моего первого вишлиста Описание моего первого вишлиста Описание моего первого вишлиста",
-      items: [],
-      owner: user,
-      privateMode: PrivateMode.Public,
-    },
-  ]
+  const { currentData: wishlists } = useGetWishlistsQuery(user.id)
 
   return (
     <StyledBlock>

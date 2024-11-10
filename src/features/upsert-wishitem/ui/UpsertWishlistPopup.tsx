@@ -11,6 +11,7 @@ import { text32SemiBold } from "@shared/fonts"
 import { useAppSelector } from "@shared/hooks/store"
 import Button from "@shared/ui/Button"
 import Dropdown from "@shared/ui/Dropdown"
+import FileUploader from "@shared/ui/FileUploader"
 import LabeledInput from "@shared/ui/LabeledInput"
 import LabeledTextarea from "@shared/ui/LabeledTextarea"
 import Popup from "@shared/ui/Popup"
@@ -94,6 +95,16 @@ export default function UpsertWishitemPopup({
               placeholder="Введи описание"
             />
           )}
+        />
+
+        <FileUploader
+          label="Изображение"
+          placeholder="Прикрепить изображение"
+          inputProps={{
+            onChange: event => {
+              console.log(event)
+            },
+          }}
         />
 
         <Controller

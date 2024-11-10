@@ -24,7 +24,7 @@ const wishlistApi = baseApi.injectEndpoints({
         body: { name, description },
       }),
       invalidatesTags: wishlist =>
-        wishlist ? [{ type: "Wishlist", id: wishlist.id }] : [],
+        wishlist ? [{ type: "Wishlist", id: "LIST" }] : [],
     }),
 
     renameWishlist: builder.mutation<Wishlist, RenameWishlistParams>({
