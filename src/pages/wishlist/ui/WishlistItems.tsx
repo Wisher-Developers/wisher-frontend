@@ -2,15 +2,17 @@ import { skipToken } from "@reduxjs/toolkit/query"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 
-import { useGetWishitemsQuery } from "@entities/wishitem/api"
 import WishitemPreview from "@entities/wishitem/ui/WishitemPreview"
+import { useGetWishlistQuery } from "@entities/wishlist/api"
 import { text16 } from "@shared/fonts"
 import Container from "@shared/ui/Container"
 
 export default function WishlistItems() {
   const { id } = useParams()
 
-  const { data: wishitems } = useGetWishitemsQuery(id ?? skipToken)
+  const { wishitems } = useGetWishlistQuery(id ?? skipToken, {
+    selectFromResult: ({ data }) => ({ wishitems: data?.items }),
+  })
 
   if (!wishitems) return null
 

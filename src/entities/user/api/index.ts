@@ -15,10 +15,15 @@ const user: User = {
 
 const userApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getUser: builder.query<User, void>({
-      // query: () => "/user", // TODO: replace with actual endpoint
-      queryFn: async () => ({ data: user }),
-      providesTags: ["User"],
+    getUser: builder.query<User, string>({
+      query: id => `/users/${id}`,
+      providesTags: (_, __, id) => [{ type: "User", id }],
+      keepUnusedDataFor: FIFTEEN_MINUTES,
+    }),
+
+    getMe: builder.query<User, void>({
+      query: () => "/me",
+      providesTags: [{ type: "User", id: "ME" }],
       keepUnusedDataFor: FIFTEEN_MINUTES,
     }),
 
