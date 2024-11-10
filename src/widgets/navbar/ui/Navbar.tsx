@@ -23,8 +23,8 @@ export default function Navbar() {
         <Logo />
       </Link>
 
-      {!isLoggedIn ||
-        (me && (
+      {isLoggedIn ? (
+        me && (
           <RightContent>
             {isLoggedIn && (
               <>
@@ -33,13 +33,22 @@ export default function Navbar() {
               </>
             )}
 
-            <Link to="/profile">
+            <Link to={`/profile/${me.id}`}>
               <ProfileButton>
                 {me?.username ?? "Гость"} <ProfileIcon />
               </ProfileButton>
             </Link>
           </RightContent>
-        ))}
+        )
+      ) : (
+        <RightContent>
+          <Link to="/">
+            <ProfileButton>
+              Гость <ProfileIcon />
+            </ProfileButton>
+          </Link>
+        </RightContent>
+      )}
     </Wrapper>
   )
 }
