@@ -20,7 +20,7 @@ export default function Navbar() {
       </Link>
 
       <RightContent>
-        {!isLoggedIn && (
+        {isLoggedIn && (
           <>
             <CreateWishlistButton />
             <Separator height={24} />

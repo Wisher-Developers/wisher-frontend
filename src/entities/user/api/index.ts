@@ -23,10 +23,10 @@ const userApi = baseApi.injectEndpoints({
     }),
 
     signUp: builder.mutation<AuthResponse, RegisterParams>({
-      query: ({ name, email, password }) => ({
+      query: ({ username, email, password }) => ({
         url: "/auth/signup",
         method: "POST",
-        body: { name, email, password },
+        body: { username, email, password },
       }),
 
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
@@ -37,10 +37,10 @@ const userApi = baseApi.injectEndpoints({
     }),
 
     signIn: builder.mutation<AuthResponse, LoginParams>({
-      query: ({ name, password }) => ({
-        url: "/auth/signin", // TODO: replace with actual endpoint
+      query: ({ username, password }) => ({
+        url: "/auth/login",
         method: "POST",
-        body: { name, password },
+        body: { username, password },
       }),
 
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
@@ -51,5 +51,7 @@ const userApi = baseApi.injectEndpoints({
     }),
   }),
 })
+
+export default userApi
 
 export const { useGetUserQuery, useSignUpMutation, useSignInMutation } = userApi
