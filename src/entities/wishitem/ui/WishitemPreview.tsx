@@ -6,20 +6,23 @@ import Container from "@shared/ui/Container"
 
 import { Wishitem } from "../model/Wishitem"
 
+const FALLBACK_IMAGE =
+  "https://static.wikia.nocookie.net/gensin-impact/images/c/cd/Yae_Miko_Birthday_2022.png"
+
 type WishitemPreviewProps = {
   wishitem: Wishitem
+  onClick?: () => void
   className?: string
 }
 
 export default function WishitemPreview({
   wishitem,
+  onClick,
   className,
 }: WishitemPreviewProps) {
-  const hasPicture = !!wishitem.picture
-
   return (
-    <StyledContainer className={clsx(className)}>
-      {hasPicture && <img src={wishitem.picture} alt={wishitem.name} />}
+    <StyledContainer className={clsx(className)} onClick={onClick}>
+      <img src={wishitem.picture ?? FALLBACK_IMAGE} alt={wishitem.name} />
 
       <div>
         <h6>{wishitem.name}</h6>
