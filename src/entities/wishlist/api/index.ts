@@ -55,11 +55,11 @@ const wishlistApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: (_, error, id) =>
         error
-          ? [
+          ? []
+          : [
               { type: "Wishlist", id },
               { type: "Wishlist", id: "LIST" },
-            ]
-          : [],
+            ],
     }),
   }),
 })

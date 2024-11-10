@@ -99,7 +99,7 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
               autoComplete={isSignUp ? "new-password" : "current-password"}
               error={error?.message}
               label="Пароль"
-              placeholder="Введи email"
+              placeholder="Введи пароль"
               required
             />
           )}

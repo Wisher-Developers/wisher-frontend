@@ -117,6 +117,8 @@ export default function UpsertWishitemPopup({
           wishlistId,
         }).unwrap()
       }
+
+      close()
     } catch {}
   }
 
