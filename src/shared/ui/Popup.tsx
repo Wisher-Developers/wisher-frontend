@@ -13,6 +13,7 @@ type PopupProps = {
   onCloseEnd?: () => void
   children?: ReactNode
   className?: string
+  zIndex?: number
 }
 
 export default function Popup({
@@ -21,6 +22,7 @@ export default function Popup({
   onCloseEnd,
   children,
   className,
+  zIndex = 500,
 }: PopupProps) {
   const wrapper = useRef<HTMLDivElement>(null)
 
@@ -41,6 +43,7 @@ export default function Popup({
           onClick={stopPropagation}
           data-open={state}
           ref={wrapper}
+          style={{ zIndex }}
         >
           <PopupWrapper
             className={clsx(className)}
@@ -68,7 +71,6 @@ const Background = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 500;
 
   &[data-open="entering"] {
     animation: appear 0.2s ease-out;

@@ -1,10 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup"
+import { skipToken } from "@reduxjs/toolkit/query"
 import { Controller, useForm } from "react-hook-form"
 import styled from "styled-components"
 
+import { useGetMeQuery } from "@entities/user/api"
 import { Wishitem } from "@entities/wishitem/model/Wishitem"
 import { useGetWishlistsQuery } from "@entities/wishlist/api"
+import { selectIsLoggedIn } from "@shared/auth"
 import { text32SemiBold } from "@shared/fonts"
+import { useAppSelector } from "@shared/hooks/store"
 import Button from "@shared/ui/Button"
 import Dropdown from "@shared/ui/Dropdown"
 import LabeledInput from "@shared/ui/LabeledInput"
@@ -27,6 +31,8 @@ export default function UpsertWishitemPopup({
   close,
   wishitem,
 }: UpsertWishitemPopupProps) {
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
   const { control, handleSubmit, reset } = useForm<UpsertWishitemFormValues>({
     resolver: yupResolver(upsertWishitemFormValidationSchema),
     values: {
@@ -37,7 +43,9 @@ export default function UpsertWishitemPopup({
     },
   })
 
-  const { wishlistOptions } = useGetWishlistsQuery(undefined, {
+  const { data: me } = useGetMeQuery(isLoggedIn ? undefined : skipToken)
+
+  const { wishlistOptions } = useGetWishlistsQuery(me?.id ?? skipToken, {
     selectFromResult: ({ data }) => ({
       wishlistOptions: data?.map(({ id, name }) => ({
         value: id,
@@ -53,9 +61,11 @@ export default function UpsertWishitemPopup({
     wishlistId,
   }: UpsertWishitemFormValues) => {}
 
+  const isEditing = !!(wishitem?.wishlistId && wishitem?.name)
+
   return (
-    <StyledPopup isOpen={isOpen} close={close} onCloseEnd={reset}>
-      <h4>{wishitem ? "Редактирование вишайтема" : "Новый вишайтем"}</h4>
+    <StyledPopup isOpen={isOpen} close={close} onCloseEnd={reset} zIndex={600}>
+      <h4>{isEditing ? "Редактирование вишайтема" : "Новый вишайтем"}</h4>
 
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <Controller

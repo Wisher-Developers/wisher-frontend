@@ -1,11 +1,13 @@
 import { useState } from "react"
 
+import omit from "lodash/omit"
 import styled from "styled-components"
 
 import { useGetRecommendationsQuery } from "@entities/wishitem/api"
 import { Wishitem } from "@entities/wishitem/model/Wishitem"
 import WishitemPopup from "@entities/wishitem/ui/WishitemPopup"
 import WishitemPreview from "@entities/wishitem/ui/WishitemPreview"
+import CopyWishitemButton from "@features/upsert-wishitem/ui/CopyWishitemButton"
 import { text20, text32SemiBold } from "@shared/fonts"
 import usePopup from "@shared/hooks/usePopup"
 import Container from "@shared/ui/Container"
@@ -61,6 +63,11 @@ export default function Recomendations() {
           close={close}
           wishitem={selectedWishitem}
           onCloseEnd={() => setSelectedWishitem(null)}
+          actions={
+            <CopyWishitemButton
+              original={omit(selectedWishitem, "wishlistId")}
+            />
+          }
         />
       )}
     </Wrapper>

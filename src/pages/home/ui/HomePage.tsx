@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import styled from "styled-components"
 
@@ -23,6 +23,10 @@ export default function HomePage() {
   const [showRecomendations, setShowRecomendations] = useState(isLoggedIn)
 
   const handleContinueClick = () => setShowRecomendations(true)
+
+  useEffect(() => {
+    setShowRecomendations(isLoggedIn)
+  }, [isLoggedIn])
 
   if (!showRecomendations)
     return (

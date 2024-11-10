@@ -62,6 +62,7 @@ const Wrapper = styled.button<{
     color: var(--color-black);
     border: 2px solid var(--color-border);
     box-shadow: 0px 8px 32px 0px var(--color-shadow);
+    backdrop-filter: blur(32px);
   }
 
   &[data-appearence="primary"] {

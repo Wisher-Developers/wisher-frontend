@@ -46,6 +46,8 @@ export default function WishitemPopup({
       <Right>
         <img src={wishitem.picture ?? FALLBACK_IMAGE} alt={wishitem.name} />
       </Right>
+
+      <ActionsWrapper>{actions}</ActionsWrapper>
     </StyledPopup>
   )
 }
@@ -58,6 +60,8 @@ const StyledPopup = styled(Popup)`
 
   display: flex;
   gap: 32px;
+
+  position: relative;
 `
 
 const Left = styled.div`
@@ -105,4 +109,10 @@ const Right = styled.div`
     height: 310px;
     box-sizing: border-box;
   }
+`
+
+const ActionsWrapper = styled.div`
+  position: absolute;
+  bottom: -24px;
+  right: -24px;
 `

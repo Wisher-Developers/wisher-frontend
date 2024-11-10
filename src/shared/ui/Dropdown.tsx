@@ -36,12 +36,17 @@ export default function Dropdown({
   placeholder,
   required = false,
 }: DropdownProps) {
-  const { isOpen, wrapper, toggleOpen } = useDropdown()
+  const { isOpen, wrapper, toggleOpen, close } = useDropdown()
 
   const mappedOptions = useMemo(
     () => new Map(options?.map(({ value, label }) => [value, label])),
     [options]
   )
+
+  const selectHandler = (value: string) => () => {
+    close()
+    onChange(value)
+  }
 
   const valueLabel = mappedOptions.get(value)
 
@@ -74,11 +79,12 @@ export default function Dropdown({
                 key={itemValue}
                 type="button"
                 data-active={value === itemValue}
-                onClick={() => onChange(itemValue)}
+                onClick={selectHandler(itemValue)}
               >
                 {label}
               </ListItem>
             ))}
+            {!options?.length && <ListItem disabled>Нет опций</ListItem>}
           </ListWrapper>
         )}
       </Transition>

@@ -2,7 +2,7 @@ import baseApi from "@shared/api"
 
 import { CreateWishlistParams, RenameWishlistParams } from "./types"
 
-import { PrivateMode, Wishlist } from "../model/Wishlist"
+import { Wishlist } from "../model/Wishlist"
 
 const wishlistApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -12,25 +12,7 @@ const wishlistApi = baseApi.injectEndpoints({
     }),
 
     getWishlist: builder.query<Wishlist, string>({
-      // query: id => `/wishlist/${id}`,
-      queryFn: id => ({
-        data: {
-          id: "1",
-          name: "test",
-          description: "test",
-          owner: { id: "2", username: "test", email: "test" },
-          privateMode: PrivateMode.Public,
-          items: [
-            {
-              id: "3",
-              name: "test",
-              description: "test",
-              link: "https://test",
-              wishlistId: "1",
-            },
-          ],
-        },
-      }),
+      query: id => `/wishlist/${id}`,
       providesTags: wishlist =>
         wishlist ? [{ type: "Wishlist", id: wishlist.id }] : [],
     }),
