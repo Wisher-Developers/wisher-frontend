@@ -4,7 +4,7 @@ import {
   CopyWishitemParams,
   CreateWishitemParams,
   DeleteWishitemParams,
-  EditWishitemParams,
+  UpdateWishitemParams,
 } from "./types"
 
 import { Wishitem } from "../model/Wishitem"
@@ -23,7 +23,7 @@ const wishitemApi = baseApi.injectEndpoints({
         error ? [] : [{ type: "Wishlist", id: wishlistId }],
     }),
 
-    editWishitem: builder.mutation<Wishitem, EditWishitemParams>({
+    updateWishitem: builder.mutation<Wishitem, UpdateWishitemParams>({
       query: ({ id, name, description, link, priority, wishlistId }) => ({
         url: "/item/update",
         method: "POST",

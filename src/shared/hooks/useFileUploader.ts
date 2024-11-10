@@ -16,5 +16,7 @@ export default function useFileUploader(
     } catch {}
   }
 
-  return { onChange, currentFile }
+  const clear = () => setCurrentFile(null)
+
+  return { onChange, clear, currentFile }
 }

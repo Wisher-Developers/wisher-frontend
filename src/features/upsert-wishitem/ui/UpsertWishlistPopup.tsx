@@ -17,6 +17,11 @@ import LabeledTextarea from "@shared/ui/LabeledTextarea"
 import Popup from "@shared/ui/Popup"
 
 import {
+  useCopyWishitemMutation,
+  useCreateWishitemMutation,
+  useUpdateWishitemMutation,
+} from "../api"
+import {
   UpsertWishitemFormValues,
   upsertWishitemFormValidationSchema,
 } from "../model/UpsertWishitemForm"
@@ -55,14 +60,45 @@ export default function UpsertWishitemPopup({
     }),
   })
 
+  const uploadFile = async (file: File) => {}
+
+  const [createWishitem, { isLoading: isCreating }] =
+    useCreateWishitemMutation()
+  const [updateWishitem, { isLoading: isUpdating }] =
+    useUpdateWishitemMutation()
+  const [copyWishitem, { isLoading: isCopying }] = useCopyWishitemMutation()
+
   const onSubmit = async ({
     name,
     description,
     link,
     wishlistId,
-  }: UpsertWishitemFormValues) => {}
+  }: UpsertWishitemFormValues) => {
+    try {
+      if (wishitem?.id && wishitem?.wishlistId) {
+        await updateWishitem({
+          id: wishitem.id,
+          name,
+          description,
+          link,
+          wishlistId,
+        }).unwrap()
+      } else if (wishitem?.id) {
+        await copyWishitem({
+          originalId: wishitem.id,
+          name,
+          description,
+          link,
+          wishlistId,
+        }).unwrap()
+      } else {
+        await createWishitem({ name, description, link, wishlistId }).unwrap()
+      }
+    } catch {}
+  }
 
   const isEditing = !!(wishitem?.wishlistId && wishitem?.name)
+  const isLoading = isCreating || isUpdating || isCopying
 
   return (
     <StyledPopup isOpen={isOpen} close={close} onCloseEnd={reset} zIndex={600}>
@@ -100,11 +136,7 @@ export default function UpsertWishitemPopup({
         <FileUploader
           label="Изображение"
           placeholder="Прикрепить изображение"
-          inputProps={{
-            onChange: event => {
-              console.log(event)
-            },
-          }}
+          uploadFile={uploadFile}
         />
 
         <Controller
@@ -138,7 +170,7 @@ export default function UpsertWishitemPopup({
         />
 
         <ButtonWrapper>
-          <Button size="m" type="submit">
+          <Button size="m" type="submit" isLoading={isLoading}>
             Сохранить
           </Button>
         </ButtonWrapper>

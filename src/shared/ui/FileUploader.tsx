@@ -1,22 +1,25 @@
-import { ComponentProps, InputHTMLAttributes, useRef } from "react"
+import { useRef } from "react"
 
 import styled from "styled-components"
 
 import PlusIcon from "@shared/assets/PlusIcon"
 import { text16, text16SemiBold } from "@shared/fonts"
+import useFileUploader from "@shared/hooks/useFileUploader"
 
 type FileUploaderProps = {
   label: string
   placeholder: string
-  inputProps: ComponentProps<"input">
+  uploadFile: (file: File) => Promise<void>
 }
 
 export default function FileUploader({
   label,
   placeholder,
-  inputProps,
+  uploadFile,
 }: FileUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const { onChange, clear, currentFile } = useFileUploader(uploadFile)
 
   return (
     <Wrapper>
@@ -26,7 +29,7 @@ export default function FileUploader({
         <span>
           <PlusIcon width={24} height={24} /> {placeholder}
         </span>
-        <input {...inputProps} type="file" ref={inputRef} />
+        <input onChange={onChange} type="file" ref={inputRef} />
       </InputWrapper>
     </Wrapper>
   )

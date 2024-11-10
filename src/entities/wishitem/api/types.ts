@@ -6,7 +6,7 @@ export type CreateWishitemParams = {
   link?: string
 }
 
-export type EditWishitemParams = CreateWishitemParams & {
+export type UpdateWishitemParams = CreateWishitemParams & {
   id: string
 }
 
