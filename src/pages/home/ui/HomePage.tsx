@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 import SignUpButton from "@features/signup/ui/SignUpButton"
 import AiStartIcon from "@shared/assets/AiStarsIcon"
+import { selectIsLoggedIn } from "@shared/auth"
 import {
   header64,
   text24,
@@ -9,58 +10,62 @@ import {
   text32,
   text32SemiBold,
 } from "@shared/fonts"
+import { useAppSelector } from "@shared/hooks/store"
 import Container from "@shared/ui/Container"
 
 export default function HomePage() {
-  return (
-    <Wrapper>
-      <Top>
-        <Header>
-          <h1>Место, где твои мечты становятся реальностью</h1>
-          <p>
-            Расскажи о чём мечтаешь, и тогда кто-нибудь обязательно исполнит
-            твоё желание. А Wisher с этим поможет.
-          </p>
-        </Header>
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
-        <SignUpButton />
-      </Top>
+  if (!isLoggedIn)
+    return (
+      <Wrapper>
+        <Top>
+          <Header>
+            <h1>Место, где твои мечты становятся реальностью</h1>
+            <p>
+              Расскажи о чём мечтаешь, и тогда кто-нибудь обязательно исполнит
+              твоё желание. А Wisher с этим поможет.
+            </p>
+          </Header>
 
-      <Bottom>
-        <Cards>
-          <Card>
-            <h3>Создавай свои вишлисты</h3>
-            <p>
-              Создавай свои собственные вишлисты и добавляй в них желаемые
-              вишайтемы
-            </p>
-          </Card>
-          <Card>
-            <h3>
-              Получай рекомендации от
-              <Ai>
-                <AiStartIcon />
-                ИИ
-              </Ai>
-            </h3>
-            <p>
-              Создавай свои собственные вишлисты и добавляй в них желаемые
-              вишайтемы
-            </p>
-          </Card>
-          <Card>
-            <h3>Делись вишлистами с друзьями</h3>
-            <p>
-              Добавляй пользователей в друзья, чтобы просматривать их вишлисты
-              или делиться своими
-            </p>
-          </Card>
-        </Cards>
+          <SignUpButton />
+        </Top>
 
-        <ContinueButton>или продолжить без регистрации</ContinueButton>
-      </Bottom>
-    </Wrapper>
-  )
+        <Bottom>
+          <Cards>
+            <Card>
+              <h3>Создавай свои вишлисты</h3>
+              <p>
+                Создавай свои собственные вишлисты и добавляй в них желаемые
+                вишайтемы
+              </p>
+            </Card>
+            <Card>
+              <h3>
+                Получай рекомендации от
+                <Ai>
+                  <AiStartIcon />
+                  ИИ
+                </Ai>
+              </h3>
+              <p>
+                Создавай свои собственные вишлисты и добавляй в них желаемые
+                вишайтемы
+              </p>
+            </Card>
+            <Card>
+              <h3>Делись вишлистами с друзьями</h3>
+              <p>
+                Добавляй пользователей в друзья, чтобы просматривать их вишлисты
+                или делиться своими
+              </p>
+            </Card>
+          </Cards>
+
+          <ContinueButton>или продолжить без регистрации</ContinueButton>
+        </Bottom>
+      </Wrapper>
+    )
 }
 
 const Wrapper = styled.div`
