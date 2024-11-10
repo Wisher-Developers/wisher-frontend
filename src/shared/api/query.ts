@@ -9,7 +9,8 @@ import { RootState } from "@app/model/store"
 import { withQueryParams } from "@shared/lib/withQueryParams"
 
 export const BASE_URL = "http://193.178.170.139/api"
-// export const BASE_URL = "http://localhost:8080/api"
+// export const BASE_URL =
+//   "https://cors-anywhere.herokuapp.com/http://localhost:8080/api"
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,

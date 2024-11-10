@@ -16,7 +16,7 @@ const userApi = baseApi.injectEndpoints({
     }),
 
     getMe: builder.query<User, void>({
-      query: () => "/me",
+      query: () => "/users/me",
       providesTags: [{ type: "User", id: "ME" }],
       keepUnusedDataFor: FIFTEEN_MINUTES,
     }),

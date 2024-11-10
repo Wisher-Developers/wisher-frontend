@@ -23,20 +23,23 @@ export default function Navbar() {
         <Logo />
       </Link>
 
-      <RightContent>
-        {isLoggedIn && (
-          <>
-            <CreateWishlistButton />
-            <Separator height={24} />
-          </>
-        )}
+      {!isLoggedIn ||
+        (me && (
+          <RightContent>
+            {isLoggedIn && (
+              <>
+                <CreateWishlistButton />
+                <Separator height={24} />
+              </>
+            )}
 
-        <Link to="/profile">
-          <ProfileButton>
-            {me?.name ?? "Гость"} <ProfileIcon />
-          </ProfileButton>
-        </Link>
-      </RightContent>
+            <Link to="/profile">
+              <ProfileButton>
+                {me?.username ?? "Гость"} <ProfileIcon />
+              </ProfileButton>
+            </Link>
+          </RightContent>
+        ))}
     </Wrapper>
   )
 }

@@ -14,3 +14,7 @@ export type DeleteWishitemParams = {
   id: string
   wishlistId: string
 }
+
+export type CopyWishitemParams = CreateWishitemParams & {
+  originalId: string
+}

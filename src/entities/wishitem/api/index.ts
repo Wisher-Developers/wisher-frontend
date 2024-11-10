@@ -1,6 +1,7 @@
 import baseApi from "@shared/api"
 
 import {
+  CopyWishitemParams,
   CreateWishitemParams,
   DeleteWishitemParams,
   EditWishitemParams,
@@ -17,13 +18,13 @@ const wishitemApi = baseApi.injectEndpoints({
         body: { wishlistId, name, description, priority, link },
       }),
       invalidatesTags: (_, error, { wishlistId }) =>
-        error ? [] : [{ type: "Wishitem", id: wishlistId }],
+        error ? [] : [{ type: "Wishlist", id: wishlistId }],
     }),
 
     editWishitem: builder.mutation<Wishitem, EditWishitemParams>({
       query: () => "",
       invalidatesTags: (_, error, { wishlistId }) =>
-        error ? [] : [{ type: "Wishitem", id: wishlistId }],
+        error ? [] : [{ type: "Wishlist", id: wishlistId }],
     }),
 
     deleteWishitem: builder.mutation<void, DeleteWishitemParams>({
@@ -32,7 +33,31 @@ const wishitemApi = baseApi.injectEndpoints({
         method: "POST",
       }),
       invalidatesTags: (_, error, { wishlistId }) =>
-        error ? [] : [{ type: "Wishitem", id: wishlistId }],
+        error ? [] : [{ type: "Wishlist", id: wishlistId }],
+    }),
+
+    copyWishitem: builder.mutation<Wishitem, CopyWishitemParams>({
+      query: ({
+        originalId,
+        wishlistId,
+        name,
+        description,
+        priority,
+        link,
+      }) => ({
+        url: `/item/copy`,
+        method: "POST",
+        body: {
+          oldId: originalId,
+          wishlistId,
+          name,
+          description,
+          priority,
+          link,
+        },
+      }),
+      invalidatesTags: (_, error, { wishlistId }) =>
+        error ? [] : [{ type: "Wishlist", id: wishlistId }],
     }),
   }),
 })

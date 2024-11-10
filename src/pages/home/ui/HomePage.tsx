@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 import styled from "styled-components"
 
 import SignUpButton from "@features/signup/ui/SignUpButton"
@@ -13,10 +15,16 @@ import {
 import { useAppSelector } from "@shared/hooks/store"
 import Container from "@shared/ui/Container"
 
+import Recomendations from "./Recomendations"
+
 export default function HomePage() {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
-  if (!isLoggedIn)
+  const [showRecomendations, setShowRecomendations] = useState(isLoggedIn)
+
+  const handleContinueClick = () => setShowRecomendations(true)
+
+  if (!showRecomendations)
     return (
       <Wrapper>
         <Top>
@@ -62,10 +70,14 @@ export default function HomePage() {
             </Card>
           </Cards>
 
-          <ContinueButton>или продолжить без регистрации</ContinueButton>
+          <ContinueButton onClick={handleContinueClick}>
+            или продолжить без регистрации
+          </ContinueButton>
         </Bottom>
       </Wrapper>
     )
+
+  return <Recomendations />
 }
 
 const Wrapper = styled.div`
