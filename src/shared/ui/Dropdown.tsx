@@ -62,6 +62,8 @@ export default function Dropdown({
 
           <DropdownIcon />
         </DropdownTrigger>
+
+        {error && <Error>{error}</Error>}
       </Label>
 
       <Transition in={isOpen} timeout={200} nodeRef={wrapper}>
@@ -72,6 +74,7 @@ export default function Dropdown({
                 key={itemValue}
                 type="button"
                 data-active={value === itemValue}
+                onClick={() => onChange(itemValue)}
               >
                 {label}
               </ListItem>
@@ -92,7 +95,7 @@ const Label = styled.div`
   flex-direction: column;
   gap: 8px;
 
-  > span {
+  > span:first-child {
     ${text16SemiBold};
   }
 `
@@ -118,6 +121,11 @@ const Placeholder = styled.span`
 
 const Value = styled.span`
   ${text16};
+`
+
+const Error = styled.span`
+  ${text16SemiBold};
+  color: var(--color-red);
 `
 
 const ListWrapper = styled(Container)`
