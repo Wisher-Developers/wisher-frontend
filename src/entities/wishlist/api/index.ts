@@ -1,3 +1,5 @@
+import reverse from "lodash/reverse"
+
 import baseApi from "@shared/api"
 
 import { CreateWishlistParams, RenameWishlistParams } from "./types"
@@ -15,6 +17,10 @@ const wishlistApi = baseApi.injectEndpoints({
       query: id => `/wishlist/${id}`,
       providesTags: wishlist =>
         wishlist ? [{ type: "Wishlist", id: wishlist.id }] : [],
+      transformResponse: (wishlist: Wishlist) => ({
+        ...wishlist,
+        items: reverse(wishlist.items),
+      }),
     }),
 
     createWishlist: builder.mutation<Wishlist, CreateWishlistParams>({

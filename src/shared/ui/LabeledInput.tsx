@@ -37,7 +37,7 @@ const Label = styled.label`
 
 const Input = styled.input<{ "data-error"?: boolean }>`
   border-radius: 24px;
-  background: var(--color-background-accent);
+  background: var(--color-background-action);
   border: 2px solid var(--color-border);
   backdrop-filter: blur(32px);
   box-shadow: 0px 8px 32px 0px var(--color-shadow);

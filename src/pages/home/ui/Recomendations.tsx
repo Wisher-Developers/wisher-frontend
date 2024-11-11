@@ -85,7 +85,7 @@ const Wrapper = styled(Container)`
 
   width: 900px;
   box-sizing: border-box;
-  padding: 32px;
+  padding: 30px;
 
   margin: 100px auto 60px;
 `

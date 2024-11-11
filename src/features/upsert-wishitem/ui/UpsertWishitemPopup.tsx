@@ -42,7 +42,9 @@ export default function UpsertWishitemPopup({
 }: UpsertWishitemPopupProps) {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [imageUrl, setImageUrl] = useState<string | null>(
+    wishitem?.picture ?? null
+  )
 
   const { control, handleSubmit, reset } = useForm<UpsertWishitemFormValues>({
     resolver: yupResolver(upsertWishitemFormValidationSchema),
@@ -198,9 +200,9 @@ export default function UpsertWishitemPopup({
         )}
 
         <ButtonWrapper>
-          <Button size="m" type="submit" isLoading={isLoading}>
+          <SaveButton size="m" type="submit" isLoading={isLoading}>
             Сохранить
-          </Button>
+          </SaveButton>
         </ButtonWrapper>
       </form>
     </StyledPopup>
@@ -232,4 +234,8 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: end;
   width: 100%;
+`
+
+const SaveButton = styled(Button)`
+  width: 150px;
 `
