@@ -18,6 +18,8 @@ const loadToken = createAsyncThunk<string, string>("auth/loadToken", token => {
 
 const removeToken = createAsyncThunk<void, void>("auth/removeToken", () => {
   Cookies.remove(TOKEN_COOKIE)
+
+  window.location.href = "/"
 })
 
 export { loadToken, removeToken }

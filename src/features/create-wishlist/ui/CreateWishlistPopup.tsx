@@ -6,6 +6,7 @@ import styled from "styled-components"
 import { text32SemiBold } from "@shared/fonts"
 import Button from "@shared/ui/Button"
 import LabeledInput from "@shared/ui/LabeledInput"
+import LabeledTextarea from "@shared/ui/LabeledTextarea"
 import Popup from "@shared/ui/Popup"
 
 import { useCreateWishlistMutation } from "../api"
@@ -70,9 +71,8 @@ export default function CreateWishlistPopup({
           name="description"
           control={control}
           render={({ field, fieldState: { error } }) => (
-            <LabeledInput
+            <LabeledTextarea
               {...field}
-              type="text"
               error={error?.message}
               label="Описание"
               placeholder="Введи описание"

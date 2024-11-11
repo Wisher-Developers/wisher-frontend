@@ -7,6 +7,7 @@ import styled from "styled-components"
 import { useGetWishlistQuery } from "@entities/wishlist/api"
 import Button from "@shared/ui/Button"
 import LabeledInput from "@shared/ui/LabeledInput"
+import LabeledTextarea from "@shared/ui/LabeledTextarea"
 
 import { useRenameWishlistMutation } from "../api"
 import {
@@ -59,9 +60,8 @@ export default function RenameWishlistForm() {
         name="description"
         control={control}
         render={({ field, fieldState: { error } }) => (
-          <LabeledInput
+          <LabeledTextarea
             {...field}
-            type="text"
             error={error?.message}
             label="Описание"
             placeholder="Введи описание"

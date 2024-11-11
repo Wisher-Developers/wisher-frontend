@@ -58,7 +58,11 @@ export default function Dropdown({
           {required && "*"}
         </span>
 
-        <DropdownTrigger className={clsx(className)} onClick={toggleOpen}>
+        <DropdownTrigger
+          className={clsx(className)}
+          onClick={toggleOpen}
+          data-error={!!error}
+        >
           {valueLabel ? (
             <Value>{valueLabel}</Value>
           ) : (
@@ -118,6 +122,11 @@ const DropdownTrigger = styled(Container)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  &[data-error="true"] {
+    background-color: var(--color-red-pale);
+    border-color: var(--color-red);
+  }
 `
 
 const Placeholder = styled.span`
