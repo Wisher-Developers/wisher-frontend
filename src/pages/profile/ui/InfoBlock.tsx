@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 import { User } from "@entities/user/model/User"
@@ -16,9 +17,12 @@ type InfoBlockProps = {
 
 export default function InfoBlock({ user, isMe }: InfoBlockProps) {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const handleSignOutClick = () => {
     dispatch(removeToken())
+
+    navigate("/")
   }
 
   return (

@@ -57,10 +57,20 @@ const StyledContainer = styled(Container)`
 
   h6 {
     ${text24SemiBold};
+    max-width: 236px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   p {
     ${text16};
     color: var(--color-black-secondary);
+    max-width: 236px;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 `

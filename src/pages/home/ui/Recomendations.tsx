@@ -8,11 +8,15 @@ import { Wishitem } from "@entities/wishitem/model/Wishitem"
 import WishitemPopup from "@entities/wishitem/ui/WishitemPopup"
 import WishitemPreview from "@entities/wishitem/ui/WishitemPreview"
 import CopyWishitemButton from "@features/upsert-wishitem/ui/CopyWishitemButton"
+import { selectIsLoggedIn } from "@shared/auth"
 import { text20, text32SemiBold } from "@shared/fonts"
+import { useAppSelector } from "@shared/hooks/store"
 import usePopup from "@shared/hooks/usePopup"
 import Container from "@shared/ui/Container"
 
 export default function Recomendations() {
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
   const { isOpen, open, close } = usePopup()
   const [selectedWishitem, setSelectedWishitem] = useState<Wishitem | null>(
     null
@@ -64,9 +68,11 @@ export default function Recomendations() {
           wishitem={selectedWishitem}
           onCloseEnd={() => setSelectedWishitem(null)}
           actions={
-            <CopyWishitemButton
-              original={omit(selectedWishitem, "wishlistId")}
-            />
+            isLoggedIn && (
+              <CopyWishitemButton
+                original={omit(selectedWishitem, "wishlistId")}
+              />
+            )
           }
         />
       )}

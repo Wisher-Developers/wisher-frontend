@@ -33,6 +33,7 @@ const userApi = baseApi.injectEndpoints({
 
         dispatch(loadToken(data.token))
       },
+      invalidatesTags: ["User", "Wishitem", "Wishlist"],
     }),
 
     signIn: builder.mutation<AuthResponse, LoginParams>({
@@ -47,6 +48,7 @@ const userApi = baseApi.injectEndpoints({
 
         dispatch(loadToken(data.token))
       },
+      invalidatesTags: ["User", "Wishitem", "Wishlist"],
     }),
   }),
 })
