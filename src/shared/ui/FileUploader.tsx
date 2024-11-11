@@ -2,6 +2,7 @@ import { useRef } from "react"
 
 import styled from "styled-components"
 
+import CrossIcon from "@shared/assets/CrossIcon"
 import PlusIcon from "@shared/assets/PlusIcon"
 import { text16, text16SemiBold } from "@shared/fonts"
 import useFileUploader from "@shared/hooks/useFileUploader"
@@ -11,6 +12,7 @@ type FileUploaderProps = {
   placeholder: string
   uploadFile: (file: File) => Promise<void>
   resetFile?: () => void
+  accept?: string
 }
 
 export default function FileUploader({
@@ -18,20 +20,42 @@ export default function FileUploader({
   placeholder,
   uploadFile,
   resetFile,
+  accept,
 }: FileUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const { onChange, clear, currentFile } = useFileUploader(uploadFile)
 
+  const onClearClick = () => {
+    resetFile?.()
+    clear()
+  }
+
   return (
-    <Wrapper>
+    <Wrapper {...(currentFile ? { for: "" } : {})}>
       <span>{label}</span>
 
       <InputWrapper>
-        <span>
-          <PlusIcon width={24} height={24} /> {placeholder}
-        </span>
-        <input onChange={onChange} type="file" ref={inputRef} />
+        {currentFile ? (
+          <span>
+            {currentFile.name}{" "}
+            <ClearButton onClick={onClearClick}>
+              <CrossIcon />
+            </ClearButton>
+          </span>
+        ) : (
+          <>
+            <span>
+              <PlusIcon width={24} height={24} /> {placeholder}
+            </span>
+            <input
+              accept={accept}
+              onChange={onChange}
+              type="file"
+              ref={inputRef}
+            />
+          </>
+        )}
       </InputWrapper>
     </Wrapper>
   )
@@ -79,4 +103,12 @@ const InputWrapper = styled.div`
   > input {
     display: none;
   }
+`
+
+const ClearButton = styled.button`
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  height: 24px;
 `
