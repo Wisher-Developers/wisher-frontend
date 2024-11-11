@@ -3,7 +3,7 @@ import PlusIcon from "@shared/assets/PlusIcon"
 import usePopup from "@shared/hooks/usePopup"
 import Button from "@shared/ui/Button"
 
-import UpsertWishitemPopup from "./UpsertWishlistPopup"
+import UpsertWishitemPopup from "./UpsertWishitemPopup"
 
 type CopyWishitemButtonProps = {
   original: Omit<Wishitem, "wishlistId">

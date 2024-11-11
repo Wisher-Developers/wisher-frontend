@@ -178,7 +178,7 @@ const ListItem = styled.button`
   background: none;
   outline: none;
 
-  padding: 0;
+  padding: 8px 0;
   width: 100%;
 
   ${text16};

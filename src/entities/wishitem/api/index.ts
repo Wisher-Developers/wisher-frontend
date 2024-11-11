@@ -38,8 +38,7 @@ const wishitemApi = baseApi.injectEndpoints({
         method: "POST",
         body: { id, name, description, picture, link, priority, wishlistId },
       }),
-      invalidatesTags: (_, error, { wishlistId }) =>
-        error ? [] : [{ type: "Wishlist", id: wishlistId }],
+      invalidatesTags: (_, error) => (error ? [] : ["Wishlist"]),
     }),
 
     deleteWishitem: builder.mutation<void, DeleteWishitemParams>({

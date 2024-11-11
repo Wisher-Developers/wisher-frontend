@@ -179,21 +179,23 @@ export default function UpsertWishitemPopup({
           )}
         />
 
-        <Controller
-          name="wishlistId"
-          control={control}
-          render={({ field: { value, onChange }, fieldState: { error } }) => (
-            <Dropdown
-              value={value}
-              onChange={onChange}
-              options={wishlistOptions}
-              error={error?.message}
-              label="Вишлист"
-              placeholder="Выбери вишлист"
-              required
-            />
-          )}
-        />
+        {!isEditing && (
+          <Controller
+            name="wishlistId"
+            control={control}
+            render={({ field: { value, onChange }, fieldState: { error } }) => (
+              <Dropdown
+                value={value}
+                onChange={onChange}
+                options={wishlistOptions}
+                error={error?.message}
+                label="Вишлист"
+                placeholder="Выбери вишлист"
+                required
+              />
+            )}
+          />
+        )}
 
         <ButtonWrapper>
           <Button size="m" type="submit" isLoading={isLoading}>
