@@ -85,8 +85,6 @@ export default function UpsertWishitemPopup({
     useUpdateWishitemMutation()
   const [copyWishitem, { isLoading: isCopying }] = useCopyWishitemMutation()
 
-  console.log(imageUrl)
-
   const onSubmit = async ({
     name,
     description,
