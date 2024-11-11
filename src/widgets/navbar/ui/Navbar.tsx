@@ -1,6 +1,8 @@
+import { skipToken } from "@reduxjs/toolkit/query"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 
+import { useGetMeQuery } from "@entities/user/api"
 import CreateWishlistButton from "@features/create-wishlist/ui/CreateWishlistButton"
 import Logo from "@shared/assets/Logo"
 import ProfileIcon from "@shared/assets/ProfileIcon"
@@ -13,26 +15,40 @@ import Separator from "@shared/ui/Separator"
 export default function Navbar() {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
+  const { data: me } = useGetMeQuery(isLoggedIn ? undefined : skipToken)
+
   return (
     <Wrapper>
       <Link to="/">
         <Logo />
       </Link>
 
-      <RightContent>
-        {isLoggedIn && (
-          <>
-            <CreateWishlistButton />
-            <Separator height={24} />
-          </>
-        )}
+      {isLoggedIn ? (
+        me && (
+          <RightContent>
+            {isLoggedIn && (
+              <>
+                <CreateWishlistButton />
+                <Separator height={24} />
+              </>
+            )}
 
-        <Link to="/profile">
-          <ProfileButton>
-            Гость <ProfileIcon />
-          </ProfileButton>
-        </Link>
-      </RightContent>
+            <Link to={`/profile/${me.id}`}>
+              <ProfileButton>
+                {me?.username ?? "Гость"} <ProfileIcon />
+              </ProfileButton>
+            </Link>
+          </RightContent>
+        )
+      ) : (
+        <RightContent>
+          <Link to="/">
+            <ProfileButton>
+              Гость <ProfileIcon />
+            </ProfileButton>
+          </Link>
+        </RightContent>
+      )}
     </Wrapper>
   )
 }

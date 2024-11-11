@@ -1,10 +1,11 @@
 import { User } from "@entities/user/@x/wishlist"
+import { Wishitem } from "@entities/wishitem/@x"
 
 export enum PrivateMode {
-  Public = "public",
-  Friends = "friends",
-  ByLink = "byLink",
-  Restricted = "restricted",
+  Public = "PUBLIC",
+  Friends = "FRIENDS",
+  ByLink = "LINK",
+  Restricted = "RESTRICTED",
 }
 
 export type Wishlist = {
@@ -16,5 +17,5 @@ export type Wishlist = {
 
   accessLink?: string
   privateMode: PrivateMode
-  allowedUsers: User[]
+  items: Wishitem[]
 }

@@ -6,7 +6,7 @@ import { text24SemiBold } from "@shared/fonts"
 import usePopup from "@shared/hooks/usePopup"
 import Container from "@shared/ui/Container"
 
-import UpsertWishitemPopup from "./UpsertWishlistPopup"
+import UpsertWishitemPopup from "./UpsertWishitemPopup"
 
 export default function CreateWishitemButton() {
   const { id } = useParams()

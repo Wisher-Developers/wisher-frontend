@@ -1,58 +1,102 @@
 import baseApi from "@shared/api"
 
 import {
+  CopyWishitemParams,
   CreateWishitemParams,
   DeleteWishitemParams,
-  EditWishitemParams,
+  UpdateWishitemParams,
+  UploadImageReponse,
 } from "./types"
 
 import { Wishitem } from "../model/Wishitem"
 
-const wishitem: Wishitem = {
-  id: "1283129831928319023819283901",
-  wishlistId: "d9b6b8f1-9d1b-4a5c-8e3e-3b6e6f1c6f3f",
-  name: "My wishitem",
-  description: "My wishitem description",
-  priority: 1,
-  link: "https://wishitem.com/1283129831928319023819283901",
-  picture:
-    "https://static.wikia.nocookie.net/gensin-impact/images/3/3a/Yae_Miko_Birthday_2023.png",
-}
+const HOUR = 60 * 60
 
 const wishitemApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getWishitems: builder.query<Wishitem[], string>({
-      queryFn: async wishlistId => ({
-        data: [wishitem],
-      }),
-      providesTags: (_, error, wishlistId) =>
-        error ? [] : [{ type: "Wishitem", id: wishlistId }],
-    }),
-
     createWishitem: builder.mutation<Wishitem, CreateWishitemParams>({
-      queryFn: async newParams => ({
-        data: { ...wishitem, newParams },
+      query: ({ wishlistId, name, description, picture, priority, link }) => ({
+        url: "/item/create",
+        method: "POST",
+        body: { wishlistId, name, description, picture, priority, link },
       }),
       invalidatesTags: (_, error, { wishlistId }) =>
-        error ? [] : [{ type: "Wishitem", id: wishlistId }],
+        error ? [] : [{ type: "Wishlist", id: wishlistId }],
     }),
 
-    editWishitem: builder.mutation<Wishitem, EditWishitemParams>({
-      queryFn: async newParams => ({
-        data: { ...wishitem, newParams },
+    updateWishitem: builder.mutation<Wishitem, UpdateWishitemParams>({
+      query: ({
+        id,
+        name,
+        description,
+        picture,
+        link,
+        priority,
+        wishlistId,
+      }) => ({
+        url: "/item/update",
+        method: "POST",
+        body: { id, name, description, picture, link, priority, wishlistId },
       }),
-      invalidatesTags: (_, error, { wishlistId }) =>
-        error ? [] : [{ type: "Wishitem", id: wishlistId }],
+      invalidatesTags: (_, error) => (error ? [] : ["Wishlist"]),
     }),
 
     deleteWishitem: builder.mutation<void, DeleteWishitemParams>({
-      queryFn: async ({ id }) => ({ data: void 0 }),
+      query: ({ id }) => ({
+        url: `/item/delete/${id}`,
+        method: "POST",
+      }),
       invalidatesTags: (_, error, { wishlistId }) =>
-        error ? [] : [{ type: "Wishitem", id: wishlistId }],
+        error ? [] : [{ type: "Wishlist", id: wishlistId }],
+    }),
+
+    copyWishitem: builder.mutation<Wishitem, CopyWishitemParams>({
+      query: ({
+        originalId,
+        wishlistId,
+        name,
+        description,
+        picture,
+        priority,
+        link,
+      }) => ({
+        url: `/item/copy`,
+        method: "POST",
+        body: {
+          oldId: originalId,
+          wishlistId,
+          name,
+          description,
+          picture,
+          priority,
+          link,
+        },
+      }),
+      invalidatesTags: (_, error, { wishlistId }) =>
+        error ? [] : [{ type: "Wishlist", id: wishlistId }],
+    }),
+
+    getRecommendations: builder.query<Wishitem[], void>({
+      query: () => "/item/recommendations",
+      keepUnusedDataFor: HOUR,
+    }),
+
+    uploadImage: builder.mutation<UploadImageReponse, File>({
+      query: file => {
+        const formData = new FormData()
+
+        formData.append("file", file)
+
+        return {
+          url: "/image",
+          method: "POST",
+          body: formData,
+        }
+      },
     }),
   }),
 })
 
 export default wishitemApi
 
-export const { useGetWishitemsQuery } = wishitemApi
+export const { useGetRecommendationsQuery } = wishitemApi

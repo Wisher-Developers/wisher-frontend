@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react"
+
 import styled from "styled-components"
 
 import SignUpButton from "@features/signup/ui/SignUpButton"
 import AiStartIcon from "@shared/assets/AiStarsIcon"
+import { selectIsLoggedIn } from "@shared/auth"
 import {
   header64,
   text24,
@@ -9,58 +12,76 @@ import {
   text32,
   text32SemiBold,
 } from "@shared/fonts"
+import { useAppSelector } from "@shared/hooks/store"
 import Container from "@shared/ui/Container"
 
+import Recomendations from "./Recomendations"
+
 export default function HomePage() {
-  return (
-    <Wrapper>
-      <Top>
-        <Header>
-          <h1>Место, где твои мечты становятся реальностью</h1>
-          <p>
-            Расскажи о чём мечтаешь, и тогда кто-нибудь обязательно исполнит
-            твоё желание. А Wisher с этим поможет.
-          </p>
-        </Header>
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
-        <SignUpButton />
-      </Top>
+  const [showRecomendations, setShowRecomendations] = useState(isLoggedIn)
 
-      <Bottom>
-        <Cards>
-          <Card>
-            <h3>Создавай свои вишлисты</h3>
-            <p>
-              Создавай свои собственные вишлисты и добавляй в них желаемые
-              вишайтемы
-            </p>
-          </Card>
-          <Card>
-            <h3>
-              Получай рекомендации от
-              <Ai>
-                <AiStartIcon />
-                ИИ
-              </Ai>
-            </h3>
-            <p>
-              Создавай свои собственные вишлисты и добавляй в них желаемые
-              вишайтемы
-            </p>
-          </Card>
-          <Card>
-            <h3>Делись вишлистами с друзьями</h3>
-            <p>
-              Добавляй пользователей в друзья, чтобы просматривать их вишлисты
-              или делиться своими
-            </p>
-          </Card>
-        </Cards>
+  const handleContinueClick = () => setShowRecomendations(true)
 
-        <ContinueButton>или продолжить без регистрации</ContinueButton>
-      </Bottom>
-    </Wrapper>
-  )
+  useEffect(() => {
+    setShowRecomendations(isLoggedIn)
+  }, [isLoggedIn])
+
+  if (!showRecomendations)
+    return (
+      <Wrapper>
+        <Top>
+          <Header>
+            <h1>Место, где твои мечты становятся реальностью</h1>
+            <p>
+              Расскажи о чём мечтаешь, и тогда кто-нибудь обязательно исполнит
+              твоё желание. А Wisher с этим поможет.
+            </p>
+          </Header>
+
+          <SignUpButton />
+        </Top>
+
+        <Bottom>
+          <Cards>
+            <Card>
+              <h3>Создавай свои вишлисты</h3>
+              <p>
+                Создавай свои собственные вишлисты и добавляй в них желаемые
+                вишайтемы
+              </p>
+            </Card>
+            <Card>
+              <h3>
+                Получай рекомендации от
+                <Ai>
+                  <AiStartIcon />
+                  ИИ
+                </Ai>
+              </h3>
+              <p>
+                Создавай свои собственные вишлисты и добавляй в них желаемые
+                вишайтемы
+              </p>
+            </Card>
+            <Card>
+              <h3>Делись вишлистами с друзьями</h3>
+              <p>
+                Добавляй пользователей в друзья, чтобы просматривать их вишлисты
+                или делиться своими
+              </p>
+            </Card>
+          </Cards>
+
+          <ContinueButton onClick={handleContinueClick}>
+            или продолжить без регистрации
+          </ContinueButton>
+        </Bottom>
+      </Wrapper>
+    )
+
+  return <Recomendations />
 }
 
 const Wrapper = styled.div`
@@ -84,7 +105,7 @@ const Header = styled.div`
 
   > h1 {
     ${header64};
-    max-width: 820px;
+    max-width: 840px;
   }
 
   > p {

@@ -3,7 +3,7 @@ import EditIcon from "@shared/assets/EditIocn"
 import usePopup from "@shared/hooks/usePopup"
 import Button from "@shared/ui/Button"
 
-import UpsertWishitemPopup from "./UpsertWishlistPopup"
+import UpsertWishitemPopup from "./UpsertWishitemPopup"
 
 type EditWishitemButtonProps = {
   wishitem: Wishitem

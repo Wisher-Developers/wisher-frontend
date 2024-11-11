@@ -1,16 +1,33 @@
+import { useState } from "react"
+
 import { skipToken } from "@reduxjs/toolkit/query"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 
-import { useGetWishitemsQuery } from "@entities/wishitem/api"
+import { Wishitem } from "@entities/wishitem/@x"
+import WishitemPopup from "@entities/wishitem/ui/WishitemPopup"
 import WishitemPreview from "@entities/wishitem/ui/WishitemPreview"
+import { useGetWishlistQuery } from "@entities/wishlist/api"
 import { text16 } from "@shared/fonts"
+import usePopup from "@shared/hooks/usePopup"
 import Container from "@shared/ui/Container"
 
 export default function WishlistItems() {
   const { id } = useParams()
 
-  const { data: wishitems } = useGetWishitemsQuery(id ?? skipToken)
+  const { isOpen, open, close } = usePopup()
+  const [selectedWishitem, setSelectedWishitem] = useState<Wishitem | null>(
+    null
+  )
+
+  const { wishitems } = useGetWishlistQuery(id ?? skipToken, {
+    selectFromResult: ({ data }) => ({ wishitems: data?.items }),
+  })
+
+  const openPopup = (wishitem: Wishitem) => {
+    setSelectedWishitem(wishitem)
+    open()
+  }
 
   if (!wishitems) return null
 
@@ -22,11 +39,26 @@ export default function WishlistItems() {
     )
 
   return (
-    <Wrapper>
-      {wishitems.map(wishitem => (
-        <StyledWishitemPreview key={wishitem.id} wishitem={wishitem} />
-      ))}
-    </Wrapper>
+    <>
+      <Wrapper>
+        {wishitems.map(wishitem => (
+          <StyledWishitemPreview
+            key={wishitem.id}
+            wishitem={wishitem}
+            onClick={() => openPopup(wishitem)}
+          />
+        ))}
+      </Wrapper>
+
+      {selectedWishitem && (
+        <WishitemPopup
+          isOpen={isOpen}
+          close={close}
+          wishitem={selectedWishitem}
+          onCloseEnd={() => setSelectedWishitem(null)}
+        />
+      )}
+    </>
   )
 }
 
@@ -42,6 +74,7 @@ const Wrapper = styled(Container)`
 const Empty = styled.p`
   text-align: center;
   width: 100%;
+  grid-column: span 3;
   ${text16};
 `
 

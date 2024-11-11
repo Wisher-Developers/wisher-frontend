@@ -17,7 +17,7 @@ import {
 export default function RenameWishlistForm() {
   const { id } = useParams()
 
-  const { data: wishlist } = useGetWishlistQuery(id ?? skipToken)
+  const { currentData: wishlist } = useGetWishlistQuery(id ?? skipToken)
 
   const { control, handleSubmit } = useForm<RenameWishlistFormValues>({
     resolver: yupResolver(renameWishlistFormValidationSchema),

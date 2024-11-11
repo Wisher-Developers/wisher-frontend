@@ -36,12 +36,17 @@ export default function Dropdown({
   placeholder,
   required = false,
 }: DropdownProps) {
-  const { isOpen, wrapper, toggleOpen } = useDropdown()
+  const { isOpen, wrapper, toggleOpen, close } = useDropdown()
 
   const mappedOptions = useMemo(
     () => new Map(options?.map(({ value, label }) => [value, label])),
     [options]
   )
+
+  const selectHandler = (value: string) => () => {
+    close()
+    onChange(value)
+  }
 
   const valueLabel = mappedOptions.get(value)
 
@@ -62,16 +67,24 @@ export default function Dropdown({
 
           <DropdownIcon />
         </DropdownTrigger>
+
+        {error && <Error>{error}</Error>}
       </Label>
 
       <Transition in={isOpen} timeout={200} nodeRef={wrapper}>
         {state => (
           <ListWrapper data-open={state} ref={wrapper}>
             {options?.map(({ value: itemValue, label }) => (
-              <ListItem key={itemValue} data-active={value === itemValue}>
+              <ListItem
+                key={itemValue}
+                type="button"
+                data-active={value === itemValue}
+                onClick={selectHandler(itemValue)}
+              >
                 {label}
               </ListItem>
             ))}
+            {!options?.length && <ListItem disabled>Нет опций</ListItem>}
           </ListWrapper>
         )}
       </Transition>
@@ -88,7 +101,7 @@ const Label = styled.div`
   flex-direction: column;
   gap: 8px;
 
-  > span {
+  > span:first-child {
     ${text16SemiBold};
   }
 `
@@ -114,6 +127,11 @@ const Placeholder = styled.span`
 
 const Value = styled.span`
   ${text16};
+`
+
+const Error = styled.span`
+  ${text16SemiBold};
+  color: var(--color-red);
 `
 
 const ListWrapper = styled(Container)`
@@ -160,7 +178,7 @@ const ListItem = styled.button`
   background: none;
   outline: none;
 
-  padding: 0;
+  padding: 8px 0;
   width: 100%;
 
   ${text16};

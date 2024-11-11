@@ -4,8 +4,10 @@ import { skipToken } from "@reduxjs/toolkit/query"
 import { useLocation, useParams } from "react-router-dom"
 import styled from "styled-components"
 
-import { useGetUserQuery } from "@entities/user/api"
+import { useGetMeQuery } from "@entities/user/api"
 import { useGetWishlistQuery } from "@entities/wishlist/api"
+import { selectIsLoggedIn } from "@shared/auth"
+import { useAppSelector } from "@shared/hooks/store"
 
 import WishlistEditItems from "./WishlistEditItems"
 import WishlistEditSidebar from "./WishlistEditSidebar"
@@ -20,9 +22,11 @@ export default function WishlistPage() {
   const { state }: { state?: WishlistPageState } = useLocation()
   const { id: wishlistId } = useParams()
 
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
   const [isEditing, setIsEditing] = useState(state?.isEditing ?? false)
 
-  const { data: user } = useGetUserQuery()
+  const { data: me } = useGetMeQuery(isLoggedIn ? undefined : skipToken)
 
   const { wishlistOwnerId } = useGetWishlistQuery(wishlistId ?? skipToken, {
     selectFromResult: ({ data }) => ({
@@ -30,11 +34,11 @@ export default function WishlistPage() {
     }),
   })
 
-  if (!user || !wishlistOwnerId) return null
+  if ((isLoggedIn && !me) || !wishlistOwnerId) return null
 
-  const hasAccess = user.id === wishlistOwnerId
+  const hasEditAccess = isLoggedIn && me?.id === wishlistOwnerId
 
-  if (isEditing && hasAccess) {
+  if (isEditing && hasEditAccess) {
     return (
       <Wrapper>
         <WishlistEditSidebar setIsEditing={setIsEditing} />

@@ -37,7 +37,7 @@ const Label = styled.label`
 
 const Textarea = styled.textarea<{ "data-error"?: boolean }>`
   border-radius: 24px;
-  background: var(--color-background);
+  background: var(--color-background-action);
   border: 2px solid var(--color-border);
   backdrop-filter: blur(32px);
   box-shadow: 0px 8px 32px 0px var(--color-shadow);

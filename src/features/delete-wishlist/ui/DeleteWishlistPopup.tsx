@@ -21,7 +21,7 @@ export default function DeleteWishlistPopup({
   const navigate = useNavigate()
   const { id } = useParams()
 
-  const { data: wishlist } = useGetWishlistQuery(id ?? skipToken)
+  const { currentData: wishlist } = useGetWishlistQuery(id ?? skipToken)
 
   const [deleteWishlist, { isLoading }] = useDeleteWishlistMutation()
 
@@ -32,7 +32,7 @@ export default function DeleteWishlistPopup({
 
     try {
       await deleteWishlist(id)
-      navigate("/profile")
+      navigate("/")
     } catch {}
   }
 

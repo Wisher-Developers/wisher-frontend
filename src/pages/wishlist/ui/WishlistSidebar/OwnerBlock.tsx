@@ -15,7 +15,9 @@ export default function OwnerBlock({ wishlist }: OwnerBlockProps) {
     <StyledBlock>
       <h3>
         Вишлист пользователя{" "}
-        <Link to={`/profile/${wishlist.owner.id}`}>{wishlist.owner.name}</Link>
+        <Link to={`/profile/${wishlist.owner.id}`}>
+          {wishlist.owner.username}
+        </Link>
       </h3>
     </StyledBlock>
   )
