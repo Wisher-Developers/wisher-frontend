@@ -5,10 +5,10 @@ import styled from "styled-components"
 import { useGetMeQuery } from "@entities/user/api"
 import CreateWishlistButton from "@features/create-wishlist/ui/CreateWishlistButton"
 import Logo from "@shared/assets/Logo"
-import ProfileIcon from "@shared/assets/ProfileIcon"
 import { selectIsLoggedIn } from "@shared/auth"
 import { text20SemiBold } from "@shared/fonts"
 import { useAppSelector } from "@shared/hooks/store"
+import Avatar from "@shared/ui/Avatar"
 import Container from "@shared/ui/Container"
 import Separator from "@shared/ui/Separator"
 
@@ -35,7 +35,7 @@ export default function Navbar() {
 
             <Link to={`/profile/${me.id}`} data-testid="profile-link">
               <ProfileButton>
-                {me?.username ?? "Гость"} <ProfileIcon />
+                {me?.username} <Avatar size={24} src={me?.avatar} />
               </ProfileButton>
             </Link>
           </RightContent>
@@ -44,7 +44,7 @@ export default function Navbar() {
         <RightContent>
           <Link to="/">
             <ProfileButton>
-              Гость <ProfileIcon />
+              Гость <Avatar size={24} />
             </ProfileButton>
           </Link>
         </RightContent>

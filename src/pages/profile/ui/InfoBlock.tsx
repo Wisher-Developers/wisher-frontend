@@ -5,10 +5,10 @@ import styled from "styled-components"
 
 import { User } from "@entities/user/model/User"
 import EditProfileForm from "@features/edit-profile/ui/EditProfileForm"
-import ProfileIcon from "@shared/assets/ProfileIcon"
 import { removeToken } from "@shared/auth/token"
 import { text24, text32SemiBold } from "@shared/fonts"
 import { useAppDispatch } from "@shared/hooks/store"
+import Avatar from "@shared/ui/Avatar"
 import Button from "@shared/ui/Button"
 
 import BlockContainer from "./BlockContainer"
@@ -44,11 +44,7 @@ export default function InfoBlock({ user, isMe }: InfoBlockProps) {
 
   return (
     <StyledBlock>
-      {user.avatar ? (
-        <img src={user.avatar} alt="avatar" />
-      ) : (
-        <ProfileIcon width={150} height={150} />
-      )}
+      <Avatar size={150} src={user?.avatar} />
 
       <div>
         <h2 data-testid="username">{user.username}</h2>
