@@ -76,6 +76,7 @@ const InputWrapper = styled.div`
   border-radius: 24px;
   border: 2px solid var(--color-border);
   backdrop-filter: blur(32px);
+  box-shadow: 0px 8px 32px 0px var(--color-shadow);
 
   box-sizing: border-box;
   height: 48px;

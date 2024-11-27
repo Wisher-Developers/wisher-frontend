@@ -1,7 +1,12 @@
 import baseApi from "@shared/api"
 import { loadToken } from "@shared/auth/token"
 
-import { AuthResponse, LoginParams, RegisterParams } from "./types"
+import {
+  AuthResponse,
+  LoginParams,
+  RegisterParams,
+  UpdateProfileParams,
+} from "./types"
 
 import { User } from "../model/User"
 
@@ -50,6 +55,15 @@ const userApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["User", "Wishitem", "Wishlist"],
     }),
+
+    updateProfile: builder.mutation<User, UpdateProfileParams>({
+      query: data => ({
+        url: "/users/update",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: [{ type: "User", id: "ME" }],
+    }),
   }),
 })
 
@@ -60,4 +74,5 @@ export const {
   useGetMeQuery,
   useSignUpMutation,
   useSignInMutation,
+  useUpdateProfileMutation,
 } = userApi

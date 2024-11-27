@@ -4,5 +4,4 @@ export const {
   useCreateWishitemMutation,
   useUpdateWishitemMutation,
   useCopyWishitemMutation,
-  useUploadImageMutation,
 } = wishitemApi

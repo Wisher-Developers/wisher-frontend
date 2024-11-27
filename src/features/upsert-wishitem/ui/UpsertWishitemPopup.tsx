@@ -8,6 +8,7 @@ import styled from "styled-components"
 import { useGetMeQuery } from "@entities/user/api"
 import { Wishitem } from "@entities/wishitem/model/Wishitem"
 import { useGetWishlistsQuery } from "@entities/wishlist/api"
+import { useUploadImageMutation } from "@shared/api/image"
 import { selectIsLoggedIn } from "@shared/auth"
 import { text32SemiBold } from "@shared/fonts"
 import { useAppSelector } from "@shared/hooks/store"
@@ -22,7 +23,6 @@ import {
   useCopyWishitemMutation,
   useCreateWishitemMutation,
   useUpdateWishitemMutation,
-  useUploadImageMutation,
 } from "../api"
 import {
   UpsertWishitemFormValues,
