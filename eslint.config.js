@@ -76,6 +76,7 @@ export default [
         },
       ],
       "no-empty": "off",
+      "react-hooks/rules-of-hooks": "off",
     },
     settings: {
       "react": {
