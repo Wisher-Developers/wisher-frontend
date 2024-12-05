@@ -114,6 +114,7 @@ const DropdownTrigger = styled(Container)`
   cursor: pointer;
   border-radius: 24px;
   background: var(--color-background-action);
+  backdrop-filter: none;
 
   height: 48px;
   padding: 0 12px 0 24px;
@@ -148,6 +149,8 @@ const ListWrapper = styled(Container)`
   padding: 24px;
   width: 100%;
   box-sizing: border-box;
+  background: var(--color-background-action);
+  z-index: 100;
 
   position: absolute;
   top: calc(100% + 8px);

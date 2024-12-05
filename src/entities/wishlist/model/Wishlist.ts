@@ -4,7 +4,6 @@ import { Wishitem } from "@entities/wishitem/@x"
 export enum PrivateMode {
   Public = "PUBLIC",
   Friends = "FRIENDS",
-  ByLink = "LINK",
   Restricted = "RESTRICTED",
 }
 
