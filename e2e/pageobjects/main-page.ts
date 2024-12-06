@@ -31,10 +31,12 @@ export class MainPage {
     await this.registerButton.click()
 
     await this.usernameInput.fill(`test_user_${currentTimestamp}`)
-    await this.emailInput.fill(`test@test_${currentTimestamp}`)
+    await this.emailInput.fill(`test@${currentTimestamp}`)
     await this.passwordInput.fill("test_password")
     await this.confirmPasswordInput.fill("test_password")
 
     await this.submitButton.click()
+
+    await this.page.waitForLoadState("networkidle")
   }
 }

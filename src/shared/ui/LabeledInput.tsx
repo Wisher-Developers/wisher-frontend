@@ -22,7 +22,7 @@ export default forwardRef<HTMLInputElement, LabeledInputProps>(
           ref={ref}
           {...props}
           data-error={!!error}
-          data-testId={dataTestId}
+          data-testid={dataTestId}
         />
 
         {error && <Error>{error}</Error>}
