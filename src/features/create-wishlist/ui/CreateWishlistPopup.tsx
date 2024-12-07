@@ -61,6 +61,7 @@ export default function CreateWishlistPopup({
               label="Название"
               placeholder="Введи название"
               required
+              dataTestId="create-wishlist-name"
             />
           )}
         />
@@ -75,11 +76,17 @@ export default function CreateWishlistPopup({
               error={error?.message}
               label="Описание"
               placeholder="Введи описание"
+              dataTestId="create-wishlist-description"
             />
           )}
         />
 
-        <SubmitButton isLoading={isLoading} size="m" type="submit">
+        <SubmitButton
+          isLoading={isLoading}
+          size="m"
+          type="submit"
+          data-testid="submit-creation"
+        >
           Создать
         </SubmitButton>
       </form>

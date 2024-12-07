@@ -7,7 +7,9 @@ export default function CreateWishlistButton() {
 
   return (
     <>
-      <button onClick={open}>Создать вишлист</button>
+      <button onClick={open} data-testid="create-wishlist">
+        Создать вишлист
+      </button>
 
       <CreateWishlistPopup isOpen={isOpen} close={close} />
     </>

@@ -7,17 +7,23 @@ import { text16, text16SemiBold } from "@shared/fonts"
 type LabeledInputProps = ComponentProps<"input"> & {
   label: string
   error?: string
+  dataTestId?: string
 }
 
 export default forwardRef<HTMLInputElement, LabeledInputProps>(
-  function LabeledInput({ label, error, ...props }, ref) {
+  function LabeledInput({ label, error, dataTestId, ...props }, ref) {
     return (
       <Label>
         <span>
           {label}
           {props.required && "*"}
         </span>
-        <Input ref={ref} {...props} data-error={!!error} />
+        <Input
+          ref={ref}
+          {...props}
+          data-error={!!error}
+          data-testid={dataTestId}
+        />
 
         {error && <Error>{error}</Error>}
       </Label>

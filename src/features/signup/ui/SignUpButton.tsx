@@ -8,7 +8,7 @@ export default function SignUpButton() {
 
   return (
     <>
-      <Button size="l" onClick={open}>
+      <Button size="l" onClick={open} data-testid="register-button">
         Зарегистрироваться
       </Button>
 

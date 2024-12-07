@@ -67,6 +67,7 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
               label="Имя пользователя"
               placeholder="Введи никнейм"
               required
+              dataTestId="register-username"
             />
           )}
         />
@@ -84,6 +85,7 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
                 label="Email"
                 placeholder="Введи email"
                 required
+                dataTestId="register-email"
               />
             )}
           />
@@ -101,6 +103,7 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
               label="Пароль"
               placeholder="Введи пароль"
               required
+              dataTestId="register-password"
             />
           )}
         />
@@ -118,12 +121,18 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
                 label="Пароль ещё раз"
                 placeholder="Введи пароль"
                 required
+                dataTestId="register-repeat-password"
               />
             )}
           />
         )}
 
-        <SubmitButton isLoading={isLoading} size="m" type="submit">
+        <SubmitButton
+          isLoading={isLoading}
+          size="m"
+          type="submit"
+          data-testid="signup-button"
+        >
           {isSignUp ? "Зарегистрироваться" : "Войти"}
         </SubmitButton>
       </form>
