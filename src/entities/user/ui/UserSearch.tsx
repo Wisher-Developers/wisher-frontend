@@ -42,6 +42,8 @@ export default function UserSearch({
     setQuery("")
   }
 
+  const isEditing = query !== debouncedQuery
+
   return (
     <Wrapper>
       <LabeledInput
@@ -55,17 +57,22 @@ export default function UserSearch({
 
       <Transition nodeRef={listRef} in={isFocused} timeout={200} unmountOnExit>
         {state => (
-          <UsersList data-open={state} ref={listRef}>
-            {users?.map(user => (
-              <UserItem key={user.id} onClick={() => handleUserClick(user.id)}>
-                <Avatar src={user.avatar} size={24} />
-
-                <span>{user.username}</span>
-              </UserItem>
-            ))}
-
+          <UsersList data-open={state} ref={listRef} data-editing={isEditing}>
             {isFetching && <span>Загрузка...</span>}
+
             {!users && !isFetching && <span>Ничего не найдено</span>}
+
+            {!isFetching &&
+              users?.map(user => (
+                <UserItem
+                  key={user.id}
+                  onClick={() => handleUserClick(user.id)}
+                >
+                  <Avatar src={user.avatar} size={24} />
+
+                  <span>{user.username}</span>
+                </UserItem>
+              ))}
           </UsersList>
         )}
       </Transition>
@@ -111,6 +118,10 @@ const UsersList = styled.div`
 
   &[data-open="exited"] {
     display: none;
+  }
+
+  &[data-editing="true"] > * {
+    opacity: 0.5;
   }
 
   @keyframes dropdownOpen {

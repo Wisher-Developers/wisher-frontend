@@ -1,6 +1,8 @@
 import styled from "styled-components"
 
 import CrossIcon from "@shared/assets/CrossIcon"
+import { text20 } from "@shared/fonts"
+import Avatar from "@shared/ui/Avatar"
 
 import { useGetUsersWithAccessQuery, useRemoveAccessMutation } from "../api"
 
@@ -13,7 +15,7 @@ export default function UsersWithAccessList({
 }: UsersWithAccessListProps) {
   const { data: usersWithAccess } = useGetUsersWithAccessQuery(wishlistId)
 
-  const [removeAccess] = useRemoveAccessMutation()
+  const [removeAccess, { isLoading }] = useRemoveAccessMutation()
 
   const handleRemoveAccessClick = async (userId: string) => {
     await removeAccess({ wishlistId, userId })
@@ -24,7 +26,8 @@ export default function UsersWithAccessList({
   return (
     <Wrapper>
       {usersWithAccess.map(user => (
-        <UserItem key={user.id}>
+        <UserItem key={user.id} data-loading={isLoading}>
+          <Avatar src={user.avatar} size={32} />
           <span>{user.username}</span>
 
           <RemoveAccessButton onClick={() => handleRemoveAccessClick(user.id)}>
@@ -39,9 +42,30 @@ export default function UsersWithAccessList({
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 `
 
-const UserItem = styled.div``
+const UserItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-const RemoveAccessButton = styled.button``
+  > span {
+    ${text20};
+  }
+
+  &[data-loading="true"] {
+    opacity: 0.5;
+  }
+`
+
+const RemoveAccessButton = styled.button`
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  margin: 0 8px 0 auto;
+  padding: 4px;
+  height: 32px;
+  box-sizing: border-box;
+`
