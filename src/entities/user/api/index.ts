@@ -64,11 +64,11 @@ const userApi = baseApi.injectEndpoints({
       }),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {
-          const user = await queryFulfilled
+          const { data } = await queryFulfilled
 
           dispatch(
             userApi.util.updateQueryData("getMe", undefined, draft =>
-              Object.assign(draft, user)
+              Object.assign(draft, data)
             )
           )
         } catch {}

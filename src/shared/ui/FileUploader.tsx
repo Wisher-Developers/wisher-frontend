@@ -44,7 +44,7 @@ export default function FileUploader({
   }
 
   return (
-    <Wrapper {...(currentFile ? { for: "" } : {})}>
+    <Wrapper {...(currentFile ? { htmlFor: "" } : {})}>
       <span>{label}</span>
 
       <InputWrapper>

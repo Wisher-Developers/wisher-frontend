@@ -37,6 +37,11 @@ export default function UserSearch({
     setQuery(event.target.value)
   }
 
+  const handleUserClick = (userId: string) => {
+    onUserClick(userId)
+    setQuery("")
+  }
+
   return (
     <Wrapper>
       <LabeledInput
@@ -52,7 +57,7 @@ export default function UserSearch({
         {state => (
           <UsersList data-open={state} ref={listRef}>
             {users?.map(user => (
-              <UserItem key={user.id} onClick={() => onUserClick(user.id)}>
+              <UserItem key={user.id} onClick={() => handleUserClick(user.id)}>
                 <Avatar src={user.avatar} size={24} />
 
                 <span>{user.username}</span>

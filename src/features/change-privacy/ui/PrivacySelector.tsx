@@ -2,10 +2,12 @@ import { useEffect, useState } from "react"
 
 import styled from "styled-components"
 
-import UserSearch from "@entities/user/ui/UserSearch"
 import { useGetWishlistQuery } from "@entities/wishlist/api"
 import { PrivateMode } from "@entities/wishlist/model/Wishlist"
 import Dropdown from "@shared/ui/Dropdown"
+
+import UsersWithAccessList from "./UsersWithAccessList"
+import UsersWithAccessSearch from "./UsersWithAccessSearch"
 
 import { useChangePrivacyMutation } from "../api"
 
@@ -49,7 +51,10 @@ export default function PrivacySelector({ wishlistId }: PrivacySelectorProps) {
       />
 
       {privacy === PrivateMode.Restricted && (
-        <UserSearch label="Добавить человека" onUserClick={() => {}} />
+        <UsersWithAccessList wishlistId={wishlistId} />
+      )}
+      {privacy === PrivateMode.Restricted && (
+        <UsersWithAccessSearch wishlistId={wishlistId} />
       )}
     </Wrapper>
   )

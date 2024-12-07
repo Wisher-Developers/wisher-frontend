@@ -1,8 +1,10 @@
 import reverse from "lodash/reverse"
 
+import { User } from "@entities/user/@x/wishlist"
 import baseApi from "@shared/api"
 
 import {
+  ChangeAccessParams,
   ChangePrivacyParams,
   CreateWishlistParams,
   RenameWishlistParams,
@@ -86,6 +88,29 @@ const wishlistApi = baseApi.injectEndpoints({
               { type: "Wishlist", id: "LIST" },
             ]
           : [],
+    }),
+
+    getUsersWithAccess: builder.query<User[], string>({
+      query: wishlistId => `/wishlist/${wishlistId}/get-all-access`,
+      providesTags: (_, __, wishlistId) => [
+        { type: "UserWithAccess", id: wishlistId },
+      ],
+    }),
+    addAccess: builder.mutation<void, ChangeAccessParams>({
+      query: ({ wishlistId, userId }) => ({
+        url: `/wishlist/${wishlistId}/add-access/${userId}`,
+        method: "POST",
+      }),
+      invalidatesTags: (_, error, { wishlistId }) =>
+        error ? [] : [{ type: "UserWithAccess", id: wishlistId }],
+    }),
+    removeAccess: builder.mutation<void, ChangeAccessParams>({
+      query: ({ wishlistId, userId }) => ({
+        url: `/wishlist/${wishlistId}/remove-access/${userId}`,
+        method: "POST",
+      }),
+      invalidatesTags: (_, error, { wishlistId }) =>
+        error ? [] : [{ type: "UserWithAccess", id: wishlistId }],
     }),
 
     deleteWishlist: builder.mutation<void, string>({

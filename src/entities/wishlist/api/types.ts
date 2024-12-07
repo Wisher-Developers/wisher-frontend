@@ -13,3 +13,8 @@ export type ChangePrivacyParams = {
   id: string
   privacy: PrivateMode
 }
+
+export type ChangeAccessParams = {
+  wishlistId: string
+  userId: string
+}
