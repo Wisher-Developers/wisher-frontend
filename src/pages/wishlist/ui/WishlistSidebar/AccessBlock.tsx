@@ -1,10 +1,12 @@
 import styled from "styled-components"
 
+import { useGetUsersWithAccessQuery } from "@entities/wishlist/api"
 import { PrivateMode, Wishlist } from "@entities/wishlist/model/Wishlist"
 import CopyIcon from "@shared/assets/CopyIcon"
 import { text16, text20SemiBold } from "@shared/fonts"
 import Container from "@shared/ui/Container"
 
+import getPeopleCase from "../../lib/getPeopleCase"
 import BlockContainer from "../BlockContainer"
 
 const privateModeToText: Record<PrivateMode, string> = {
@@ -18,6 +20,8 @@ type AccessBlockProps = {
 }
 
 export default function AccessBlock({ wishlist }: AccessBlockProps) {
+  const { data: usersWithAccess } = useGetUsersWithAccessQuery(wishlist.id)
+
   const copyLink = () => {
     if (wishlist.accessLink) navigator.clipboard.writeText(wishlist.accessLink)
   }
@@ -27,8 +31,9 @@ export default function AccessBlock({ wishlist }: AccessBlockProps) {
       <h3>Доступ</h3>
       <p>
         {privateModeToText[wishlist.privateMode]}
-        {/* {wishlist.privateMode === PrivateMode.Restricted &&
-          ` (${wishlist.allowedUsers.length} ${getPeopleCase(wishlist.allowedUsers.length)})`} */}
+        {wishlist.privateMode === PrivateMode.Restricted &&
+          usersWithAccess &&
+          ` (${usersWithAccess.length} ${getPeopleCase(usersWithAccess.length)})`}
       </p>
       {/* {wishlist.privateMode === PrivateMode.ByLink && (
         <LinkBlock>

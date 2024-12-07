@@ -1,10 +1,11 @@
 import styled from "styled-components"
 
+import { useGetUsersWithAccessQuery } from "@entities/wishlist/api"
 import CrossIcon from "@shared/assets/CrossIcon"
 import { text20 } from "@shared/fonts"
 import Avatar from "@shared/ui/Avatar"
 
-import { useGetUsersWithAccessQuery, useRemoveAccessMutation } from "../api"
+import { useRemoveAccessMutation } from "../api"
 
 type UsersWithAccessListProps = {
   wishlistId: string

@@ -109,6 +109,22 @@ const wishlistApi = baseApi.injectEndpoints({
         url: `/wishlist/${wishlistId}/remove-access/${userId}`,
         method: "POST",
       }),
+      onQueryStarted: async (
+        { wishlistId, userId },
+        { dispatch, queryFulfilled }
+      ) => {
+        try {
+          await queryFulfilled
+
+          dispatch(
+            wishlistApi.util.updateQueryData(
+              "getUsersWithAccess",
+              wishlistId,
+              draft => draft?.filter(user => user.id !== userId) ?? []
+            )
+          )
+        } catch {}
+      },
       invalidatesTags: (_, error, { wishlistId }) =>
         error ? [] : [{ type: "UserWithAccess", id: wishlistId }],
     }),
@@ -131,4 +147,8 @@ const wishlistApi = baseApi.injectEndpoints({
 
 export default wishlistApi
 
-export const { useGetWishlistsQuery, useGetWishlistQuery } = wishlistApi
+export const {
+  useGetWishlistsQuery,
+  useGetWishlistQuery,
+  useGetUsersWithAccessQuery,
+} = wishlistApi
