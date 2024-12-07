@@ -58,6 +58,9 @@ export default function UserSearch({
                 <span>{user.username}</span>
               </UserItem>
             ))}
+
+            {isFetching && <span>Загрузка...</span>}
+            {!users && !isFetching && <span>Ничего не найдено</span>}
           </UsersList>
         )}
       </Transition>
@@ -83,6 +86,11 @@ const UsersList = styled.div`
 
   max-height: 300px;
   overflow-y: auto;
+
+  > span {
+    ${text16};
+    text-align: center;
+  }
 
   &[data-open="entering"] {
     animation: dropdownOpen 0.2s ease-in-out;
