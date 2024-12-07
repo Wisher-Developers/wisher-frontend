@@ -20,6 +20,9 @@ export default function WishlistEditPrivacy() {
 }
 
 const StyledBlock = styled(BlockContainer)`
+  position: relative;
+  z-index: 1;
+
   > h3 {
     ${text24SemiBold};
   }

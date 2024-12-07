@@ -38,8 +38,6 @@ const StyledBlock = styled(BlockContainer)`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  position: relative;
-  z-index: -1;
 
   > div {
     display: flex;

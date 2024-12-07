@@ -9,7 +9,6 @@ import BlockContainer from "../BlockContainer"
 
 const privateModeToText: Record<PrivateMode, string> = {
   [PrivateMode.Public]: "Для всех",
-  [PrivateMode.ByLink]: "По ссылке",
   [PrivateMode.Friends]: "Для друзей",
   [PrivateMode.Restricted]: "Для выбранных людей",
 }
@@ -31,14 +30,14 @@ export default function AccessBlock({ wishlist }: AccessBlockProps) {
         {/* {wishlist.privateMode === PrivateMode.Restricted &&
           ` (${wishlist.allowedUsers.length} ${getPeopleCase(wishlist.allowedUsers.length)})`} */}
       </p>
-      {wishlist.privateMode === PrivateMode.ByLink && (
+      {/* {wishlist.privateMode === PrivateMode.ByLink && (
         <LinkBlock>
           <span>{wishlist.accessLink}</span>
           <button onClick={copyLink}>
             <CopyIcon />
           </button>
         </LinkBlock>
-      )}
+      )} */}
     </StyledBlock>
   )
 }
