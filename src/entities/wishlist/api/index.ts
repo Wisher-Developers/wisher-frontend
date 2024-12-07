@@ -2,7 +2,11 @@ import reverse from "lodash/reverse"
 
 import baseApi from "@shared/api"
 
-import { CreateWishlistParams, RenameWishlistParams } from "./types"
+import {
+  ChangePrivacyParams,
+  CreateWishlistParams,
+  RenameWishlistParams,
+} from "./types"
 
 import { Wishlist } from "../model/Wishlist"
 
@@ -54,10 +58,32 @@ const wishlistApi = baseApi.injectEndpoints({
         wishlist
           ? [
               { type: "Wishlist", id: wishlist.id },
-              {
-                type: "Wishlist",
-                id: "LIST",
-              },
+              { type: "Wishlist", id: "LIST" },
+            ]
+          : [],
+    }),
+    changePrivacy: builder.mutation<Wishlist, ChangePrivacyParams>({
+      query: ({ id, privacy }) => ({
+        url: `/wishlist/update`,
+        method: "POST",
+        body: { id, privateMode: privacy },
+      }),
+      onQueryStarted: async ({ id, privacy }, { dispatch, queryFulfilled }) => {
+        try {
+          await queryFulfilled
+
+          dispatch(
+            wishlistApi.util.updateQueryData("getWishlist", id, draft => {
+              Object.assign(draft, { privateMode: privacy })
+            })
+          )
+        } catch {}
+      },
+      invalidatesTags: wishlist =>
+        wishlist
+          ? [
+              { type: "Wishlist", id: wishlist.id },
+              { type: "Wishlist", id: "LIST" },
             ]
           : [],
     }),

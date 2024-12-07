@@ -64,6 +64,11 @@ const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: "User", id: "ME" }],
     }),
+
+    searchUsers: builder.query<User[], string>({
+      query: query => `/users/search/${query}`,
+      providesTags: [{ type: "User", id: "LIST" }],
+    }),
   }),
 })
 
@@ -75,4 +80,5 @@ export const {
   useSignUpMutation,
   useSignInMutation,
   useUpdateProfileMutation,
+  useSearchUsersQuery,
 } = userApi

@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react"
 
+import styled from "styled-components"
+
+import UserSearch from "@entities/user/ui/UserSearch"
 import { useGetWishlistQuery } from "@entities/wishlist/api"
 import { PrivateMode } from "@entities/wishlist/model/Wishlist"
 import Dropdown from "@shared/ui/Dropdown"
+
+import { useChangePrivacyMutation } from "../api"
 
 const options = [
   { value: PrivateMode.Public, label: "Для всех" },
@@ -21,16 +26,37 @@ export default function PrivacySelector({ wishlistId }: PrivacySelectorProps) {
     wishlist?.privateMode ?? PrivateMode.Public
   )
 
+  const [changePrivacy] = useChangePrivacyMutation()
+
+  const handlePrivacyChange = async (value: string) => {
+    if (!wishlist) return
+
+    setPrivacy(value as PrivateMode)
+    await changePrivacy({ id: wishlist.id, privacy: value as PrivateMode })
+  }
+
   useEffect(() => {
     if (wishlist) setPrivacy(wishlist.privateMode)
   }, [wishlist])
 
   return (
-    <Dropdown
-      value={privacy}
-      onChange={value => setPrivacy(value as PrivateMode)}
-      label={""}
-      options={options}
-    />
+    <Wrapper>
+      <Dropdown
+        value={privacy}
+        onChange={handlePrivacyChange}
+        label={""}
+        options={options}
+      />
+
+      {privacy === PrivateMode.Restricted && (
+        <UserSearch label="Добавить человека" onUserClick={() => {}} />
+      )}
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`

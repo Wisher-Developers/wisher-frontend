@@ -146,14 +146,15 @@ const Error = styled.span`
 
 const ListWrapper = styled(Container)`
   border-radius: 24px;
-  padding: 24px;
+  padding: 16px 24px;
   width: 100%;
   box-sizing: border-box;
-  background: var(--color-background-action);
-  z-index: 100;
+  background: var(--color-white);
+  box-shadow: 0px 12px 32px 0px rgba(24, 24, 24, 0.25);
 
   position: absolute;
   top: calc(100% + 8px);
+  z-index: 100;
 
   &[data-open="entering"] {
     animation: dropdownOpen 0.2s ease-in-out;
