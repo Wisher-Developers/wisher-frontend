@@ -1,6 +1,7 @@
 import { PlaywrightTestConfig, defineConfig, devices } from "@playwright/test"
 
 export const AUTH_PATH = "e2e/playwright/.auth/user.json"
+export const USER_DATA_PATH = "e2e/playwright/.user/userData.json"
 
 const projects: PlaywrightTestConfig["projects"] = [
   {
@@ -40,4 +41,5 @@ export default defineConfig({
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
   },
+  globalTeardown: "./e2e/teardown.ts",
 })

@@ -33,8 +33,8 @@ export default function InfoBlock({ user, isMe }: InfoBlockProps) {
         <ProfileIcon width={150} height={150} />
       )}
       <div>
-        <h2>{user.username}</h2>
-        {isMe && <p>{user.email}</p>}
+        <h2 data-testid="username">{user.username}</h2>
+        {isMe && <p data-testid="email">{user.email}</p>}
       </div>
       {isMe && (
         <SignOutButton

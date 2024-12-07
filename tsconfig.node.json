@@ -20,7 +20,7 @@
     "noUncheckedSideEffectImports": true,
 
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
     },
   },
   "include": ["vite.config.ts", "playwright.config.ts", "e2e/**/*.ts"]

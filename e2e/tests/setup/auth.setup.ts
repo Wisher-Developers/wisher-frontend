@@ -1,6 +1,5 @@
+import { test as setup } from "~/e2e/fixtures"
 import { AUTH_PATH } from "~/playwright.config"
-
-import { test as setup } from "../../fixtures"
 
 setup("authenticate", async ({ page, mainPage }) => {
   await mainPage.goto()

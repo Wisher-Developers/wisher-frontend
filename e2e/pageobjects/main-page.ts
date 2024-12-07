@@ -1,5 +1,7 @@
 import { Locator, Page } from "@playwright/test"
 
+import { email, password, username } from "~/e2e/userData"
+
 export class MainPage {
   private readonly registerButton: Locator
   private readonly usernameInput: Locator
@@ -7,6 +9,8 @@ export class MainPage {
   private readonly passwordInput: Locator
   private readonly confirmPasswordInput: Locator
   private readonly submitButton: Locator
+
+  private readonly continueButton: Locator
 
   constructor(public readonly page: Page) {
     this.registerButton = this.page.getByTestId("register-button")
@@ -19,6 +23,10 @@ export class MainPage {
     this.submitButton = this.page
       .locator("form")
       .getByRole("button", { name: "Зарегистрироваться" })
+
+    this.continueButton = this.page.getByRole("button", {
+      name: "или продолжить без регистрации",
+    })
   }
 
   async goto() {
@@ -26,17 +34,19 @@ export class MainPage {
   }
 
   async register() {
-    const currentTimestamp = Date.now()
-
     await this.registerButton.click()
 
-    await this.usernameInput.fill(`test_user_${currentTimestamp}`)
-    await this.emailInput.fill(`test@${currentTimestamp}`)
-    await this.passwordInput.fill("test_password")
-    await this.confirmPasswordInput.fill("test_password")
+    await this.usernameInput.fill(username)
+    await this.emailInput.fill(email)
+    await this.passwordInput.fill(password)
+    await this.confirmPasswordInput.fill(password)
 
     await this.submitButton.click()
 
     await this.page.waitForLoadState("networkidle")
+  }
+
+  async continueWithoutRegistration() {
+    await this.continueButton.click()
   }
 }

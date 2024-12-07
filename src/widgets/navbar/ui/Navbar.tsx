@@ -33,7 +33,7 @@ export default function Navbar() {
               </>
             )}
 
-            <Link to={`/profile/${me.id}`}>
+            <Link to={`/profile/${me.id}`} data-testid="profile-link">
               <ProfileButton>
                 {me?.username ?? "Гость"} <ProfileIcon />
               </ProfileButton>

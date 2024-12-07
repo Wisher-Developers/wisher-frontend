@@ -1,9 +1,11 @@
 import { test as base } from "@playwright/test"
 
 import { MainPage } from "./pageobjects/main-page"
+import { ProfilePage } from "./pageobjects/profile-page"
 
 type Fixtures = {
   mainPage: MainPage
+  profilePage: ProfilePage
 }
 
 export const test = base.extend<Fixtures>({
@@ -12,4 +14,12 @@ export const test = base.extend<Fixtures>({
 
     await use(mainPage)
   },
+
+  profilePage: async ({ page }, use) => {
+    const profilePage = new ProfilePage(page)
+
+    await use(profilePage)
+  },
 })
+
+export { expect } from "@playwright/test"

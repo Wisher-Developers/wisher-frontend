@@ -30,3 +30,4 @@ dist-ssr
 /html-report/
 test_results.xml
 *.auth/
+*.user/
