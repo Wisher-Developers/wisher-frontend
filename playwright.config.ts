@@ -41,5 +41,5 @@ export default defineConfig({
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
   },
-  globalTeardown: "./e2e/teardown.ts",
+  globalSetup: "./e2e/setup.ts",
 })
