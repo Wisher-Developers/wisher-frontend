@@ -127,7 +127,12 @@ export default function SignUpPopup({ isOpen, close }: SignUpPopupProps) {
           />
         )}
 
-        <SubmitButton isLoading={isLoading} size="m" type="submit">
+        <SubmitButton
+          isLoading={isLoading}
+          size="m"
+          type="submit"
+          data-testid="signup-button"
+        >
           {isSignUp ? "Зарегистрироваться" : "Войти"}
         </SubmitButton>
       </form>

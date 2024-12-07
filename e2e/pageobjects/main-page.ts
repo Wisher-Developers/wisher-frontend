@@ -20,9 +20,7 @@ export class MainPage {
     this.confirmPasswordInput = this.page.getByTestId(
       "register-repeat-password"
     )
-    this.submitButton = this.page
-      .locator("form")
-      .getByRole("button", { name: "Зарегистрироваться" })
+    this.submitButton = this.page.getByTestId("signup-button")
 
     this.continueButton = this.page.getByRole("button", {
       name: "или продолжить без регистрации",
@@ -40,6 +38,18 @@ export class MainPage {
     await this.emailInput.fill(email)
     await this.passwordInput.fill(password)
     await this.confirmPasswordInput.fill(password)
+
+    await this.submitButton.click()
+
+    await this.page.waitForLoadState("networkidle")
+  }
+
+  async login() {
+    await this.registerButton.click()
+    await this.page.getByRole("button", { name: "Войти" }).click()
+
+    await this.usernameInput.fill(username)
+    await this.passwordInput.fill(password)
 
     await this.submitButton.click()
 
