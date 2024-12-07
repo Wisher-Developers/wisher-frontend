@@ -2,9 +2,7 @@ import styled from "styled-components"
 
 import { useGetUsersWithAccessQuery } from "@entities/wishlist/api"
 import { PrivateMode, Wishlist } from "@entities/wishlist/model/Wishlist"
-import CopyIcon from "@shared/assets/CopyIcon"
 import { text16, text20SemiBold } from "@shared/fonts"
-import Container from "@shared/ui/Container"
 
 import getPeopleCase from "../../lib/getPeopleCase"
 import BlockContainer from "../BlockContainer"
@@ -21,10 +19,6 @@ type AccessBlockProps = {
 
 export default function AccessBlock({ wishlist }: AccessBlockProps) {
   const { data: usersWithAccess } = useGetUsersWithAccessQuery(wishlist.id)
-
-  const copyLink = () => {
-    if (wishlist.accessLink) navigator.clipboard.writeText(wishlist.accessLink)
-  }
 
   return (
     <StyledBlock>
@@ -58,39 +52,39 @@ const StyledBlock = styled(BlockContainer)`
   }
 `
 
-const LinkBlock = styled(Container)`
-  border-radius: 24px;
-  height: 48px;
-  padding: 0 12px 0 24px;
-  box-sizing: border-box;
+// const LinkBlock = styled(Container)`
+//   border-radius: 24px;
+//   height: 48px;
+//   padding: 0 12px 0 24px;
+//   box-sizing: border-box;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   gap: 8px;
 
-  > span {
-    ${text16};
+//   > span {
+//     ${text16};
 
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//   }
 
-  > button {
-    cursor: pointer;
-    padding: 0;
-    background: none;
-    border: none;
-    height: 24px;
+//   > button {
+//     cursor: pointer;
+//     padding: 0;
+//     background: none;
+//     border: none;
+//     height: 24px;
 
-    > svg path {
-      transition: stroke var(--transition-duration) var(--transition-function);
-    }
+//     > svg path {
+//       transition: stroke var(--transition-duration) var(--transition-function);
+//     }
 
-    &:hover {
-      > svg path {
-        stroke: var(--color-black-hover);
-      }
-    }
-  }
-`
+//     &:hover {
+//       > svg path {
+//         stroke: var(--color-black-hover);
+//       }
+//     }
+//   }
+// `
