@@ -16,7 +16,6 @@ import BlockContainer from "./BlockContainer"
 
 const privateModeToText: Record<PrivateMode, string> = {
   [PrivateMode.Public]: "Для всех",
-  [PrivateMode.ByLink]: "По ссылке",
   [PrivateMode.Friends]: "Для друзей",
   [PrivateMode.Restricted]: "Для выбранных людей",
 }
