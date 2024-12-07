@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { ChangeEventHandler, useRef, useState } from "react"
 
 import styled from "styled-components"
 
@@ -22,6 +22,8 @@ export default function FileUploader({
   resetFile,
   accept,
 }: FileUploaderProps) {
+  const [isLoading, setIsLoading] = useState(false)
+
   const inputRef = useRef<HTMLInputElement>(null)
 
   const { onChange, clear, currentFile } = useFileUploader(uploadFile)
@@ -31,26 +33,40 @@ export default function FileUploader({
     clear()
   }
 
+  const handleFileChange: ChangeEventHandler<
+    HTMLInputElement
+  > = async event => {
+    setIsLoading(true)
+
+    await onChange(event)
+
+    setIsLoading(false)
+  }
+
   return (
     <Wrapper {...(currentFile ? { for: "" } : {})}>
       <span>{label}</span>
 
       <InputWrapper>
-        {currentFile ? (
+        {isLoading && <span>Загрузка...</span>}
+
+        {currentFile && (
           <span>
             {currentFile.name}{" "}
             <ClearButton onClick={onClearClick}>
               <CrossIcon />
             </ClearButton>
           </span>
-        ) : (
+        )}
+
+        {!isLoading && !currentFile && (
           <>
             <span>
               <PlusIcon width={24} height={24} /> {placeholder}
             </span>
             <input
               accept={accept}
-              onChange={onChange}
+              onChange={handleFileChange}
               type="file"
               ref={inputRef}
             />

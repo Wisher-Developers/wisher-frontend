@@ -62,6 +62,17 @@ const userApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        try {
+          const user = await queryFulfilled
+
+          dispatch(
+            userApi.util.updateQueryData("getMe", undefined, draft =>
+              Object.assign(draft, user)
+            )
+          )
+        } catch {}
+      },
       invalidatesTags: [{ type: "User", id: "ME" }],
     }),
 
