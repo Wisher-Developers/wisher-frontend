@@ -5,7 +5,6 @@ import {
   CreateWishitemParams,
   DeleteWishitemParams,
   UpdateWishitemParams,
-  UploadImageReponse,
 } from "./types"
 
 import { Wishitem } from "../model/Wishitem"
@@ -79,20 +78,6 @@ const wishitemApi = baseApi.injectEndpoints({
     getRecommendations: builder.query<Wishitem[], void>({
       query: () => "/item/recommendations",
       keepUnusedDataFor: HOUR,
-    }),
-
-    uploadImage: builder.mutation<UploadImageReponse, File>({
-      query: file => {
-        const formData = new FormData()
-
-        formData.append("file", file)
-
-        return {
-          url: "/image",
-          method: "POST",
-          body: formData,
-        }
-      },
     }),
   }),
 })

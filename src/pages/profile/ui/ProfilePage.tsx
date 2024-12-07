@@ -23,9 +23,9 @@ export default function ProfilePage() {
 
   return (
     <Wrapper>
-      <InfoBlock isMe={isMe} user={user} />
+      <InfoBlock isMe={isMe} user={isMe ? me : user} />
 
-      <WishlistsBlock isMe={isMe} user={user} />
+      <WishlistsBlock isMe={isMe} user={isMe ? me : user} />
     </Wrapper>
   )
 }

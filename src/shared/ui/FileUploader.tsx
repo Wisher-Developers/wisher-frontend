@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { ChangeEventHandler, useRef, useState } from "react"
 
 import styled from "styled-components"
 
@@ -22,6 +22,8 @@ export default function FileUploader({
   resetFile,
   accept,
 }: FileUploaderProps) {
+  const [isLoading, setIsLoading] = useState(false)
+
   const inputRef = useRef<HTMLInputElement>(null)
 
   const { onChange, clear, currentFile } = useFileUploader(uploadFile)
@@ -31,26 +33,40 @@ export default function FileUploader({
     clear()
   }
 
+  const handleFileChange: ChangeEventHandler<
+    HTMLInputElement
+  > = async event => {
+    setIsLoading(true)
+
+    await onChange(event)
+
+    setIsLoading(false)
+  }
+
   return (
-    <Wrapper {...(currentFile ? { for: "" } : {})}>
+    <Wrapper {...(currentFile ? { htmlFor: "" } : {})}>
       <span>{label}</span>
 
       <InputWrapper>
-        {currentFile ? (
+        {isLoading && <span>Загрузка...</span>}
+
+        {currentFile && (
           <span>
             {currentFile.name}{" "}
             <ClearButton onClick={onClearClick}>
               <CrossIcon />
             </ClearButton>
           </span>
-        ) : (
+        )}
+
+        {!isLoading && !currentFile && (
           <>
             <span>
               <PlusIcon width={24} height={24} /> {placeholder}
             </span>
             <input
               accept={accept}
-              onChange={onChange}
+              onChange={handleFileChange}
               type="file"
               ref={inputRef}
             />
@@ -76,6 +92,7 @@ const InputWrapper = styled.div`
   border-radius: 24px;
   border: 2px solid var(--color-border);
   backdrop-filter: blur(32px);
+  box-shadow: 0px 8px 32px 0px var(--color-shadow);
 
   box-sizing: border-box;
   height: 48px;

@@ -12,3 +12,10 @@ export type LoginParams = {
 export type AuthResponse = {
   token: string
 }
+
+export type UpdateProfileParams = {
+  id: string
+  username: string
+  email: string
+  avatar?: string | null
+}

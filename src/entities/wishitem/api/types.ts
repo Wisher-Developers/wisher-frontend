@@ -19,7 +19,3 @@ export type DeleteWishitemParams = {
 export type CopyWishitemParams = CreateWishitemParams & {
   originalId: string
 }
-
-export type UploadImageReponse = {
-  url: string
-}

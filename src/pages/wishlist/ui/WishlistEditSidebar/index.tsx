@@ -3,6 +3,7 @@ import styled from "styled-components"
 import RenameWishlistForm from "@features/rename-wishlist/ui/RenameWishlistForm"
 
 import DeleteBlock from "./DeleteBlock"
+import PrivacyBlock from "./PrivacyBlock"
 
 import BlockContainer from "../BlockContainer"
 
@@ -20,6 +21,8 @@ export default function WishlistEditSidebar({
       <BlockContainer>
         <RenameWishlistForm />
       </BlockContainer>
+
+      <PrivacyBlock />
 
       <DeleteBlock finishEditing={finishEditing} />
     </Wrapper>

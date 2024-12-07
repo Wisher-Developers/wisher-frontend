@@ -1,8 +1,14 @@
 import reverse from "lodash/reverse"
 
+import { User } from "@entities/user/@x/wishlist"
 import baseApi from "@shared/api"
 
-import { CreateWishlistParams, RenameWishlistParams } from "./types"
+import {
+  ChangeAccessParams,
+  ChangePrivacyParams,
+  CreateWishlistParams,
+  RenameWishlistParams,
+} from "./types"
 
 import { Wishlist } from "../model/Wishlist"
 
@@ -54,12 +60,73 @@ const wishlistApi = baseApi.injectEndpoints({
         wishlist
           ? [
               { type: "Wishlist", id: wishlist.id },
-              {
-                type: "Wishlist",
-                id: "LIST",
-              },
+              { type: "Wishlist", id: "LIST" },
             ]
           : [],
+    }),
+    changePrivacy: builder.mutation<Wishlist, ChangePrivacyParams>({
+      query: ({ id, privacy }) => ({
+        url: `/wishlist/update`,
+        method: "POST",
+        body: { id, privateMode: privacy },
+      }),
+      onQueryStarted: async ({ id, privacy }, { dispatch, queryFulfilled }) => {
+        try {
+          await queryFulfilled
+
+          dispatch(
+            wishlistApi.util.updateQueryData("getWishlist", id, draft => {
+              Object.assign(draft, { privateMode: privacy })
+            })
+          )
+        } catch {}
+      },
+      invalidatesTags: wishlist =>
+        wishlist
+          ? [
+              { type: "Wishlist", id: wishlist.id },
+              { type: "Wishlist", id: "LIST" },
+            ]
+          : [],
+    }),
+
+    getUsersWithAccess: builder.query<User[], string>({
+      query: wishlistId => `/wishlist/${wishlistId}/get-all-access`,
+      providesTags: (_, __, wishlistId) => [
+        { type: "UserWithAccess", id: wishlistId },
+      ],
+    }),
+    addAccess: builder.mutation<void, ChangeAccessParams>({
+      query: ({ wishlistId, userId }) => ({
+        url: `/wishlist/${wishlistId}/add-access/${userId}`,
+        method: "POST",
+      }),
+      invalidatesTags: (_, error, { wishlistId }) =>
+        error ? [] : [{ type: "UserWithAccess", id: wishlistId }],
+    }),
+    removeAccess: builder.mutation<void, ChangeAccessParams>({
+      query: ({ wishlistId, userId }) => ({
+        url: `/wishlist/${wishlistId}/remove-access/${userId}`,
+        method: "POST",
+      }),
+      onQueryStarted: async (
+        { wishlistId, userId },
+        { dispatch, queryFulfilled }
+      ) => {
+        try {
+          await queryFulfilled
+
+          dispatch(
+            wishlistApi.util.updateQueryData(
+              "getUsersWithAccess",
+              wishlistId,
+              draft => draft?.filter(user => user.id !== userId) ?? []
+            )
+          )
+        } catch {}
+      },
+      invalidatesTags: (_, error, { wishlistId }) =>
+        error ? [] : [{ type: "UserWithAccess", id: wishlistId }],
     }),
 
     deleteWishlist: builder.mutation<void, string>({
@@ -80,4 +147,8 @@ const wishlistApi = baseApi.injectEndpoints({
 
 export default wishlistApi
 
-export const { useGetWishlistsQuery, useGetWishlistQuery } = wishlistApi
+export const {
+  useGetWishlistsQuery,
+  useGetWishlistQuery,
+  useGetUsersWithAccessQuery,
+} = wishlistApi

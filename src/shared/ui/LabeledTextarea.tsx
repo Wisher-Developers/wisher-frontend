@@ -7,17 +7,23 @@ import { text16, text16SemiBold } from "@shared/fonts"
 type LabeledInputProps = ComponentProps<"textarea"> & {
   label: string
   error?: string
+  dataTestId?: string
 }
 
 export default forwardRef<HTMLTextAreaElement, LabeledInputProps>(
-  function LabeledInput({ label, error, ...props }, ref) {
+  function LabeledInput({ label, error, dataTestId, ...props }, ref) {
     return (
       <Label>
         <span>
           {label}
           {props.required && "*"}
         </span>
-        <Textarea ref={ref} {...props} data-error={!!error} />
+        <Textarea
+          ref={ref}
+          {...props}
+          data-error={!!error}
+          data-testid={dataTestId}
+        />
 
         {error && <Error>{error}</Error>}
       </Label>

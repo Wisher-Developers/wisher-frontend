@@ -58,7 +58,11 @@ export default function Dropdown({
           {required && "*"}
         </span>
 
-        <DropdownTrigger className={clsx(className)} onClick={toggleOpen}>
+        <DropdownTrigger
+          className={clsx(className)}
+          onClick={toggleOpen}
+          data-error={!!error}
+        >
           {valueLabel ? (
             <Value>{valueLabel}</Value>
           ) : (
@@ -110,6 +114,7 @@ const DropdownTrigger = styled(Container)`
   cursor: pointer;
   border-radius: 24px;
   background: var(--color-background-action);
+  backdrop-filter: none;
 
   height: 48px;
   padding: 0 12px 0 24px;
@@ -118,6 +123,11 @@ const DropdownTrigger = styled(Container)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  &[data-error="true"] {
+    background-color: var(--color-red-pale);
+    border-color: var(--color-red);
+  }
 `
 
 const Placeholder = styled.span`
@@ -136,12 +146,15 @@ const Error = styled.span`
 
 const ListWrapper = styled(Container)`
   border-radius: 24px;
-  padding: 24px;
+  padding: 16px 24px;
   width: 100%;
   box-sizing: border-box;
+  background: var(--color-white);
+  box-shadow: 0px 12px 32px 0px rgba(24, 24, 24, 0.25);
 
   position: absolute;
   top: calc(100% + 8px);
+  z-index: 100;
 
   &[data-open="entering"] {
     animation: dropdownOpen 0.2s ease-in-out;
