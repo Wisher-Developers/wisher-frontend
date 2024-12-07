@@ -21,7 +21,12 @@ export default function DeleteBlock({ finishEditing }: DeleteBlockProps) {
           применяются автоматически.
         </p>
       </div>
-      <Button size="m" appearance="secondary" onClick={finishEditing}>
+      <Button
+        size="m"
+        appearance="secondary"
+        onClick={finishEditing}
+        data-testid="end-editing"
+      >
         Закончить редактирование
       </Button>
       <DeleteWishlistButton />

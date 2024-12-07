@@ -50,6 +50,7 @@ export default function RenameWishlistForm() {
             label="Название"
             placeholder="Введи название"
             required
+            dataTestId="rename-wishlist-name"
           />
         )}
       />
@@ -64,11 +65,17 @@ export default function RenameWishlistForm() {
             error={error?.message}
             label="Описание"
             placeholder="Введи описание"
+            dataTestId="rename-wishlist-description"
           />
         )}
       />
 
-      <SubmitButton isLoading={isLoading} size="m" type="submit">
+      <SubmitButton
+        isLoading={isLoading}
+        size="m"
+        type="submit"
+        data-testid="rename-wishlist"
+      >
         Сохранить
       </SubmitButton>
     </StyledForm>
