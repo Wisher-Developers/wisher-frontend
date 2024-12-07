@@ -6,7 +6,12 @@ const wishlistDescription = "wishlist description"
 const newWishlistName = "new wishlist name"
 const newWishlistDescription = "new wishlist description"
 
-test("create wishlist", async ({ page, mainPage, wishlistPage }) => {
+test("create wishlist", async ({
+  page,
+  mainPage,
+  profilePage,
+  wishlistPage,
+}) => {
   await mainPage.goto()
 
   await wishlistPage.createWishlist(wishlistName, wishlistDescription)
@@ -19,6 +24,13 @@ test("create wishlist", async ({ page, mainPage, wishlistPage }) => {
   await wishlistPage.renameWishlist(newWishlistName, newWishlistDescription)
 
   await wishlistPage.endEditing()
+
+  await expect(
+    page.getByRole("heading", { name: newWishlistName })
+  ).toBeVisible()
+  await expect(page.getByText(newWishlistDescription)).toBeVisible()
+
+  await profilePage.goto()
 
   await expect(
     page.getByRole("heading", { name: newWishlistName })
