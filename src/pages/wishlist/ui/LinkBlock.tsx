@@ -13,7 +13,7 @@ type LinkBlockProps = {
 }
 
 export default function LinkBlock({ wishlist }: LinkBlockProps) {
-  const link = `${window.location.origin}/${wishlist?.accessLink}`
+  const link = `${window.location.origin}/share/${wishlist?.accessLink}`
 
   const handleCopy = () => {
     if (wishlist?.accessLink) navigator.clipboard.writeText(link)

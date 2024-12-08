@@ -1,8 +1,6 @@
-import { skipToken } from "@reduxjs/toolkit/query"
-import { useParams } from "react-router-dom"
 import styled from "styled-components"
 
-import { useGetWishlistQuery } from "@entities/wishlist/api"
+import { Wishlist } from "@entities/wishlist/model/Wishlist"
 import RenameWishlistForm from "@features/rename-wishlist/ui/RenameWishlistForm"
 
 import DeleteBlock from "./DeleteBlock"
@@ -13,16 +11,14 @@ import LinkBlock from "../LinkBlock"
 
 type WishlistSidebarEditProps = {
   setIsEditing: (isEditing: boolean) => void
+  wishlist: Wishlist
 }
 
 export default function WishlistEditSidebar({
   setIsEditing,
+  wishlist,
 }: WishlistSidebarEditProps) {
-  const { id: wishlistId } = useParams()
-
   const finishEditing = () => setIsEditing(false)
-
-  const { currentData: wishlist } = useGetWishlistQuery(wishlistId ?? skipToken)
 
   return (
     <Wrapper>

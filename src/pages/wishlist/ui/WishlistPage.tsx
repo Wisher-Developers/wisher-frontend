@@ -1,11 +1,14 @@
 import { useState } from "react"
 
 import { skipToken } from "@reduxjs/toolkit/query"
-import { useLocation, useParams } from "react-router-dom"
+import { Navigate, useLocation, useParams } from "react-router-dom"
 import styled from "styled-components"
 
 import { useGetMeQuery } from "@entities/user/api"
-import { useGetWishlistQuery } from "@entities/wishlist/api"
+import {
+  useGetWishlistByAccessLinkQuery,
+  useGetWishlistQuery,
+} from "@entities/wishlist/api"
 import { selectIsLoggedIn } from "@shared/auth"
 import { useAppSelector } from "@shared/hooks/store"
 
@@ -20,7 +23,7 @@ type WishlistPageState = {
 
 export default function WishlistPage() {
   const { state }: { state?: WishlistPageState } = useLocation()
-  const { id: wishlistId } = useParams()
+  const { id: wishlistId, accessLink } = useParams()
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
@@ -28,31 +31,39 @@ export default function WishlistPage() {
 
   const { data: me } = useGetMeQuery(isLoggedIn ? undefined : skipToken)
 
-  const { wishlistOwnerId } = useGetWishlistQuery(wishlistId ?? skipToken, {
-    selectFromResult: ({ currentData }) => ({
-      wishlistOwnerId: currentData?.owner.id,
-    }),
-  })
+  const { currentData: wishlistById } = useGetWishlistQuery(
+    wishlistId ?? skipToken
+  )
+  const { currentData: wishlistByAccessLink } = useGetWishlistByAccessLinkQuery(
+    accessLink ?? skipToken
+  )
+
+  const wishlist = wishlistById ?? wishlistByAccessLink
+
+  const wishlistOwnerId = wishlist?.owner.id
 
   if ((isLoggedIn && !me) || !wishlistOwnerId) return null
 
   const hasEditAccess = isLoggedIn && me?.id === wishlistOwnerId
 
+  if (hasEditAccess && !wishlistById)
+    return <Navigate to={`/wishlist/${wishlist.id}`} replace />
+
   if (isEditing && hasEditAccess) {
     return (
       <Wrapper>
-        <WishlistEditSidebar setIsEditing={setIsEditing} />
+        <WishlistEditSidebar wishlist={wishlist} setIsEditing={setIsEditing} />
 
-        <WishlistEditItems />
+        <WishlistEditItems wishlist={wishlist} />
       </Wrapper>
     )
   }
 
   return (
     <Wrapper>
-      <WishlistSidebar setIsEditing={setIsEditing} />
+      <WishlistSidebar wishlist={wishlist} setIsEditing={setIsEditing} />
 
-      <WishlistItems />
+      <WishlistItems wishlist={wishlist} />
     </Wrapper>
   )
 }
