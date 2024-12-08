@@ -33,6 +33,10 @@ export default function WishitemPopup({
           <p>{wishitem.description}</p>
         </Description>
 
+        {wishitem.priority && (
+          <Priority>Важность: {wishitem.priority}/5</Priority>
+        )}
+
         {wishitem.link && (
           <Links>
             <p>Ссылки:</p>
@@ -98,6 +102,8 @@ const Links = styled.div`
     ${text24};
     color: var(--color-black-secondary);
     text-decoration: underline;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `
 
@@ -115,4 +121,8 @@ const ActionsWrapper = styled.div`
   position: absolute;
   bottom: -24px;
   right: -24px;
+`
+
+const Priority = styled.p`
+  ${text24SemiBold};
 `

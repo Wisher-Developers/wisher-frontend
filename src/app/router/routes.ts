@@ -16,8 +16,8 @@ const routes: RouteObject[] = [
         Component: HomePage,
       },
       {
-        path: "*",
-        Component: NotFoundPage,
+        path: "/share/:accessLink",
+        Component: WishlistPage,
       },
       {
         path: "/wishlist/:id",
@@ -26,6 +26,10 @@ const routes: RouteObject[] = [
       {
         path: "/profile/:id",
         Component: ProfilePage,
+      },
+      {
+        path: "*",
+        Component: NotFoundPage,
       },
     ],
   },

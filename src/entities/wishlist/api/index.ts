@@ -142,6 +142,38 @@ const wishlistApi = baseApi.injectEndpoints({
               { type: "Wishlist", id: "LIST" },
             ],
     }),
+
+    generateAccessLink: builder.mutation<string, string>({
+      query: wishlistId => ({
+        url: `/wishlist/${wishlistId}/generate-link`,
+        method: "POST",
+        responseHandler: "text",
+      }),
+      onQueryStarted: async (wishlistId, { dispatch, queryFulfilled }) => {
+        try {
+          const { data: link } = await queryFulfilled
+
+          dispatch(
+            wishlistApi.util.updateQueryData(
+              "getWishlist",
+              wishlistId,
+              draft => {
+                Object.assign(draft, { accessLink: link })
+              }
+            )
+          )
+        } catch (error) {
+          console.log(error)
+        }
+      },
+      invalidatesTags: (_, error, wishlistId) =>
+        error ? [] : [{ type: "Wishlist", id: wishlistId }],
+    }),
+    getWishlistByAccessLink: builder.query<Wishlist, string>({
+      query: accessLink => `/wishlist/link/${accessLink}`,
+      providesTags: wishlist =>
+        wishlist ? [{ type: "Wishlist", id: wishlist.id }] : [],
+    }),
   }),
 })
 
@@ -151,4 +183,5 @@ export const {
   useGetWishlistsQuery,
   useGetWishlistQuery,
   useGetUsersWithAccessQuery,
+  useGetWishlistByAccessLinkQuery,
 } = wishlistApi

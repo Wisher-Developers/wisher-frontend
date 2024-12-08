@@ -1,3 +1,5 @@
+import omit from "lodash/omit"
+
 import baseApi from "@shared/api"
 
 import {
@@ -8,8 +10,6 @@ import {
 } from "./types"
 
 import { Wishitem } from "../model/Wishitem"
-
-const HOUR = 60 * 60
 
 const wishitemApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -77,7 +77,8 @@ const wishitemApi = baseApi.injectEndpoints({
 
     getRecommendations: builder.query<Wishitem[], void>({
       query: () => "/item/recommendations",
-      keepUnusedDataFor: HOUR,
+      transformResponse: (response: Wishitem[]) =>
+        response.map(wishitem => omit(wishitem, "priority")),
     }),
   }),
 })

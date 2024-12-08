@@ -19,6 +19,8 @@ import LabeledInput from "@shared/ui/LabeledInput"
 import LabeledTextarea from "@shared/ui/LabeledTextarea"
 import Popup from "@shared/ui/Popup"
 
+import PrioritySelector from "./PrioritySelector"
+
 import {
   useCopyWishitemMutation,
   useCreateWishitemMutation,
@@ -51,6 +53,7 @@ export default function UpsertWishitemPopup({
     values: {
       name: wishitem?.name ?? "",
       description: wishitem?.description ?? "",
+      priority: wishitem?.priority,
       link: wishitem?.link ?? "",
       wishlistId: wishitem?.wishlistId ?? "",
     },
@@ -88,6 +91,7 @@ export default function UpsertWishitemPopup({
   const onSubmit = async ({
     name,
     description,
+    priority,
     link,
     wishlistId,
   }: UpsertWishitemFormValues) => {
@@ -98,6 +102,7 @@ export default function UpsertWishitemPopup({
           name,
           description,
           picture: imageUrl ?? undefined,
+          priority,
           link,
           wishlistId,
         }).unwrap()
@@ -107,6 +112,7 @@ export default function UpsertWishitemPopup({
           name,
           description,
           picture: imageUrl ?? undefined,
+          priority,
           link,
           wishlistId,
         }).unwrap()
@@ -115,6 +121,7 @@ export default function UpsertWishitemPopup({
           name,
           description,
           picture: imageUrl ?? undefined,
+          priority,
           link,
           wishlistId,
         }).unwrap()
@@ -166,6 +173,14 @@ export default function UpsertWishitemPopup({
           uploadFile={uploadFile}
           resetFile={resetFile}
           accept="image/*"
+        />
+
+        <Controller
+          name="priority"
+          control={control}
+          render={({ field }) => (
+            <PrioritySelector value={field.value} onChange={field.onChange} />
+          )}
         />
 
         <Controller

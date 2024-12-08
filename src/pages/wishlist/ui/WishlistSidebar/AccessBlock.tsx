@@ -29,14 +29,6 @@ export default function AccessBlock({ wishlist }: AccessBlockProps) {
           usersWithAccess &&
           ` (${usersWithAccess.length} ${getPeopleCase(usersWithAccess.length)})`}
       </p>
-      {/* {wishlist.privateMode === PrivateMode.ByLink && (
-        <LinkBlock>
-          <span>{wishlist.accessLink}</span>
-          <button onClick={copyLink}>
-            <CopyIcon />
-          </button>
-        </LinkBlock>
-      )} */}
     </StyledBlock>
   )
 }
@@ -51,40 +43,3 @@ const StyledBlock = styled(BlockContainer)`
     color: var(--color-black-secondary);
   }
 `
-
-// const LinkBlock = styled(Container)`
-//   border-radius: 24px;
-//   height: 48px;
-//   padding: 0 12px 0 24px;
-//   box-sizing: border-box;
-
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   gap: 8px;
-
-//   > span {
-//     ${text16};
-
-//     overflow: hidden;
-//     text-overflow: ellipsis;
-//   }
-
-//   > button {
-//     cursor: pointer;
-//     padding: 0;
-//     background: none;
-//     border: none;
-//     height: 24px;
-
-//     > svg path {
-//       transition: stroke var(--transition-duration) var(--transition-function);
-//     }
-
-//     &:hover {
-//       > svg path {
-//         stroke: var(--color-black-hover);
-//       }
-//     }
-//   }
-// `

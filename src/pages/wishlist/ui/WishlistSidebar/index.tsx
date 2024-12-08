@@ -1,9 +1,8 @@
 import { skipToken } from "@reduxjs/toolkit/query"
-import { useParams } from "react-router-dom"
 import styled from "styled-components"
 
 import { useGetMeQuery } from "@entities/user/api"
-import { useGetWishlistQuery } from "@entities/wishlist/api"
+import { Wishlist } from "@entities/wishlist/model/Wishlist"
 import { selectIsLoggedIn } from "@shared/auth"
 import { useAppSelector } from "@shared/hooks/store"
 
@@ -12,19 +11,20 @@ import DescriptionBlock from "./DescriptionBlock"
 import EditBlock from "./EditBlock"
 import OwnerBlock from "./OwnerBlock"
 
+import LinkBlock from "../LinkBlock"
+
 type WishlistSidebarProps = {
   setIsEditing: (isEditing: boolean) => void
+  wishlist: Wishlist
 }
 
 export default function WishlistSidebar({
   setIsEditing,
+  wishlist,
 }: WishlistSidebarProps) {
-  const { id: wishlistId } = useParams()
-
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
   const { data: me } = useGetMeQuery(isLoggedIn ? undefined : skipToken)
-  const { currentData: wishlist } = useGetWishlistQuery(wishlistId ?? skipToken)
 
   const startEditing = () => setIsEditing(true)
 
@@ -36,7 +36,10 @@ export default function WishlistSidebar({
     <Wrapper>
       <DescriptionBlock wishlist={wishlist} />
       {isOwner ? (
-        <AccessBlock wishlist={wishlist} />
+        <>
+          <LinkBlock wishlist={wishlist} />
+          <AccessBlock wishlist={wishlist} />
+        </>
       ) : (
         <OwnerBlock wishlist={wishlist} />
       )}

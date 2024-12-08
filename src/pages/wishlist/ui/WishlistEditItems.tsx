@@ -1,20 +1,20 @@
-import { skipToken } from "@reduxjs/toolkit/query"
-import { useParams } from "react-router-dom"
 import styled from "styled-components"
 
 import WishitemPreview from "@entities/wishitem/ui/WishitemPreview"
-import { useGetWishlistQuery } from "@entities/wishlist/api"
+import { Wishlist } from "@entities/wishlist/model/Wishlist"
 import DeleteWishitemButton from "@features/delete-wishitem/ui/DeleteWishitemButton"
 import CreateWishitemButton from "@features/upsert-wishitem/ui/CreateWishitemButton"
 import EditWishitemButton from "@features/upsert-wishitem/ui/EditWishitemButton"
 import Container from "@shared/ui/Container"
 
-export default function WishlistEditItems() {
-  const { id } = useParams()
+type WishlistEditItemsProps = {
+  wishlist: Wishlist
+}
 
-  const { wishitems } = useGetWishlistQuery(id ?? skipToken, {
-    selectFromResult: ({ data }) => ({ wishitems: data?.items }),
-  })
+export default function WishlistEditItems({
+  wishlist,
+}: WishlistEditItemsProps) {
+  const wishitems = wishlist.items
 
   if (!wishitems) return null
 

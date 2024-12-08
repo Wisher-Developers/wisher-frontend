@@ -24,6 +24,9 @@ export default function Button({
   icon,
   ...props
 }: ButtonProps) {
+  const loaderColor =
+    appearance === "primary" ? "var(--color-white)" : "var(--color-black)"
+
   return (
     <Wrapper
       {...props}
@@ -32,7 +35,7 @@ export default function Button({
       disabled={isLoading || props.disabled}
     >
       {icon}
-      {isLoading ? <Loader size={size} /> : children}
+      {isLoading ? <Loader size={size} color={loaderColor} /> : children}
     </Wrapper>
   )
 }
