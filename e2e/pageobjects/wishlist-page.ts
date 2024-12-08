@@ -12,6 +12,13 @@ export class WishlistPage {
 
   private readonly endEditingButton: Locator
 
+  private readonly createWishitemButton: Locator
+  private readonly wishitemNameInput: Locator
+  private readonly wishitemDescriptionInput: Locator
+  private readonly wishitemPriorityInput: Locator
+  private readonly wishitemLinkInput: Locator
+  private readonly submitWishitemButton: Locator
+
   constructor(public readonly page: Page) {
     this.createWishlistButton = this.page.getByTestId("create-wishlist")
     this.wishlistNameInput = this.page.getByTestId("create-wishlist-name")
@@ -27,6 +34,18 @@ export class WishlistPage {
     )
 
     this.endEditingButton = this.page.getByTestId("end-editing")
+
+    this.createWishitemButton = this.page.getByTestId("create-wishitem")
+    this.wishitemNameInput = this.page.getByTestId("wishitem-name")
+    this.wishitemDescriptionInput = this.page.getByTestId(
+      "wishitem-description"
+    )
+    this.wishitemPriorityInput = this.page.getByRole("button", {
+      name: "5",
+      exact: true,
+    })
+    this.wishitemLinkInput = this.page.getByTestId("wishitem-link")
+    this.submitWishitemButton = this.page.getByTestId("submit-wishitem")
   }
 
   async createWishlist(name: string, description: string) {
@@ -47,5 +66,17 @@ export class WishlistPage {
 
   async endEditing() {
     await this.endEditingButton.click()
+  }
+
+  async createWishitem(name: string, description: string, link: string) {
+    await this.createWishitemButton.click()
+
+    await this.wishitemNameInput.fill(name)
+    await this.wishitemDescriptionInput.fill(description)
+
+    await this.wishitemPriorityInput.click()
+    await this.wishitemLinkInput.fill(link)
+
+    await this.submitWishitemButton.click()
   }
 }

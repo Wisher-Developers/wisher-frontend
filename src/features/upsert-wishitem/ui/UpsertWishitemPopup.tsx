@@ -150,6 +150,7 @@ export default function UpsertWishitemPopup({
               label="Название"
               placeholder="Введи название"
               required
+              dataTestId="wishitem-name"
             />
           )}
         />
@@ -163,6 +164,7 @@ export default function UpsertWishitemPopup({
               error={error?.message}
               label="Описание"
               placeholder="Введи описание"
+              dataTestId="wishitem-description"
             />
           )}
         />
@@ -193,6 +195,7 @@ export default function UpsertWishitemPopup({
               error={error?.message}
               label="Ссылка"
               placeholder="Вставь ссылку на товар"
+              dataTestId="wishitem-link"
             />
           )}
         />
@@ -216,7 +219,12 @@ export default function UpsertWishitemPopup({
         )}
 
         <ButtonWrapper>
-          <SaveButton size="m" type="submit" isLoading={isLoading}>
+          <SaveButton
+            size="m"
+            type="submit"
+            isLoading={isLoading}
+            data-testid="submit-wishitem"
+          >
             Сохранить
           </SaveButton>
         </ButtonWrapper>
