@@ -29,8 +29,8 @@ export default function WishlistPage() {
   const { data: me } = useGetMeQuery(isLoggedIn ? undefined : skipToken)
 
   const { wishlistOwnerId } = useGetWishlistQuery(wishlistId ?? skipToken, {
-    selectFromResult: ({ data }) => ({
-      wishlistOwnerId: data?.owner.id,
+    selectFromResult: ({ currentData }) => ({
+      wishlistOwnerId: currentData?.owner.id,
     }),
   })
 

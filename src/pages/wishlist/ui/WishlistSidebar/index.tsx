@@ -12,6 +12,8 @@ import DescriptionBlock from "./DescriptionBlock"
 import EditBlock from "./EditBlock"
 import OwnerBlock from "./OwnerBlock"
 
+import LinkBlock from "../LinkBlock"
+
 type WishlistSidebarProps = {
   setIsEditing: (isEditing: boolean) => void
 }
@@ -36,7 +38,10 @@ export default function WishlistSidebar({
     <Wrapper>
       <DescriptionBlock wishlist={wishlist} />
       {isOwner ? (
-        <AccessBlock wishlist={wishlist} />
+        <>
+          <LinkBlock wishlist={wishlist} />
+          <AccessBlock wishlist={wishlist} />
+        </>
       ) : (
         <OwnerBlock wishlist={wishlist} />
       )}

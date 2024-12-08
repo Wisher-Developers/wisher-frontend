@@ -2,14 +2,18 @@ import styled from "styled-components"
 
 type LoaderProps = {
   size: "m" | "l"
+  color?: string
 }
 
-export default function Loader({ size }: LoaderProps) {
+export default function Loader({
+  size,
+  color = "var(--color-white)",
+}: LoaderProps) {
   return (
     <StyledLoader
       width={size === "m" ? 24 : 48}
       height={size === "m" ? 24 : 48}
-      color="var(--color-white)"
+      color={color}
     />
   )
 }
