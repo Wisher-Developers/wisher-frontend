@@ -32,7 +32,13 @@ const friendsApi = baseApi.injectEndpoints({
         url: `/friends/request/accept/${id}`,
         method: "POST",
       }),
-      invalidatesTags: [{ type: "Friends", id: "REQUESTS_RECIEVED" }],
+      invalidatesTags: [
+        { type: "Friends", id: "REQUESTS_RECIEVED" },
+        {
+          type: "Friends",
+          id: "LIST",
+        },
+      ],
     }),
 
     rejectRequest: builder.mutation<void, string>({

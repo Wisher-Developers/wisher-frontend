@@ -39,7 +39,7 @@ export default function FriendInfo({ user }: FriendInfoProps) {
     request => request.id === user.id
   )
 
-  if (!friends && !sentRequests && !requestsReceived) return null
+  if (!isLoggedIn || !friends || !sentRequests || !requestsReceived) return null
 
   if (isFriend)
     return (
