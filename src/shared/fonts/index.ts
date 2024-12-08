@@ -12,6 +12,12 @@ export const header64 = {
   fontWeight: 700,
 }
 
+export const text13 = {
+  ...defaultParams,
+  fontSize: "13px",
+  fontWeight: 500,
+}
+
 export const text16 = {
   ...defaultParams,
   fontSize: "16px",

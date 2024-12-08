@@ -33,6 +33,8 @@ export default function WishitemPopup({
           <p>{wishitem.description}</p>
         </Description>
 
+        {wishitem.priority && <p>Важность: {wishitem.priority}/5</p>}
+
         {wishitem.link && (
           <Links>
             <p>Ссылки:</p>
@@ -98,6 +100,8 @@ const Links = styled.div`
     ${text24};
     color: var(--color-black-secondary);
     text-decoration: underline;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `
 
