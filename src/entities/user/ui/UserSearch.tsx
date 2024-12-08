@@ -12,7 +12,7 @@ import LabeledInput from "@shared/ui/LabeledInput"
 import { useSearchUsersQuery } from "../api"
 
 type UserSearchProps = {
-  onUserClick: (userId: string) => void
+  onUserClick: (userId: string) => void | Promise<void>
   label?: string
   placeholder?: string
 }

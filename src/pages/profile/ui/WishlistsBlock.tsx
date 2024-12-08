@@ -50,6 +50,7 @@ export default function WishlistsBlock({ user, isMe }: WishlistsBlockProps) {
 }
 
 const StyledBlock = styled(BlockContainer)`
+  grid-area: wishlists;
   gap: 16px;
 
   > h2 {

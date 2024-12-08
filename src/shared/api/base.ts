@@ -6,5 +6,5 @@ export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: apiBaseQuery,
   endpoints: () => ({}),
-  tagTypes: ["User", "Wishitem", "Wishlist", "UserWithAccess"],
+  tagTypes: ["User", "Wishitem", "Wishlist", "UserWithAccess", "Friends"],
 })

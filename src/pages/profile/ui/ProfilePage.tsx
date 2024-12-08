@@ -6,6 +6,7 @@ import { useGetMeQuery, useGetUserQuery } from "@entities/user/api"
 import { selectIsLoggedIn } from "@shared/auth"
 import { useAppSelector } from "@shared/hooks/store"
 
+import FriendsBlock from "./FriendsBlock"
 import InfoBlock from "./InfoBlock"
 import WishlistsBlock from "./WishlistsBlock"
 
@@ -25,6 +26,8 @@ export default function ProfilePage() {
     <Wrapper>
       <InfoBlock isMe={isMe} user={isMe ? me : user} />
 
+      <FriendsBlock isMe={isMe} user={isMe ? me : user} />
+
       <WishlistsBlock isMe={isMe} user={isMe ? me : user} />
     </Wrapper>
   )
@@ -33,8 +36,11 @@ export default function ProfilePage() {
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 450px 900px;
+  grid-template-areas:
+    "info wishlists"
+    "friends wishlists";
   align-items: start;
-  gap: 64px;
+  gap: 32px 64px;
 
   width: fit-content;
 

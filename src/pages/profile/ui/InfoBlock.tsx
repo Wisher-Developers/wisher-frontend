@@ -12,6 +12,7 @@ import Avatar from "@shared/ui/Avatar"
 import Button from "@shared/ui/Button"
 
 import BlockContainer from "./BlockContainer"
+import FriendInfo from "./FriendInfo"
 
 type InfoBlockProps = {
   user: User
@@ -57,6 +58,8 @@ export default function InfoBlock({ user, isMe }: InfoBlockProps) {
         </Button>
       )}
 
+      {!isMe && <FriendInfo user={user} />}
+
       {isMe && (
         <SignOutButton
           onClick={handleSignOutClick}
@@ -71,6 +74,7 @@ export default function InfoBlock({ user, isMe }: InfoBlockProps) {
 }
 
 const StyledBlock = styled(BlockContainer)`
+  grid-area: info;
   gap: 16px;
 
   > div {
