@@ -6,7 +6,7 @@ const wishlistDescription = "wishlist description"
 const newWishlistName = "new wishlist name"
 const newWishlistDescription = "new wishlist description"
 
-test("create wishlist", async ({
+test("Create wishlist", async ({
   page,
   mainPage,
   profilePage,

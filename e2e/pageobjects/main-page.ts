@@ -56,6 +56,21 @@ export class MainPage {
     await this.page.waitForLoadState("networkidle")
   }
 
+  async loginAsTestUser() {
+    if (!process.env.TEST_USER_USERNAME || !process.env.TEST_USER_PASSWORD)
+      throw new Error("The environment is not configured properly")
+
+    await this.registerButton.click()
+    await this.page.getByRole("button", { name: "Войти" }).click()
+
+    await this.usernameInput.fill(process.env.TEST_USER_USERNAME)
+    await this.passwordInput.fill(process.env.TEST_USER_PASSWORD)
+
+    await this.submitButton.click()
+
+    await this.page.waitForLoadState("networkidle")
+  }
+
   async continueWithoutRegistration() {
     await this.continueButton.click()
   }

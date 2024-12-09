@@ -7,7 +7,7 @@ const wishitemName = "wishitem name"
 const wishitemDescription = "wishitem description"
 const wishitemLink = "https://wishitem_link.com"
 
-test("Create a wishitem", async ({ page, mainPage, wishlistPage }) => {
+test("Create wishitem", async ({ page, mainPage, wishlistPage }) => {
   await mainPage.goto()
 
   await wishlistPage.createWishlist(wishlistName, wishlistDescription)

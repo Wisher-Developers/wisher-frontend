@@ -31,3 +31,4 @@ dist-ssr
 test_results.xml
 *.auth/
 *.user/
+.env
