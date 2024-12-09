@@ -20,6 +20,9 @@ test("Share wishlist via link", async ({
     .getByText("http://localhost:3000/share/")
     .textContent()
 
+  // get current page location
+  const originalLink: string = await page.evaluate("window.location.href")
+
   expect(link).toContain("http://localhost:3000/share/")
 
   await profilePage.goto()
@@ -31,4 +34,10 @@ test("Share wishlist via link", async ({
   await expect(page.getByRole("heading", { name: wishlistName })).toBeVisible()
   await expect(page.getByText(wishlistDescription)).toBeVisible()
   await expect(page.getByRole("link", { name: username })).toBeVisible()
+
+  await page.goto(originalLink)
+
+  await expect(
+    page.getByRole("heading", { name: wishlistName })
+  ).not.toBeVisible()
 })
