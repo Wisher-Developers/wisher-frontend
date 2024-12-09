@@ -19,6 +19,9 @@ export class WishlistPage {
   private readonly wishitemLinkInput: Locator
   private readonly submitWishitemButton: Locator
 
+  private readonly deleteWishitemButton: Locator
+  private readonly confirmDeletionButton: Locator
+
   constructor(public readonly page: Page) {
     this.createWishlistButton = this.page.getByTestId("create-wishlist")
     this.wishlistNameInput = this.page.getByTestId("create-wishlist-name")
@@ -46,6 +49,14 @@ export class WishlistPage {
     })
     this.wishitemLinkInput = this.page.getByTestId("wishitem-link")
     this.submitWishitemButton = this.page.getByTestId("submit-wishitem")
+
+    this.deleteWishitemButton = this.page.getByRole("button", {
+      name: "Удалить",
+      exact: true,
+    })
+    this.confirmDeletionButton = this.page.getByRole("button", {
+      name: "Да, удалить",
+    })
   }
 
   async createWishlist(name: string, description: string) {
@@ -78,5 +89,10 @@ export class WishlistPage {
     await this.wishitemLinkInput.fill(link)
 
     await this.submitWishitemButton.click()
+  }
+
+  async deleteWishitem() {
+    await this.deleteWishitemButton.click()
+    await this.confirmDeletionButton.click()
   }
 }
