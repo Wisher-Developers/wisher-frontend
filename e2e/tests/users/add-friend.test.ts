@@ -1,9 +1,11 @@
 import { expect, test } from "~/e2e/fixtures"
 import { username } from "~/e2e/userData"
 
-const friendName = process.env.TEST_USER_USERNAME ?? ""
+const friendName = process.env.TEST_USER_USERNAME
 
 test("Add friend", async ({ page, mainPage, profilePage }) => {
+  if (!friendName) throw new Error("TEST_USER_USERNAME is not set")
+
   await mainPage.goto()
   await profilePage.goto()
 
