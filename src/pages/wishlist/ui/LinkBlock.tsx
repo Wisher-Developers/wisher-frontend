@@ -27,7 +27,7 @@ export default function LinkBlock({ wishlist }: LinkBlockProps) {
       {wishlist?.accessLink && (
         <LinkContainer>
           <span>{link}</span>
-          <button onClick={handleCopy}>
+          <button onClick={handleCopy} data-testid="copy-link">
             <CopyIcon />
           </button>
         </LinkContainer>

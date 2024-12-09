@@ -1,4 +1,7 @@
 import { PlaywrightTestConfig, defineConfig, devices } from "@playwright/test"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 export const AUTH_PATH = "e2e/playwright/.auth/user.json"
 export const USER_DATA_PATH = "e2e/playwright/.user/userData.json"

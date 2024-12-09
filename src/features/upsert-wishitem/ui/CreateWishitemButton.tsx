@@ -15,7 +15,7 @@ export default function CreateWishitemButton() {
 
   return (
     <>
-      <AddItem onClick={open}>
+      <AddItem onClick={open} data-testid="create-wishitem">
         <PlusIcon />
 
         <span>Новый вишайтем</span>

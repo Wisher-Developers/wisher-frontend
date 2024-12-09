@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 import { useGetFriendsQuery } from "@entities/user/api/friends"
@@ -30,10 +31,12 @@ export default function FriendsBlock({ user, isMe }: FriendsBlockProps) {
 
       <FriendsList>
         {friends.map(friend => (
-          <FriendItem key={friend.id}>
-            <Avatar src={friend.avatar} size={32} />
-            <span>{friend.username}</span>
-          </FriendItem>
+          <Link to={`/profile/${friend.id}`} key={friend.id}>
+            <FriendItem>
+              <Avatar src={friend.avatar} size={32} />
+              <span>{friend.username}</span>
+            </FriendItem>
+          </Link>
         ))}
       </FriendsList>
     </StyledBlock>
@@ -57,6 +60,16 @@ const FriendsList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  > a {
+    text-decoration: none;
+    color: var(--color-black);
+    transition: color var(--transition-duration) var(--transition-function);
+
+    &:hover {
+      color: var(--color-black-hover);
+    }
+  }
 `
 
 const FriendItem = styled.div`
