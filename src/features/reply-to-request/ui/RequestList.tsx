@@ -39,7 +39,10 @@ export default function RequestList() {
           <Avatar src={request.avatar} size={32} />
           <span>{request.username}</span>
 
-          <AcceptButton onClick={() => handleAcceptClick(request.id)}>
+          <AcceptButton
+            onClick={() => handleAcceptClick(request.id)}
+            data-testid={`accept-request-${request.username}`}
+          >
             <PlusIcon width={24} height={24} />
           </AcceptButton>
           <RejectButton onClick={() => handleRejectClick(request.id)}>
